@@ -1,0 +1,333 @@
+2024-08-27 00:55:16 - Script started
+2024-08-26 13:55:16 - Required files loaded
+2024-08-27 00:56:14 - Script started
+2024-08-26 13:56:14 - Required files loaded
+2024-08-26 13:56:14 - Getting home visits
+2024-08-26 13:56:14 - Raw visits data: Array
+(
+    [0] => Array
+        (
+            [id] => 1
+            [customer_id] => 1
+            [visit_date] => 2024-08-26
+            [visit_time] => 21:00:00
+            [notes] => Prueba
+            [status] => programada
+            [created_at] => 2024-08-26 13:38:54
+            [updated_at] => 2024-08-26 13:38:54
+            [customer_name] => Consumidor Final
+        )
+
+)
+
+2024-08-26 13:56:14 - Events array created
+2024-08-26 13:56:14 - JSON encoded successfully
+2024-08-26 13:56:14 - Final output: [
+    {
+        "title": "Consumidor Final",
+        "start": "2024-08-26T21:00:00",
+        "url": "https:\/\/taller.whaticket.com.ar\/public\/home_visits.php?action=view&id=1"
+    }
+]
+2024-08-26 13:56:14 - Script ended
+2024-08-27 00:56:22 - Script started
+2024-08-26 13:56:22 - Required files loaded
+2024-08-26 13:56:22 - Getting home visits
+2024-08-26 13:56:22 - Raw visits data: Array
+(
+    [0] => Array
+        (
+            [id] => 1
+            [customer_id] => 1
+            [visit_date] => 2024-08-26
+            [visit_time] => 21:00:00
+            [notes] => Prueba
+            [status] => programada
+            [created_at] => 2024-08-26 13:38:54
+            [updated_at] => 2024-08-26 13:38:54
+            [customer_name] => Consumidor Final
+        )
+
+)
+
+2024-08-26 13:56:22 - Events array created
+2024-08-26 13:56:22 - JSON encoded successfully
+2024-08-26 13:56:22 - Final output: [
+    {
+        "title": "Consumidor Final",
+        "start": "2024-08-26T21:00:00",
+        "url": "https:\/\/taller.whaticket.com.ar\/public\/home_visits.php?action=view&id=1"
+    }
+]
+2024-08-26 13:56:22 - Script ended
+2024-08-27 00:58:58 - Script started
+2024-08-26 13:58:58 - Required files loaded
+2024-08-26 13:58:58 - Getting home visits
+2024-08-26 13:58:58 - Raw visits data: Array
+(
+    [0] => Array
+        (
+            [id] => 1
+            [customer_id] => 1
+            [visit_date] => 2024-08-26
+            [visit_time] => 21:00:00
+            [notes] => Prueba
+            [status] => programada
+            [created_at] => 2024-08-26 13:38:54
+            [updated_at] => 2024-08-26 13:38:54
+            [customer_name] => Consumidor Final
+        )
+
+)
+
+2024-08-26 13:58:58 - Events array created
+2024-08-26 13:58:58 - JSON encoded successfully
+2024-08-26 13:58:58 - Final output: [
+    {
+        "title": "Consumidor Final",
+        "start": "2024-08-26T21:00:00",
+        "url": "https:\/\/taller.whaticket.com.ar\/public\/home_visits.php?action=view&id=1"
+    }
+]
+2024-08-26 13:58:58 - Script ended
+2024-08-27 00:59:52 - Script started
+2024-08-26 13:59:52 - Required files loaded
+2024-08-26 13:59:52 - Getting home visits
+2024-08-26 13:59:52 - Raw visits data: Array
+(
+    [0] => Array
+        (
+            [id] => 1
+            [customer_id] => 1
+            [visit_date] => 2024-08-26
+            [visit_time] => 21:00:00
+            [notes] => Prueba
+            [status] => programada
+            [created_at] => 2024-08-26 13:38:54
+            [updated_at] => 2024-08-26 13:38:54
+            [customer_name] => Consumidor Final
+        )
+
+)
+
+2024-08-26 13:59:52 - Events array created
+2024-08-26 13:59:52 - JSON encoded successfully
+2024-08-26 13:59:52 - Final output: [
+    {
+        "title": "Consumidor Final",
+        "start": "2024-08-26T21:00:00",
+        "url": "https:\/\/taller.whaticket.com.ar\/public\/home_visits.php?action=view&id=1"
+    }
+]
+2024-08-26 13:59:52 - Script ended
+2024-08-27 01:02:39 - Script started
+2024-08-26 14:02:39 - Required files loaded
+2024-08-26 14:02:39 - Getting home visits
+2024-08-26 14:02:39 - Raw visits data: Array
+(
+    [0] => Array
+        (
+            [id] => 1
+            [customer_id] => 1
+            [visit_date] => 2024-08-26
+            [visit_time] => 21:00:00
+            [notes] => Prueba
+            [status] => programada
+            [created_at] => 2024-08-26 13:38:54
+            [updated_at] => 2024-08-26 13:38:54
+            [customer_name] => Consumidor Final
+        )
+
+)
+
+2024-08-26 14:02:39 - Events array created
+2024-08-26 14:02:39 - JSON encoded successfully
+2024-08-26 14:02:39 - Final output: [
+    {
+        "title": "Consumidor Final",
+        "start": "2024-08-26T21:00:00",
+        "url": "https:\/\/taller.whaticket.com.ar\/public\/home_visits.php?action=view&id=1"
+    }
+]
+2024-08-26 14:02:39 - Script ended
+2024-08-27 01:03:08 - Script started
+2024-08-26 14:03:08 - Required files loaded
+2024-08-26 14:03:08 - Getting home visits
+2024-08-26 14:03:08 - Raw visits data: Array
+(
+    [0] => Array
+        (
+            [id] => 1
+            [customer_id] => 1
+            [visit_date] => 2024-08-28
+            [visit_time] => 21:00:00
+            [notes] => Prueba
+            [status] => programada
+            [created_at] => 2024-08-26 13:38:54
+            [updated_at] => 2024-08-26 14:03:06
+            [customer_name] => Consumidor Final
+        )
+
+)
+
+2024-08-26 14:03:08 - Events array created
+2024-08-26 14:03:08 - JSON encoded successfully
+2024-08-26 14:03:08 - Final output: [
+    {
+        "title": "Consumidor Final",
+        "start": "2024-08-28T21:00:00",
+        "url": "https:\/\/taller.whaticket.com.ar\/public\/home_visits.php?action=view&id=1"
+    }
+]
+2024-08-26 14:03:08 - Script ended
+2024-08-27 01:05:04 - Script started
+2024-08-26 14:05:04 - Required files loaded
+2024-08-26 14:05:04 - Getting home visits
+2024-08-26 14:05:04 - Raw visits data: Array
+(
+    [0] => Array
+        (
+            [id] => 1
+            [customer_id] => 1
+            [visit_date] => 2024-08-28
+            [visit_time] => 21:00:00
+            [notes] => Prueba
+            [status] => programada
+            [created_at] => 2024-08-26 13:38:54
+            [updated_at] => 2024-08-26 14:03:06
+            [customer_name] => Consumidor Final
+        )
+
+)
+
+2024-08-26 14:05:04 - Events array created
+2024-08-26 14:05:04 - JSON encoded successfully
+2024-08-26 14:05:04 - Final output: [
+    {
+        "title": "Consumidor Final",
+        "start": "2024-08-28T21:00:00",
+        "url": "https:\/\/taller.whaticket.com.ar\/public\/home_visits.php?action=view&id=1"
+    }
+]
+2024-08-26 14:05:04 - Script ended
+2024-08-27 01:06:24 - Script started
+2024-08-26 14:06:24 - Required files loaded
+2024-08-26 14:06:24 - Getting home visits
+2024-08-26 14:06:24 - Raw visits data: Array
+(
+)
+
+2024-08-26 14:06:24 - Events array created
+2024-08-26 14:06:24 - JSON encoded successfully
+2024-08-26 14:06:24 - Final output: []
+2024-08-26 14:06:24 - Script ended
+2024-08-27 01:09:30 - Script started
+2024-08-26 14:09:30 - Required files loaded
+2024-08-26 14:09:30 - Getting home visits
+2024-08-26 14:09:30 - Raw visits data: Array
+(
+)
+
+2024-08-26 14:09:30 - Events array created
+2024-08-26 14:09:30 - JSON encoded successfully
+2024-08-26 14:09:30 - Final output: []
+2024-08-26 14:09:30 - Script ended
+2024-08-27 01:10:11 - Script started
+2024-08-26 14:10:11 - Required files loaded
+2024-08-26 14:10:11 - Getting home visits
+2024-08-26 14:10:11 - Raw visits data: Array
+(
+)
+
+2024-08-26 14:10:11 - Events array created
+2024-08-26 14:10:11 - JSON encoded successfully
+2024-08-26 14:10:11 - Final output: []
+2024-08-26 14:10:11 - Script ended
+2024-08-27 01:41:25 - Script started
+2024-08-26 14:41:25 - Required files loaded
+2024-08-26 14:41:25 - Getting home visits
+2024-08-26 14:41:25 - Raw visits data: Array
+(
+)
+
+2024-08-26 14:41:25 - Events array created
+2024-08-26 14:41:25 - JSON encoded successfully
+2024-08-26 14:41:25 - Final output: []
+2024-08-26 14:41:25 - Script ended
+2024-08-27 02:01:02 - Script started
+2024-08-26 15:01:02 - Required files loaded
+2024-08-26 15:01:02 - Getting home visits
+2024-08-26 15:01:02 - Raw visits data: Array
+(
+)
+
+2024-08-26 15:01:02 - Events array created
+2024-08-26 15:01:02 - JSON encoded successfully
+2024-08-26 15:01:02 - Final output: []
+2024-08-26 15:01:02 - Script ended
+2024-08-27 06:31:01 - Script started
+2024-08-26 19:31:01 - Required files loaded
+2024-08-26 19:31:01 - Getting home visits
+2024-08-26 19:31:01 - Raw visits data: Array
+(
+)
+
+2024-08-26 19:31:01 - Events array created
+2024-08-26 19:31:01 - JSON encoded successfully
+2024-08-26 19:31:01 - Final output: []
+2024-08-26 19:31:01 - Script ended
+2024-08-27 11:34:46 - Script started
+2024-08-27 00:34:46 - Required files loaded
+2024-08-27 00:34:46 - Getting home visits
+2024-08-27 00:34:46 - Raw visits data: Array
+(
+)
+
+2024-08-27 00:34:46 - Events array created
+2024-08-27 00:34:46 - JSON encoded successfully
+2024-08-27 00:34:46 - Final output: []
+2024-08-27 00:34:46 - Script ended
+2024-08-27 19:43:51 - Script started
+2024-08-27 08:43:51 - Required files loaded
+2024-08-27 08:43:51 - Getting home visits
+2024-08-27 08:43:51 - Raw visits data: Array
+(
+)
+
+2024-08-27 08:43:51 - Events array created
+2024-08-27 08:43:51 - JSON encoded successfully
+2024-08-27 08:43:51 - Final output: []
+2024-08-27 08:43:51 - Script ended
+2024-08-27 21:08:53 - Script started
+2024-08-27 10:08:53 - Required files loaded
+2024-08-27 10:08:53 - Getting home visits
+2024-08-27 10:08:53 - Raw visits data: Array
+(
+)
+
+2024-08-27 10:08:53 - Events array created
+2024-08-27 10:08:53 - JSON encoded successfully
+2024-08-27 10:08:53 - Final output: []
+2024-08-27 10:08:53 - Script ended
+2024-08-28 09:55:39 - Script started
+2024-08-27 22:55:39 - Required files loaded
+2024-08-27 22:55:39 - Getting home visits
+2024-08-27 22:55:39 - Raw visits data: Array
+(
+)
+
+2024-08-27 22:55:39 - Events array created
+2024-08-27 22:55:39 - JSON encoded successfully
+2024-08-27 22:55:39 - Final output: []
+2024-08-27 22:55:39 - Script ended
+2024-08-28 21:53:49 - Script started
+2024-08-28 21:53:49 - Required files loaded
+2024-08-28 21:53:49 - Getting home visits
+2024-08-28 21:53:49 - Raw visits data: Array
+(
+)
+
+2024-08-28 21:53:49 - Events array created
+2024-08-28 21:53:49 - JSON encoded successfully
+2024-08-28 21:53:49 - Final output: []
+2024-08-28 21:53:49 - Script ended

@@ -1,0 +1,58 @@
+[2024-08-18 15:17:58] Iniciando proceso de cierre de caja
+[2024-08-18 15:17:58] Método de solicitud: GET
+[2024-08-18 15:17:58] URL actual: /public/cash_register.php?action=close
+[2024-08-18 15:17:58] Sesión de caja actual: {"id":7,"user_id":1,"opening_date":"2024-08-18 00:06:29","closing_date":null,"opening_balance":"1100.00","closing_balance":null,"status":"open","notes":"Inicio"}
+[2024-08-18 15:17:58] Movimientos obtenidos: 0, Compras obtenidas: 0
+[2024-08-18 15:17:58] Totales calculados: {"sale":0,"purchase":0,"cash_in":0,"cash_out":0}
+[2024-08-18 15:17:58] Saldo esperado calculado: 1100
+[2024-08-18 15:17:58] Página de cierre de caja renderizada completamente
+[2024-08-18 15:20:02] Sesión de caja actual: {"id":7,"user_id":1,"opening_date":"2024-08-18 00:06:29","closing_date":null,"opening_balance":"1100.00","closing_balance":null,"status":"open","notes":"Inicio"}
+[2024-08-18 15:20:02] Movimientos obtenidos: 0, Compras obtenidas: 0
+[2024-08-18 15:20:02] Totales calculados: {"sale":0,"purchase":0,"cash_in":0,"cash_out":0}
+[2024-08-18 15:20:02] Saldo esperado calculado: 1100
+[2024-08-18 15:20:02] Página de cierre de caja renderizada completamente
+[2024-08-18 15:20:37] Sesión de caja actual: {"id":7,"user_id":1,"opening_date":"2024-08-18 00:06:29","closing_date":null,"opening_balance":"1100.00","closing_balance":null,"status":"open","notes":"Inicio"}
+[2024-08-18 15:20:37] Movimientos obtenidos: 0, Compras obtenidas: 0
+[2024-08-18 15:20:37] Totales calculados: {"sale":0,"purchase":0,"cash_in":0,"cash_out":0}
+[2024-08-18 15:20:37] Saldo esperado calculado: 1100
+[2024-08-18 15:20:37] Página de cierre de caja renderizada completamente
+[2024-08-18 15:22:32] Sesión de caja actual: {"id":7,"user_id":1,"opening_date":"2024-08-18 00:06:29","closing_date":null,"opening_balance":"1100.00","closing_balance":null,"status":"open","notes":"Inicio"}
+[2024-08-18 15:22:32] Movimientos obtenidos: 0, Compras obtenidas: 0
+[2024-08-18 15:22:32] Totales calculados: {"sale":0,"purchase":0,"cash_in":0,"cash_out":0}
+[2024-08-18 15:22:32] Saldo esperado calculado: 1100
+[2024-08-18 15:22:32] Página de cierre de caja renderizada completamente
+[2024-08-18 15:24:40] Sesión de caja actual: {"id":7,"user_id":1,"opening_date":"2024-08-18 00:06:29","closing_date":null,"opening_balance":"1100.00","closing_balance":null,"status":"open","notes":"Inicio"}
+[2024-08-18 15:24:40] Movimientos obtenidos: 0, Compras obtenidas: 0
+[2024-08-18 15:24:40] Totales calculados: {"sale":0,"purchase":0,"cash_in":0,"cash_out":0}
+[2024-08-18 15:24:40] Saldo esperado calculado: 1100
+[2024-08-18 15:24:40] Página de cierre de caja renderizada completamente
+[2024-08-18 15:24:57] Sesión de caja actual: {"id":7,"user_id":1,"opening_date":"2024-08-18 00:06:29","closing_date":null,"opening_balance":"1100.00","closing_balance":null,"status":"open","notes":"Inicio"}
+[2024-08-18 15:24:57] Movimientos obtenidos: 0, Compras obtenidas: 0
+[2024-08-18 15:24:57] Totales calculados: {"sale":0,"purchase":0,"cash_in":0,"cash_out":0}
+[2024-08-18 15:24:57] Saldo esperado calculado: 1100
+[2024-08-18 15:24:57] Página de cierre de caja renderizada completamente
+[2024-08-18 15:27:12] Sesión de caja actual: {"id":7,"user_id":1,"opening_date":"2024-08-18 00:06:29","closing_date":null,"opening_balance":"1100.00","closing_balance":null,"status":"open","notes":"Inicio"}
+[2024-08-18 15:27:12] Movimientos obtenidos: 0, Compras obtenidas: 0
+[2024-08-18 15:27:12] Totales calculados: {"sale":0,"purchase":0,"cash_in":0,"cash_out":0}
+[2024-08-18 15:27:12] Saldo esperado calculado: 1100
+[2024-08-18 15:27:12] Página de cierre de caja renderizada completamente
+[2024-08-18 15:27:18] Sesión de caja actual: {"id":7,"user_id":1,"opening_date":"2024-08-18 00:06:29","closing_date":null,"opening_balance":"1100.00","closing_balance":null,"status":"open","notes":"Inicio"}
+[2024-08-18 15:27:18] Movimientos obtenidos: 0, Compras obtenidas: 0
+[2024-08-18 15:27:18] Totales calculados: {"sale":0,"purchase":0,"cash_in":0,"cash_out":0}
+[2024-08-18 15:27:18] Saldo esperado calculado: 1100
+[2024-08-18 15:27:18] Página de cierre de caja renderizada completamente
+[2024-08-18 15:27:29] Sesión de caja actual: {"id":7,"user_id":1,"opening_date":"2024-08-18 00:06:29","closing_date":null,"opening_balance":"1100.00","closing_balance":null,"status":"open","notes":"Inicio"}
+[2024-08-18 15:27:29] Movimientos obtenidos: 0, Compras obtenidas: 0
+[2024-08-18 15:27:29] Totales calculados: {"sale":0,"purchase":0,"cash_in":0,"cash_out":0}
+[2024-08-18 15:27:29] Saldo esperado calculado: 1100
+[2024-08-18 15:27:29] Página de cierre de caja renderizada completamente
+[2024-08-18 15:28:41] Sesión de caja actual: {"id":7,"user_id":1,"opening_date":"2024-08-18 00:06:29","closing_date":null,"opening_balance":"1100.00","closing_balance":null,"status":"open","notes":"Inicio"}
+[2024-08-18 15:28:41] Movimientos obtenidos: 0, Compras obtenidas: 0
+[2024-08-18 15:28:41] Totales calculados: {"sale":0,"purchase":0,"cash_in":0,"cash_out":0}
+[2024-08-18 15:28:41] Saldo esperado calculado: 1100
+[2024-08-18 15:28:41] Página de cierre de caja renderizada completamente
+[2024-08-18 15:28:45] Sesión de caja actual: {"id":7,"user_id":1,"opening_date":"2024-08-18 00:06:29","closing_date":null,"opening_balance":"1100.00","closing_balance":null,"status":"open","notes":"Inicio"}
+[2024-08-18 15:28:45] Movimientos obtenidos: 0, Compras obtenidas: 0
+[2024-08-18 15:28:45] Totales calculados: {"sale":0,"purchase":0,"cash_in":0,"cash_out":0}
+[2024-08-18 15:28:45] Saldo esperado calculado: 1100
+[2024-08-18 15:28:45] Página de cierre de caja renderizada completamente

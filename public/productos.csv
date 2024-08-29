@@ -1,0 +1,10 @@
+sku,name,description,category_id,price,cost_price,stock_quantity,min_stock,max_stock,reorder_level,supplier_id
+000022,Asistencia 2,Asistencia general.,6,2000.00,0.00,1000,10,200,50,1
+213125432,Protector Glass,Glass protector templado,2,2500.00,600.00,-4,5,100,10,2
+0723540565661,Cargador Turbo Tipo V8,Cargador turbo V8,1,5000.00,3000.00,0,5,100,2,8
+RCYJ8,Auricular Manos Libres,Tipo Samsung,8,3500.00,2000.00,0,5,100,2,8
+7790839914267,Cabezal Cargador Turbo,Cabezal cargador conector tipo C,1,4000.00,2000.00,0,5,100,2,8
+00021,Cable Auxiliar,Cable tipo auxiliar,7,3000.00,1000.00,0,5,100,2,8
+190198914491,Cable Iphone Tipo C ,Cable para Iphone 1ra calidad,7,5000.00,2000.00,0,5,100,2,8
+8945637653477,Cable USB Tipo C,Cable USB Tipo C 1ra Calidad,7,3500.00,2000.00,0,5,100,2,8
+7985461188968,Cable USB tipo V8,Cable USB V8 1ra Calidad,7,3500.00,2000.00,0,5,100,2,8
