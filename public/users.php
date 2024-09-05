@@ -27,7 +27,26 @@ if (!hasPermission('users_view')) {
 $action = $_GET['action'] ?? 'list';
 $userId = $_GET['id'] ?? null;
 
-// Procesar acciones antes de incluir el header
+// Manejar la acción de eliminación
+if ($action === 'delete' && $userId) {
+    // Verificar si el usuario tiene permiso para eliminar
+    if (!hasPermission('users_delete')) {
+        echo json_encode(['success' => false, 'message' => 'No tienes permiso para eliminar usuarios']);
+        exit;
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $result = deleteUser($userId);
+        header('Content-Type: application/json');
+        echo json_encode($result);
+        exit;
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Método no permitido']);
+        exit;
+    }
+}
+
+// Procesar otras acciones antes de incluir el header
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     switch ($action) {
         case 'add':
@@ -54,15 +73,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             }
             break;
+        case 'delete':
+    if (!hasPermission('users_delete')) {
+        echo json_encode(['success' => false, 'message' => 'No tienes permiso para eliminar usuarios']);
+        exit;
     }
-}
-
-$pageTitle = "Gestión de Usuarios";
-require_once __DIR__ . '/../includes/header.php';
-
-// Renderizar vistas
-switch ($action) {
-    case 'delete':
     if (!$userId) {
         echo json_encode(['success' => false, 'message' => 'ID de usuario no proporcionado']);
         exit;
@@ -76,6 +91,14 @@ switch ($action) {
         exit;
     }
     break;
+    }
+}
+
+$pageTitle = "Gestión de Usuarios";
+require_once __DIR__ . '/../includes/header.php';
+
+// Renderizar vistas
+switch ($action) {
     case 'list':
         $users = getAllUsers();
         include __DIR__ . '/../views/users/list.php';

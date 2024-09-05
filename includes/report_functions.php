@@ -89,20 +89,22 @@ function generateInventoryReport($days = 30) {
 function generateAccountsReceivableReport() {
     global $pdo;
     $query = "SELECT 
+                ca.id as account_id,
                 c.id as customer_id, 
                 c.name as customer_name, 
-                COALESCE(SUM(s.total_amount), 0) as total_sales,
-                COALESCE(SUM(p.amount), 0) as total_payments,
-                COALESCE(SUM(s.total_amount), 0) - COALESCE(SUM(p.amount), 0) as balance,
-                MAX(s.sale_date) as last_sale_date,
-                MAX(p.payment_date) as last_payment_date
-              FROM customers c
-              LEFT JOIN sales s ON c.id = s.customer_id
-              LEFT JOIN payments p ON c.id = p.customer_id
-              WHERE c.name != 'Consumidor Final'
-              GROUP BY c.id
-              HAVING balance > 0
-              ORDER BY balance DESC, total_sales DESC";
+                ca.total_amount,
+                ca.down_payment,
+                ca.balance,
+                ca.num_installments,
+                ca.first_due_date,
+                ca.last_payment_date,
+                ca.status,
+                (SELECT COUNT(*) FROM installments i WHERE i.account_id = ca.id AND i.status != 'pagada') as pending_installments,
+                (SELECT MIN(i.due_date) FROM installments i WHERE i.account_id = ca.id AND i.status != 'pagada') as next_due_date
+              FROM customer_accounts ca
+              JOIN customers c ON ca.customer_id = c.id
+              WHERE ca.balance > 0
+              ORDER BY ca.balance DESC, ca.total_amount DESC";
     
     $stmt = $pdo->prepare($query);
     $stmt->execute();
@@ -369,6 +371,61 @@ function generateServiceReport($startDate, $endDate) {
         'summary' => $summary,
         'orders' => $orders,
         'top_services' => $topServices
+    ];
+}
+
+function generateProfitReport($startDate = null, $endDate = null) {
+    global $pdo;
+    
+    $dateCondition = "";
+    if ($startDate && $endDate) {
+        $dateCondition = " WHERE sale_date BETWEEN :start_date AND :end_date";
+    }
+
+    // Obtener el total de ventas
+    $salesQuery = "SELECT COALESCE(SUM(total_amount), 0) as total_sales FROM sales" . $dateCondition;
+    $salesStmt = $pdo->prepare($salesQuery);
+    if ($startDate && $endDate) {
+        $salesStmt->bindParam(':start_date', $startDate);
+        $salesStmt->bindParam(':end_date', $endDate);
+    }
+    $salesStmt->execute();
+    $totalSales = $salesStmt->fetchColumn();
+
+    // Obtener el total de ingresos en efectivo
+    $cashInQuery = "SELECT COALESCE(SUM(amount), 0) as total_cash_in 
+                    FROM cash_register_movements 
+                    WHERE movement_type = 'cash_in'" . 
+                    ($dateCondition ? " AND" . substr($dateCondition, 6) : "");
+    $cashInStmt = $pdo->prepare($cashInQuery);
+    if ($startDate && $endDate) {
+        $cashInStmt->bindParam(':start_date', $startDate);
+        $cashInStmt->bindParam(':end_date', $endDate);
+    }
+    $cashInStmt->execute();
+    $totalCashIn = $cashInStmt->fetchColumn();
+
+    // Obtener el total de compras
+    $purchasesQuery = "SELECT COALESCE(SUM(total_amount), 0) as total_purchases FROM purchases" . 
+                      ($dateCondition ? str_replace("sale_date", "purchase_date", $dateCondition) : "");
+    $purchasesStmt = $pdo->prepare($purchasesQuery);
+    if ($startDate && $endDate) {
+        $purchasesStmt->bindParam(':start_date', $startDate);
+        $purchasesStmt->bindParam(':end_date', $endDate);
+    }
+    $purchasesStmt->execute();
+    $totalPurchases = $purchasesStmt->fetchColumn();
+
+    // Calcular la ganancia
+    $profit = $totalSales + $totalCashIn - $totalPurchases;
+
+    return [
+        'profit' => $profit,
+        'total_sales' => $totalSales,
+        'total_cash_in' => $totalCashIn,
+        'total_purchases' => $totalPurchases,
+        'start_date' => $startDate,
+        'end_date' => $endDate
     ];
 }
 ?>

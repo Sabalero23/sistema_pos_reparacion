@@ -68,8 +68,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            // Usar la función url() si está disponible, de lo contrario construir la URL manualmente
-            const baseUrl = typeof url === 'function' ? url('') : 'https://taller.whaticket.com.ar/';
+            // Obtener la URL base del sitio
+            const baseUrl = window.location.origin + window.location.pathname.split('/').slice(0, -2).join('/') + '/';
             const clientUrl = `${baseUrl}views/budgets/view_cliente.php?id=${budgetId}&token=${token}`;
             
             console.log('URL generada:', clientUrl); // Para depuración

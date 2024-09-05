@@ -30,7 +30,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+<style>
+.list-group-item {
+    background-color: white;
+    color: #2c3031;
+}
 
+/* Estilos para el widget de autocompletado */
+.ui-autocomplete {
+    background-color: white;
+    border: 1px solid #ccc;
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 1000;
+}
+
+.ui-menu-item {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.ui-menu-item:hover {
+    background-color: #f0f0f0;
+}
+
+.ui-helper-hidden-accessible {
+    display: none;
+}
+</style>
 <div class="container mt-4">
     <h1 class="mb-4">Nueva Compra</h1>
 

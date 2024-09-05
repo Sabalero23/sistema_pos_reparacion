@@ -1,0 +1,1063 @@
+[31-Aug-2024 21:03:08 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[31-Aug-2024 21:03:08 America/Argentina/Buenos_Aires] Número de resultados: 1
+[31-Aug-2024 21:03:15 America/Argentina/Buenos_Aires] Iniciando addPayment con datos: Array
+(
+    [account_id] => 1
+    [customer_id] => 4
+    [installment_id] => 1
+    [amount] => 10000
+    [payment_method] => efectivo
+    [payment_date] => 2024-09-01
+    [notes] => 
+)
+
+[31-Aug-2024 21:03:15 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught Error: Call to a member function beginTransaction() on null in /home/l0040724/public_html/pos_system/includes/customer_account_functions.php:153
+Stack trace:
+#0 /home/l0040724/public_html/pos_system/public/customer_accounts.php(48): addPayment()
+#1 {main}
+  thrown in /home/l0040724/public_html/pos_system/includes/customer_account_functions.php on line 153
+[31-Aug-2024 21:03:25 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[31-Aug-2024 21:03:25 America/Argentina/Buenos_Aires] Número de resultados: 1
+[31-Aug-2024 21:03:48 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[31-Aug-2024 21:03:55 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[31-Aug-2024 21:03:55 America/Argentina/Buenos_Aires] Número de resultados: 1
+[31-Aug-2024 21:04:01 America/Argentina/Buenos_Aires] Iniciando addPayment con datos: Array
+(
+    [account_id] => 1
+    [customer_id] => 4
+    [installment_id] => 1
+    [amount] => 20000
+    [payment_method] => efectivo
+    [payment_date] => 2024-09-01
+    [notes] => 
+)
+
+[31-Aug-2024 21:04:01 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught Error: Call to a member function beginTransaction() on null in /home/l0040724/public_html/pos_system/includes/customer_account_functions.php:153
+Stack trace:
+#0 /home/l0040724/public_html/pos_system/public/customer_accounts.php(48): addPayment()
+#1 {main}
+  thrown in /home/l0040724/public_html/pos_system/includes/customer_account_functions.php on line 153
+[31-Aug-2024 21:10:51 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[31-Aug-2024 21:10:51 America/Argentina/Buenos_Aires] Número de resultados: 1
+[31-Aug-2024 21:11:44 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[31-Aug-2024 21:11:49 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[31-Aug-2024 21:11:49 America/Argentina/Buenos_Aires] Número de resultados: 1
+[31-Aug-2024 21:12:08 America/Argentina/Buenos_Aires] Error: La conexión a la base de datos es null en add_payment
+[31-Aug-2024 21:19:49 America/Argentina/Buenos_Aires] PHP Fatal error:  Cannot redeclare addPayment() (previously declared in /home/l0040724/public_html/pos_system/includes/customer_account_functions.php:57) in /home/l0040724/public_html/pos_system/includes/customer_account_functions.php on line 239
+[31-Aug-2024 21:19:53 America/Argentina/Buenos_Aires] PHP Fatal error:  Cannot redeclare addPayment() (previously declared in /home/l0040724/public_html/pos_system/includes/customer_account_functions.php:57) in /home/l0040724/public_html/pos_system/includes/customer_account_functions.php on line 239
+[31-Aug-2024 21:23:26 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[31-Aug-2024 21:23:37 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[31-Aug-2024 21:23:37 America/Argentina/Buenos_Aires] Número de resultados: 1
+[31-Aug-2024 21:23:45 America/Argentina/Buenos_Aires] Iniciando addPayment con datos: Array
+(
+    [account_id] => 1
+    [customer_id] => 4
+    [installment_id] => 1
+    [amount] => 20000
+    [payment_method] => efectivo
+    [payment_date] => 2024-09-01
+    [notes] => cecew
+)
+
+[31-Aug-2024 21:23:45 America/Argentina/Buenos_Aires] Pago insertado con ID: 1
+[31-Aug-2024 21:23:46 America/Argentina/Buenos_Aires] Saldo de cuenta actualizado
+[31-Aug-2024 21:23:46 America/Argentina/Buenos_Aires] Estado de cuota actualizado
+[31-Aug-2024 21:23:47 America/Argentina/Buenos_Aires] Transacción completada con éxito
+[31-Aug-2024 21:23:51 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[31-Aug-2024 21:23:51 America/Argentina/Buenos_Aires] Número de resultados: 1
+[31-Aug-2024 21:28:11 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[31-Aug-2024 21:28:11 America/Argentina/Buenos_Aires] Número de resultados: 1
+[31-Aug-2024 21:28:31 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[31-Aug-2024 21:28:31 America/Argentina/Buenos_Aires] Número de resultados: 1
+[31-Aug-2024 21:28:41 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[31-Aug-2024 21:28:41 America/Argentina/Buenos_Aires] Número de resultados: 0
+[31-Aug-2024 21:36:58 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[31-Aug-2024 21:36:58 America/Argentina/Buenos_Aires] Número de resultados: 0
+[31-Aug-2024 21:38:17 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught Error: Call to undefined function addCustomerAccount() in /home/l0040724/public_html/pos_system/public/customer_accounts.php:128
+Stack trace:
+#0 {main}
+  thrown in /home/l0040724/public_html/pos_system/public/customer_accounts.php on line 128
+[31-Aug-2024 21:42:13 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[31-Aug-2024 21:42:13 America/Argentina/Buenos_Aires] Número de resultados: 1
+[31-Aug-2024 21:42:53 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[31-Aug-2024 21:42:53 America/Argentina/Buenos_Aires] Número de resultados: 1
+[31-Aug-2024 21:46:11 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[31-Aug-2024 21:46:11 America/Argentina/Buenos_Aires] Número de resultados: 1
+[31-Aug-2024 21:46:18 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[31-Aug-2024 21:46:18 America/Argentina/Buenos_Aires] Número de resultados: 1
+[31-Aug-2024 21:47:01 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[31-Aug-2024 21:47:01 America/Argentina/Buenos_Aires] Número de resultados: 1
+[31-Aug-2024 23:00:47 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[31-Aug-2024 23:01:35 America/Argentina/Buenos_Aires] Datos recibidos en addCustomer: {"name":"Chavez Enzo","email":"orden@cellcomweb.com.ar","phone":"543482625322","address":"Calle 126 Nro 74"}
+[31-Aug-2024 23:01:35 America/Argentina/Buenos_Aires] Resultado de la inserción: éxito
+[31-Aug-2024 23:07:43 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[31-Aug-2024 23:07:43 America/Argentina/Buenos_Aires] Número de resultados: 1
+[31-Aug-2024 23:08:28 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[31-Aug-2024 23:08:28 America/Argentina/Buenos_Aires] Número de resultados: 2
+[31-Aug-2024 23:09:44 America/Argentina/Buenos_Aires] Datos recibidos en addCustomer: {"name":"Moschen Abel","email":"orden@cellcomweb.com.ar","phone":"543482623719","address":"Calle 14 Nro 224"}
+[31-Aug-2024 23:09:44 America/Argentina/Buenos_Aires] Resultado de la inserción: éxito
+[31-Aug-2024 23:10:31 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[31-Aug-2024 23:10:31 America/Argentina/Buenos_Aires] Número de resultados: 2
+[31-Aug-2024 23:11:10 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[31-Aug-2024 23:11:10 America/Argentina/Buenos_Aires] Número de resultados: 3
+[31-Aug-2024 23:12:34 America/Argentina/Buenos_Aires] Datos recibidos en addCustomer: {"name":"Lugo Carlos","email":"orden@cellcomweb.com.ar","phone":"543482568714","address":"Pje 109\/111 Nro 846"}
+[31-Aug-2024 23:12:34 America/Argentina/Buenos_Aires] Resultado de la inserción: éxito
+[31-Aug-2024 23:12:39 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[31-Aug-2024 23:12:39 America/Argentina/Buenos_Aires] Número de resultados: 3
+[31-Aug-2024 23:13:18 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[31-Aug-2024 23:13:18 America/Argentina/Buenos_Aires] Número de resultados: 4
+[31-Aug-2024 23:15:31 America/Argentina/Buenos_Aires] Datos recibidos en addCustomer: {"name":"Alarcon Noelia","email":"orden@cellcomweb.com.ar","phone":"543482570040","address":"Villa Ocampo"}
+[31-Aug-2024 23:15:31 America/Argentina/Buenos_Aires] Resultado de la inserción: éxito
+[31-Aug-2024 23:15:37 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[31-Aug-2024 23:15:37 America/Argentina/Buenos_Aires] Número de resultados: 4
+[31-Aug-2024 23:16:41 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[31-Aug-2024 23:16:41 America/Argentina/Buenos_Aires] Número de resultados: 5
+[31-Aug-2024 23:22:42 America/Argentina/Buenos_Aires] Datos recibidos en addCustomer: {"name":"Garc\u00ed\u00ada Pablo Miguel","email":"orden@cellcomweb.com.ar","phone":"543482619423","address":"Calle 2 esquina 23"}
+[31-Aug-2024 23:22:42 America/Argentina/Buenos_Aires] Resultado de la inserción: éxito
+[31-Aug-2024 23:22:47 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[31-Aug-2024 23:22:47 America/Argentina/Buenos_Aires] Número de resultados: 5
+[31-Aug-2024 23:23:54 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[31-Aug-2024 23:23:54 America/Argentina/Buenos_Aires] Número de resultados: 5
+[31-Aug-2024 23:25:56 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[31-Aug-2024 23:25:56 America/Argentina/Buenos_Aires] Número de resultados: 5
+[31-Aug-2024 23:32:48 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[31-Aug-2024 23:32:48 America/Argentina/Buenos_Aires] Número de resultados: 5
+[31-Aug-2024 23:36:34 America/Argentina/Buenos_Aires] PHP Warning:  foreach() argument must be of type array|object, int given in /home/l0040724/public_html/pos_system/public/index.php on line 171
+[01-Sep-2024 11:39:47 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[01-Sep-2024 11:50:19 America/Argentina/Buenos_Aires] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in /home/l0040724/public_html/pos_system/config/config.php on line 10
+[01-Sep-2024 11:50:19 America/Argentina/Buenos_Aires] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in /home/l0040724/public_html/pos_system/config/config.php on line 11
+[01-Sep-2024 11:50:19 America/Argentina/Buenos_Aires] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in /home/l0040724/public_html/pos_system/config/config.php on line 12
+[01-Sep-2024 11:50:19 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[01-Sep-2024 11:50:19 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725202219
+    [EXPIRES] => 1725237569
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[01-Sep-2024 11:50:19 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[01-Sep-2024 13:32:16 America/Argentina/Buenos_Aires] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in /home/l0040724/public_html/pos_system/config/config.php on line 10
+[01-Sep-2024 13:32:16 America/Argentina/Buenos_Aires] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in /home/l0040724/public_html/pos_system/config/config.php on line 11
+[01-Sep-2024 13:32:16 America/Argentina/Buenos_Aires] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in /home/l0040724/public_html/pos_system/config/config.php on line 12
+[01-Sep-2024 13:32:16 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[01-Sep-2024 13:32:16 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725208336
+    [EXPIRES] => 1725237569
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+    [csrf_token] => 27541bc544613ba33a33ef68b349ae0b8d5271db93ee9255afabfc229484dd05
+)
+
+[01-Sep-2024 13:32:16 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[01-Sep-2024 14:40:46 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[01-Sep-2024 14:41:20 America/Argentina/Buenos_Aires] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in /home/l0040724/public_html/pos_system/config/config.php on line 10
+[01-Sep-2024 14:41:20 America/Argentina/Buenos_Aires] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in /home/l0040724/public_html/pos_system/config/config.php on line 11
+[01-Sep-2024 14:41:20 America/Argentina/Buenos_Aires] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in /home/l0040724/public_html/pos_system/config/config.php on line 12
+[01-Sep-2024 14:41:20 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[01-Sep-2024 14:41:20 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725212480
+    [EXPIRES] => 1725248412
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[01-Sep-2024 14:41:20 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[01-Sep-2024 14:46:36 America/Argentina/Buenos_Aires] PHP Warning:  Undefined array key "" in /home/l0040724/public_html/pos_system/includes/report_functions.php on line 243
+[01-Sep-2024 14:46:36 America/Argentina/Buenos_Aires] PHP Warning:  Undefined array key "" in /home/l0040724/public_html/pos_system/includes/report_functions.php on line 243
+[02-Sep-2024 08:14:25 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[02-Sep-2024 08:16:45 America/Argentina/Buenos_Aires] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in /home/l0040724/public_html/pos_system/config/config.php on line 10
+[02-Sep-2024 08:16:45 America/Argentina/Buenos_Aires] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in /home/l0040724/public_html/pos_system/config/config.php on line 11
+[02-Sep-2024 08:16:45 America/Argentina/Buenos_Aires] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in /home/l0040724/public_html/pos_system/config/config.php on line 12
+[02-Sep-2024 08:16:45 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[02-Sep-2024 08:16:45 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725275805
+    [EXPIRES] => 1725311275
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[02-Sep-2024 08:16:45 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[02-Sep-2024 08:48:41 America/Argentina/Buenos_Aires] Datos recibidos en addCustomer: {"name":"Petruz Valentin","email":"orden@taller.cellcomweb.com.ar","phone":"543482312093","address":"Avellaneda Este"}
+[02-Sep-2024 08:48:41 America/Argentina/Buenos_Aires] Nota: El índice UNIQUE en email no existía o no se pudo eliminar. Esto es normal si ya se había eliminado antes.
+[02-Sep-2024 08:48:42 America/Argentina/Buenos_Aires] Cliente creado exitosamente con ID: 31
+[02-Sep-2024 11:42:12 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[02-Sep-2024 11:42:47 America/Argentina/Buenos_Aires] Datos recibidos en addCustomer: {"name":"Demartin Marcelo","email":"info@taller.cellcomweb.com.ar","phone":"543482225240","address":"Calle 7 Nro 430"}
+[02-Sep-2024 11:42:47 America/Argentina/Buenos_Aires] Nota: El índice UNIQUE en email no existía o no se pudo eliminar. Esto es normal si ya se había eliminado antes.
+[02-Sep-2024 11:42:47 America/Argentina/Buenos_Aires] Cliente creado exitosamente con ID: 32
+[02-Sep-2024 16:15:57 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[02-Sep-2024 16:21:55 America/Argentina/Buenos_Aires] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in /home/l0040724/public_html/pos_system/config/config.php on line 10
+[02-Sep-2024 16:21:55 America/Argentina/Buenos_Aires] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in /home/l0040724/public_html/pos_system/config/config.php on line 11
+[02-Sep-2024 16:21:55 America/Argentina/Buenos_Aires] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in /home/l0040724/public_html/pos_system/config/config.php on line 12
+[02-Sep-2024 16:21:55 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[02-Sep-2024 16:21:55 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725304915
+    [EXPIRES] => 1725340534
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[02-Sep-2024 16:21:55 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[02-Sep-2024 16:42:30 America/Argentina/Buenos_Aires] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in /home/l0040724/public_html/pos_system/config/config.php on line 10
+[02-Sep-2024 16:42:30 America/Argentina/Buenos_Aires] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in /home/l0040724/public_html/pos_system/config/config.php on line 11
+[02-Sep-2024 16:42:30 America/Argentina/Buenos_Aires] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in /home/l0040724/public_html/pos_system/config/config.php on line 12
+[02-Sep-2024 16:42:30 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[02-Sep-2024 16:42:30 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725306150
+    [EXPIRES] => 1725340534
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[02-Sep-2024 16:42:30 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[02-Sep-2024 17:22:55 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[02-Sep-2024 17:31:06 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[02-Sep-2024 17:36:12 America/Argentina/Buenos_Aires] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in /home/l0040724/public_html/pos_system/config/config.php on line 10
+[02-Sep-2024 17:36:12 America/Argentina/Buenos_Aires] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in /home/l0040724/public_html/pos_system/config/config.php on line 11
+[02-Sep-2024 17:36:12 America/Argentina/Buenos_Aires] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in /home/l0040724/public_html/pos_system/config/config.php on line 12
+[02-Sep-2024 17:36:12 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[02-Sep-2024 17:36:12 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725309372
+    [EXPIRES] => 1725345061
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[02-Sep-2024 17:36:12 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[02-Sep-2024 17:37:01 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[02-Sep-2024 17:37:01 America/Argentina/Buenos_Aires] Número de resultados: 5
+[02-Sep-2024 17:39:36 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[02-Sep-2024 17:39:36 America/Argentina/Buenos_Aires] Número de resultados: 5
+[02-Sep-2024 17:40:26 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[02-Sep-2024 17:40:26 America/Argentina/Buenos_Aires] Número de resultados: 5
+[02-Sep-2024 18:48:18 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[02-Sep-2024 19:58:42 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[02-Sep-2024 23:04:17 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[02-Sep-2024 23:05:37 America/Argentina/Buenos_Aires] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in /home/l0040724/public_html/pos_system/config/config.php on line 10
+[02-Sep-2024 23:05:37 America/Argentina/Buenos_Aires] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in /home/l0040724/public_html/pos_system/config/config.php on line 11
+[02-Sep-2024 23:05:37 America/Argentina/Buenos_Aires] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in /home/l0040724/public_html/pos_system/config/config.php on line 12
+[02-Sep-2024 23:05:37 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[02-Sep-2024 23:05:37 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725329137
+    [EXPIRES] => 1725365022
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[02-Sep-2024 23:05:37 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[02-Sep-2024 23:07:26 America/Argentina/Buenos_Aires] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in /home/l0040724/public_html/pos_system/config/config.php on line 10
+[02-Sep-2024 23:07:26 America/Argentina/Buenos_Aires] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in /home/l0040724/public_html/pos_system/config/config.php on line 11
+[02-Sep-2024 23:07:26 America/Argentina/Buenos_Aires] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in /home/l0040724/public_html/pos_system/config/config.php on line 12
+[02-Sep-2024 23:07:26 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[02-Sep-2024 23:07:26 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725329246
+    [EXPIRES] => 1725365022
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[02-Sep-2024 23:07:26 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[02-Sep-2024 23:09:04 America/Argentina/Buenos_Aires] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in /home/l0040724/public_html/pos_system/config/config.php on line 10
+[02-Sep-2024 23:09:04 America/Argentina/Buenos_Aires] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in /home/l0040724/public_html/pos_system/config/config.php on line 11
+[02-Sep-2024 23:09:04 America/Argentina/Buenos_Aires] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in /home/l0040724/public_html/pos_system/config/config.php on line 12
+[02-Sep-2024 23:09:04 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[02-Sep-2024 23:09:04 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725329344
+    [EXPIRES] => 1725365022
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[02-Sep-2024 23:09:04 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[02-Sep-2024 23:09:09 America/Argentina/Buenos_Aires] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in /home/l0040724/public_html/pos_system/config/config.php on line 10
+[02-Sep-2024 23:09:09 America/Argentina/Buenos_Aires] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in /home/l0040724/public_html/pos_system/config/config.php on line 11
+[02-Sep-2024 23:09:09 America/Argentina/Buenos_Aires] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in /home/l0040724/public_html/pos_system/config/config.php on line 12
+[02-Sep-2024 23:09:09 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[02-Sep-2024 23:09:09 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725329349
+    [EXPIRES] => 1725365022
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[02-Sep-2024 23:09:09 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[02-Sep-2024 23:09:14 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[02-Sep-2024 23:09:14 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725329354
+    [EXPIRES] => 1725365022
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[02-Sep-2024 23:09:14 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[02-Sep-2024 23:13:38 America/Argentina/Buenos_Aires] Intento de inicio de sesión fallido para el email: info@celcomweb.com.ar
+[02-Sep-2024 23:13:50 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[02-Sep-2024 23:18:53 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[02-Sep-2024 23:19:23 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[02-Sep-2024 23:19:58 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[02-Sep-2024 23:21:32 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[02-Sep-2024 23:21:32 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725330092
+    [EXPIRES] => 1725365991
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[02-Sep-2024 23:21:32 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[03-Sep-2024 00:40:58 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[03-Sep-2024 00:41:12 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[03-Sep-2024 00:41:12 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725334872
+    [EXPIRES] => 1725370846
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[03-Sep-2024 00:41:12 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[03-Sep-2024 09:07:22 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[03-Sep-2024 09:07:25 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[03-Sep-2024 09:07:25 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725365245
+    [EXPIRES] => 1725401233
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[03-Sep-2024 09:07:25 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[03-Sep-2024 09:07:40 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[03-Sep-2024 09:07:40 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725365260
+    [EXPIRES] => 1725401233
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[03-Sep-2024 09:07:40 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[03-Sep-2024 09:10:40 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[03-Sep-2024 09:10:44 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[03-Sep-2024 09:10:44 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725365444
+    [EXPIRES] => 1725401426
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[03-Sep-2024 09:10:44 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[03-Sep-2024 09:11:00 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[03-Sep-2024 09:11:00 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725365460
+    [EXPIRES] => 1725401426
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[03-Sep-2024 09:11:00 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[03-Sep-2024 09:51:16 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[03-Sep-2024 09:51:47 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[03-Sep-2024 09:51:47 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725367907
+    [EXPIRES] => 1725403861
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[03-Sep-2024 09:51:47 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[03-Sep-2024 10:57:37 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[03-Sep-2024 10:57:43 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[03-Sep-2024 10:57:43 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725371863
+    [EXPIRES] => 1725407794
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[03-Sep-2024 10:57:43 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[03-Sep-2024 12:59:07 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[03-Sep-2024 13:01:51 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[03-Sep-2024 13:01:51 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725379311
+    [EXPIRES] => 1725415131
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[03-Sep-2024 13:01:51 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[03-Sep-2024 13:11:59 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[03-Sep-2024 13:11:59 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725379919
+    [EXPIRES] => 1725415131
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[03-Sep-2024 13:11:59 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[03-Sep-2024 13:19:00 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[03-Sep-2024 13:19:00 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725380340
+    [EXPIRES] => 1725415131
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[03-Sep-2024 13:19:00 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[03-Sep-2024 13:43:24 America/Argentina/Buenos_Aires] Fecha y hora de la compra: 2024-09-03 13:43:24
+[03-Sep-2024 13:43:24 America/Argentina/Buenos_Aires] Compra creada exitosamente. ID: 14
+[03-Sep-2024 13:46:56 America/Argentina/Buenos_Aires] Fecha y hora de la compra: 2024-09-03 13:46:56
+[03-Sep-2024 13:46:56 America/Argentina/Buenos_Aires] Compra creada exitosamente. ID: 15
+[03-Sep-2024 13:47:19 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[03-Sep-2024 13:47:19 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725382039
+    [EXPIRES] => 1725415131
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[03-Sep-2024 13:47:19 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[03-Sep-2024 13:49:45 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[03-Sep-2024 13:49:45 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725382185
+    [EXPIRES] => 1725415131
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[03-Sep-2024 13:49:45 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[03-Sep-2024 13:59:47 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[03-Sep-2024 13:59:47 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725382787
+    [EXPIRES] => 1725415131
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[03-Sep-2024 13:59:47 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[03-Sep-2024 14:09:14 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[03-Sep-2024 14:17:14 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[03-Sep-2024 14:17:14 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725383834
+    [EXPIRES] => 1725415131
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[03-Sep-2024 14:17:14 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[03-Sep-2024 14:23:48 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[03-Sep-2024 14:24:28 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[03-Sep-2024 14:24:28 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725384268
+    [EXPIRES] => 1725420216
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[03-Sep-2024 14:24:28 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[03-Sep-2024 14:24:37 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[03-Sep-2024 14:24:37 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725384277
+    [EXPIRES] => 1725420275
+)
+
+[03-Sep-2024 14:24:37 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario no autenticado. Redirigiendo a login.php
+[03-Sep-2024 14:35:18 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[03-Sep-2024 14:35:18 America/Argentina/Buenos_Aires] Número de resultados: 5
+[03-Sep-2024 14:35:26 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[03-Sep-2024 14:35:26 America/Argentina/Buenos_Aires] Número de resultados: 5
+[03-Sep-2024 14:35:37 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[03-Sep-2024 14:35:37 America/Argentina/Buenos_Aires] Número de resultados: 5
+[03-Sep-2024 14:41:19 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[03-Sep-2024 14:41:19 America/Argentina/Buenos_Aires] Número de resultados: 5
+[03-Sep-2024 14:44:24 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[03-Sep-2024 14:44:24 America/Argentina/Buenos_Aires] Número de resultados: 5
+[03-Sep-2024 14:44:38 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[03-Sep-2024 14:44:38 America/Argentina/Buenos_Aires] Número de resultados: 5
+[03-Sep-2024 14:44:46 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[03-Sep-2024 14:44:46 America/Argentina/Buenos_Aires] Número de resultados: 5
+[03-Sep-2024 14:51:57 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[03-Sep-2024 14:51:57 America/Argentina/Buenos_Aires] Número de resultados: 5
+[03-Sep-2024 14:52:34 America/Argentina/Buenos_Aires] Ejecutando consulta: SELECT ca.*, c.name as customer_name,
+                         (SELECT COUNT(*) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+                         (SELECT MIN(due_date) FROM installments 
+                          WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+                         FROM customer_accounts ca 
+                         JOIN customers c ON ca.customer_id = c.id 
+                         ORDER BY ca.id DESC
+[03-Sep-2024 14:52:34 America/Argentina/Buenos_Aires] Número de resultados: 5
+[03-Sep-2024 16:07:25 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[03-Sep-2024 16:07:25 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725390445
+    [EXPIRES] => 1725407794
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[03-Sep-2024 16:07:25 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[03-Sep-2024 16:07:41 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[03-Sep-2024 16:07:48 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[03-Sep-2024 16:07:48 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725390468
+    [EXPIRES] => 1725426456
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[03-Sep-2024 16:07:48 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[03-Sep-2024 16:21:30 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[03-Sep-2024 16:21:30 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725391290
+    [EXPIRES] => 1725426456
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[03-Sep-2024 16:21:30 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[03-Sep-2024 17:44:25 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[03-Sep-2024 17:44:25 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725396265
+    [EXPIRES] => 1725426456
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[03-Sep-2024 17:44:25 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[03-Sep-2024 17:45:28 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[03-Sep-2024 17:45:28 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725396328
+    [EXPIRES] => 1725432269
+)
+
+[03-Sep-2024 17:45:28 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario no autenticado. Redirigiendo a login.php
+[03-Sep-2024 17:45:33 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[03-Sep-2024 17:45:36 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[03-Sep-2024 17:45:36 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725396336
+    [EXPIRES] => 1725432269
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[03-Sep-2024 17:45:36 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[03-Sep-2024 19:42:02 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[04-Sep-2024 08:06:14 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[04-Sep-2024 08:06:26 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[04-Sep-2024 08:06:26 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725447986
+    [EXPIRES] => 1725483970
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[04-Sep-2024 08:06:26 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[04-Sep-2024 09:12:39 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[04-Sep-2024 09:24:38 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[04-Sep-2024 09:24:38 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725452678
+    [EXPIRES] => 1725487950
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[04-Sep-2024 09:24:38 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[04-Sep-2024 09:41:07 America/Argentina/Buenos_Aires] Datos recibidos en addCustomer: {"name":"Carabajal Hugo","email":"orden@taller.cellcomweb.com.ar","phone":"543482646402","address":"Calle 130 Nro 925"}
+[04-Sep-2024 09:41:07 America/Argentina/Buenos_Aires] Nota: El índice UNIQUE en email no existía o no se pudo eliminar. Esto es normal si ya se había eliminado antes.
+[04-Sep-2024 09:41:07 America/Argentina/Buenos_Aires] Cliente creado exitosamente con ID: 33
+[04-Sep-2024 10:18:15 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[04-Sep-2024 10:18:15 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725455895
+    [EXPIRES] => 1725487950
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[04-Sep-2024 10:18:15 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[04-Sep-2024 10:18:36 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[04-Sep-2024 10:19:32 America/Argentina/Buenos_Aires] Datos recibidos en addCustomer: {"name":"Urbani Julian","email":"orden@cellcomweb.com.ar","phone":"543482649894","address":"Calle 12 Nro 631"}
+[04-Sep-2024 10:19:32 America/Argentina/Buenos_Aires] Nota: El índice UNIQUE en email no existía o no se pudo eliminar. Esto es normal si ya se había eliminado antes.
+[04-Sep-2024 10:19:32 America/Argentina/Buenos_Aires] Cliente creado exitosamente con ID: 34
+[04-Sep-2024 11:00:58 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[04-Sep-2024 11:32:21 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[04-Sep-2024 11:44:04 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[04-Sep-2024 11:49:37 America/Argentina/Buenos_Aires] Datos recibidos en addCustomer: {"name":"Romero Cesar","email":"orden@cellcomweb.com.ar","phone":"543482645518","address":"Calle 14 Nro 1105"}
+[04-Sep-2024 11:49:37 America/Argentina/Buenos_Aires] Nota: El índice UNIQUE en email no existía o no se pudo eliminar. Esto es normal si ya se había eliminado antes.
+[04-Sep-2024 11:49:37 America/Argentina/Buenos_Aires] Cliente creado exitosamente con ID: 35
+[04-Sep-2024 17:06:16 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[04-Sep-2024 17:06:57 America/Argentina/Buenos_Aires] Datos recibidos en addCustomer: {"name":"Godoy Marlen","email":"orden@cellcomweb.com.ar","phone":"543482711890","address":"Calle 302 nro 177"}
+[04-Sep-2024 17:06:57 America/Argentina/Buenos_Aires] Nota: El índice UNIQUE en email no existía o no se pudo eliminar. Esto es normal si ya se había eliminado antes.
+[04-Sep-2024 17:06:57 America/Argentina/Buenos_Aires] Cliente creado exitosamente con ID: 36
+[04-Sep-2024 17:53:36 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[04-Sep-2024 17:53:42 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[04-Sep-2024 17:53:42 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725483222
+    [EXPIRES] => 1725519201
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[04-Sep-2024 17:53:42 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[04-Sep-2024 18:21:02 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[04-Sep-2024 18:21:02 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725484862
+    [EXPIRES] => 1725519201
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[04-Sep-2024 18:21:02 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[04-Sep-2024 19:20:07 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[04-Sep-2024 19:22:40 America/Argentina/Buenos_Aires] Fecha y hora de la compra: 2024-09-04 19:22:40
+[04-Sep-2024 19:22:40 America/Argentina/Buenos_Aires] Compra creada exitosamente. ID: 16
+[04-Sep-2024 19:23:16 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[04-Sep-2024 19:23:16 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725488596
+    [EXPIRES] => 1725524402
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[04-Sep-2024 19:23:16 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[04-Sep-2024 19:30:44 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[04-Sep-2024 19:30:44 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725489044
+    [EXPIRES] => 1725524402
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[04-Sep-2024 19:30:44 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[04-Sep-2024 19:41:35 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[04-Sep-2024 19:41:35 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725489695
+    [EXPIRES] => 1725524402
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[04-Sep-2024 19:41:35 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[04-Sep-2024 20:20:11 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[04-Sep-2024 22:33:27 America/Argentina/Buenos_Aires] Usuario 1 (info@cellcomweb.com.ar) ha iniciado sesión exitosamente.
+[04-Sep-2024 22:33:39 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[04-Sep-2024 22:33:39 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725500019
+    [EXPIRES] => 1725535999
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[04-Sep-2024 22:33:39 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[04-Sep-2024 22:45:05 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught Error: Call to undefined function generateWhatsAppUrl() in /home/l0040724/public_html/pos_system/views/services/list.php:46
+Stack trace:
+#0 /home/l0040724/public_html/pos_system/public/services.php(26): include()
+#1 {main}
+  thrown in /home/l0040724/public_html/pos_system/views/services/list.php on line 46
+[04-Sep-2024 22:59:32 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[04-Sep-2024 22:59:32 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725501572
+    [EXPIRES] => 1725535999
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[04-Sep-2024 22:59:32 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[04-Sep-2024 23:27:46 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[04-Sep-2024 23:27:46 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725503266
+    [EXPIRES] => 1725535999
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[04-Sep-2024 23:27:46 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[04-Sep-2024 23:42:41 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[04-Sep-2024 23:42:41 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [LAST_ACTIVITY] => 1725503283
+    [EXPIRES] => 1725535999
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+    [CREATED] => 1725504161
+)
+
+[04-Sep-2024 23:42:41 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[04-Sep-2024 23:43:48 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[04-Sep-2024 23:43:48 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [CREATED] => 1725504205
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[04-Sep-2024 23:43:48 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[04-Sep-2024 23:44:25 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[04-Sep-2024 23:44:25 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [CREATED] => 1725504205
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[04-Sep-2024 23:44:25 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1

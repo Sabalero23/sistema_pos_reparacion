@@ -70,7 +70,17 @@ switch ($action) {
                 exit;
         }
         break;
+        // En la sección de casos del switch para 'generate':
+case 'profit':
+    error_log("Generando reporte de ganancias. Start Date: $startDate, End Date: $endDate");
+    $startDate = $_POST['start_date'] ?? null;
+    $endDate = $_POST['end_date'] ?? null;
+    $reportData = generateProfitReport($startDate, $endDate);
+    include __DIR__ . '/../views/reports/profit_report.php';
+    break;
     default:
+        $_SESSION['flash_message'] = "Tipo de reporte no válido.";
+        $_SESSION['flash_type'] = 'error';
         header('Location: ' . url('reports.php'));
         exit;
 }

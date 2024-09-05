@@ -19,13 +19,23 @@ if (!$paymentId) {
 }
 
 $payment = getPaymentById($paymentId);
-$customer = getCustomerById($payment['customer_id']);
 
 if (!$payment) {
     die("Pago no encontrado");
 }
 
+$customer = getCustomerById($payment['customer_id']);
 $companyInfo = getCompanyInfo();
+
+// Función para formatear el método de pago
+function formatPaymentMethod($method) {
+    $methods = [
+        'efectivo' => 'Efectivo',
+        'tarjeta' => 'Tarjeta',
+        'transferencia' => 'Transferencia Bancaria'
+    ];
+    return $methods[$method] ?? ucfirst($method);
+}
 
 ?>
 <!DOCTYPE html>
@@ -33,8 +43,9 @@ $companyInfo = getCompanyInfo();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recibo de Pago - <?php echo $payment['id']; ?></title>
+    <title>Recibo de Pago - <?php echo htmlspecialchars($payment['id']); ?></title>
     <style>
+
         @page {
             size: A4;
             margin: 0;
@@ -100,6 +111,12 @@ $companyInfo = getCompanyInfo();
                 height: 297mm;
             }
         }
+        @media print {
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
     </style>
 </head>
 <body>
@@ -117,7 +134,7 @@ $companyInfo = getCompanyInfo();
 
     <div class="info-section">
         <h2>Recibo de Pago</h2>
-        <p><strong>Número de Recibo:</strong> <?php echo $payment['id']; ?></p>
+        <p><strong>Número de Recibo:</strong> <?php echo htmlspecialchars($payment['id']); ?></p>
         <p><strong>Fecha:</strong> <?php echo date('d/m/Y', strtotime($payment['payment_date'])); ?></p>
         <p><strong>Cliente:</strong> <?php echo htmlspecialchars($customer['name']); ?></p>
     </div>
@@ -127,13 +144,13 @@ $companyInfo = getCompanyInfo();
         <table>
             <tr>
                 <th>Monto</th>
-                <td>$<?php echo number_format($payment['amount'], 2); ?></td>
+                <td>$<?php echo number_format($payment['amount'], 2, ',', '.'); ?></td>
             </tr>
             <tr>
                 <th>Método de Pago</th>
-                <td><?php echo htmlspecialchars($payment['payment_method']); ?></td>
+                <td><?php echo htmlspecialchars(formatPaymentMethod($payment['payment_method'])); ?></td>
             </tr>
-            <?php if ($payment['notes']): ?>
+            <?php if (!empty($payment['notes'])): ?>
             <tr>
                 <th>Notas</th>
                 <td><?php echo htmlspecialchars($payment['notes']); ?></td>
@@ -145,6 +162,11 @@ $companyInfo = getCompanyInfo();
     <div class="footer">
         <p><?php echo htmlspecialchars($companyInfo['receipt_footer']); ?></p>
         <p><?php echo htmlspecialchars($companyInfo['legal_info']); ?></p>
+    </div>
+
+    <div class="no-print">
+        <button onclick="window.print()">Imprimir Recibo</button>
+        <button onclick="window.close()">Cerrar</button>
     </div>
 
     <script>

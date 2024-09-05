@@ -1,3 +1,12 @@
+<style>
+    .modal-backdrop {
+        z-index: 1040 !important;
+    }
+    .modal-content {
+        z-index: 1100 !important;
+    }
+</style>
+
 <div class="modal fade" id="cashInModal" tabindex="-1" aria-labelledby="cashInModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -26,7 +35,22 @@
 </div>
 
 <script>
-    $(document).ready(function() {
-        $('#cashInModal').modal('show');
+document.addEventListener('DOMContentLoaded', function() {
+    var cashInModal = new bootstrap.Modal(document.getElementById('cashInModal'), {
+        backdrop: 'static',
+        keyboard: false
     });
+    
+    // Asegúrate de que cualquier modal previo esté cerrado
+    var modals = bootstrap.Modal.getInstance(document.querySelector('.modal.show'));
+    if (modals) {
+        modals.hide();
+    }
+
+    // Abre el modal de ingreso de efectivo
+    cashInModal.show();
+
+    // Asegúrate de que el modal esté en la parte superior
+    document.getElementById('cashInModal').style.zIndex = "1050";
+});
 </script>

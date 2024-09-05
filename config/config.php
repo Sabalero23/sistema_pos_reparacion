@@ -1,10 +1,15 @@
 <?php
 // config/config.php
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('log_errors', 1);
+ini_set('error_log', 'error.log');
+
 // Configuración de la sesión
-ini_set('session.gc_maxlifetime', 36000); // 10 horas en segundos
-ini_set('session.cookie_lifetime', 36000); // 10 horas en segundos
-session_set_cookie_params(36000, '/', null, true, true); // Secure y HttpOnly
+ini_set('session.gc_maxlifetime', 14400); // 4 horas en segundos
+ini_set('session.cookie_lifetime', 14400); // 4 horas en segundos
+session_set_cookie_params(14400, '/', null, true, true); // Secure y HttpOnly
 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -70,17 +75,15 @@ function url($path = '') {
 
 // Función para verificar y renovar la sesión
 function checkAndRenewSession() {
-    if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1800)) {
-        // Si han pasado más de 30 minutos, regeneramos el ID de sesión
-        session_regenerate_id(true);
+    if (!isset($_SESSION['CREATED'])) {
+        $_SESSION['CREATED'] = time();
+    } else if (time() - $_SESSION['CREATED'] > 14400) {
+        // Si han pasado más de 4 horas, destruimos la sesión
+        session_unset();
+        session_destroy();
+        return false;
     }
-    $_SESSION['LAST_ACTIVITY'] = time(); // Actualiza el último tiempo de actividad
-
-    // Si la sesión está próxima a expirar, la extendemos
-    if (!isset($_SESSION['EXPIRES']) || $_SESSION['EXPIRES'] < time() + 600) {
-        $_SESSION['EXPIRES'] = time() + 36000; // Extiende por 10 horas más
-        setcookie(session_name(), session_id(), $_SESSION['EXPIRES']);
-    }
+    return true;
 }
 
 // Llamar a esta función al inicio de cada script que use sesiones

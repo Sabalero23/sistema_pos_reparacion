@@ -1,6 +1,6 @@
 <?php
 function isLoggedIn() {
-    return isset($_SESSION['user_id']);
+    return isset($_SESSION['user_id']) && checkAndRenewSession();
 }
 
 function getCurrentUserId() {
@@ -29,6 +29,7 @@ function login($email, $password) {
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['user_name'] = $user['name'];
         $_SESSION['user_role'] = $user['role_id'];
+        $_SESSION['CREATED'] = time(); // Añadimos el tiempo de creación de la sesión
         return true;
     }
     return false;
@@ -43,12 +44,13 @@ function logout() {
 
 function requireLogin() {
     if (!isLoggedIn()) {
-        $_SESSION['flash_message'] = "Debes iniciar sesión para acceder a esta página.";
+        $_SESSION['flash_message'] = "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.";
         $_SESSION['flash_type'] = 'warning';
         header('Location: ' . url('login.php'));
         exit;
     }
 }
+
 function isAdmin() {
     return isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin';
 }

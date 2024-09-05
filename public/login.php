@@ -18,20 +18,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($email) || empty($password)) {
         $error = 'Por favor, ingrese email y contraseña.';
     } else {
-        $user = authenticateUser($email, $password);
-        if ($user) {
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['user_name'] = $user['name'];
-            $_SESSION['user_role'] = $user['role_id'];
-            
-            // Registrar el inicio de sesión exitoso
-            error_log("Usuario {$user['id']} ({$user['email']}) ha iniciado sesión exitosamente.");
-            
+        if (login($email, $password)) {
+            // La función login ya establece $_SESSION['CREATED']
             header("Location: " . url('index.php'));
             exit();
         } else {
             $error = 'Email o contraseña incorrectos.';
-            // Registrar el intento de inicio de sesión fallido
             error_log("Intento de inicio de sesión fallido para el email: $email");
         }
     }

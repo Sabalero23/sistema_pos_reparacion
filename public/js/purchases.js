@@ -12,7 +12,6 @@
         
         console.log('URL de la API:', baseUrl + '/api/search.php');
 
-
         $('#supplier_search').autocomplete({
             source: function(request, response) {
                 $.ajax({
@@ -43,7 +42,7 @@
             }
         });
 
-                function initProductAutocomplete(element) {
+        function initProductAutocomplete(element) {
             element.autocomplete({
                 source: function(request, response) {
                     $.ajax({
@@ -55,7 +54,7 @@
                             context: 'purchase'
                         },
                         success: function(data) {
-                            console.log('Received data:', data); // Log de datos recibidos
+                            console.log('Received data:', data);
                             response($.map(data, function(item) {
                                 return {
                                     label: item.name + ' - $' + (item.price || 'N/A'),
@@ -76,38 +75,31 @@
                     const row = $(this).closest('.product-item');
                     row.find('.product-id').val(ui.item.id);
                     row.find('.price').val(ui.item.price || '');
-                    updateTotal();
+                    calculateSubtotalAndTotal();
                 }
             });
         }
 
         function initializeProductRow(row) {
             initProductAutocomplete(row.find('.product-search'));
-            row.find('.quantity').on('input', updateTotal);
+            row.find('.quantity, .price').on('input', calculateSubtotalAndTotal);
         }
         
-        // Calcular subtotal para una fila de producto
-    function calculateSubtotal(productItem) {
-        const quantity = parseFloat(productItem.find('.quantity').val()) || 0;
-        const price = parseFloat(productItem.find('.price').val()) || 0;
-        const subtotal = quantity * price;
-        productItem.find('.subtotal').val(subtotal.toFixed(2));
-        return subtotal;
-    }
+        function calculateSubtotal(productItem) {
+            const quantity = parseFloat(productItem.find('.quantity').val()) || 0;
+            const price = parseFloat(productItem.find('.price').val()) || 0;
+            const subtotal = quantity * price;
+            productItem.find('.subtotal').val(subtotal.toFixed(2));
+            return subtotal;
+        }
 
-    // Calcular subtotal y total
-    function calculateSubtotalAndTotal() {
-        let total = 0;
-        $('.product-item').each(function() {
-            total += calculateSubtotal($(this));
-        });
-        $('#total_amount').val(total.toFixed(2));
-    }
-
-    // Recalcular cuando se cambie la cantidad o el precio
-    $('#productList').on('input', '.quantity, .price', function() {
-        calculateSubtotalAndTotal();
-    });
+        function calculateSubtotalAndTotal() {
+            let total = 0;
+            $('.product-item').each(function() {
+                total += calculateSubtotal($(this));
+            });
+            $('#total_amount').val(total.toFixed(2));
+        }
 
         addProductBtn.click(function() {
             const newProduct = productList.children().first().clone();
@@ -127,7 +119,7 @@
         productList.on('click', '.remove-product', function() {
             if (productList.children().length > 1) {
                 $(this).closest('.product-item').remove();
-                updateTotal();
+                calculateSubtotalAndTotal();
             } else {
                 alert('Debe haber al menos un producto en la compra.');
             }
@@ -144,5 +136,8 @@
             }
             this.classList.add('was-validated');
         });
+
+        // Inicializar el total al cargar la página
+        calculateSubtotalAndTotal();
     });
 })(jQuery);

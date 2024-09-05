@@ -19,8 +19,6 @@ $purchaseId = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 $pageTitle = "Gestión de Compras";
 require_once __DIR__ . '/../includes/header.php';
 
-
-
 switch ($action) {
     case 'list':
         $purchases = getAllPurchases();

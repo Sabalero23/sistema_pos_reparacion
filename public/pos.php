@@ -1,8 +1,4 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
 require_once __DIR__ . '/../config/config.php';
 require_once __DIR__ . '/../includes/auth.php';
 require_once __DIR__ . '/../includes/pos_functions.php';
@@ -14,11 +10,7 @@ function debug_log($message) {
 debug_log("Iniciando página POS");
 debug_log("SESSION: " . print_r($_SESSION, true));
 
-if (!isLoggedIn()) {
-    debug_log("Usuario no autenticado. Redirigiendo a login.php");
-    header('Location: ' . url('login.php'));
-    exit;
-}
+requireLogin(); // Esta función ya verifica si el usuario está logueado y si la sesión es válida
 
 debug_log("Usuario autenticado. ID: " . $_SESSION['user_id']);
 
@@ -34,15 +26,11 @@ if (!$currentCashRegisterSession) {
 
 require_once __DIR__ . '/../includes/header.php';
 ?>
-
 <style>
-    .list-group-item {
+.list-group-item {
     background-color: transparent;
-    color: #1c1a1acc;
-    border: none;
-    padding: 0.50rem 1rem;
-    transition: all 0.3s ease;
-}
+    color: #2c3031;
+]
 </style>
 <div class="container my-5">
     <div class="row">

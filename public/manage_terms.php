@@ -129,3 +129,4 @@ switch ($action) {
         header('Location: ' . url('manage_terms.php'));
         exit;
 }
+require_once __DIR__ . '/../includes/footer.php';

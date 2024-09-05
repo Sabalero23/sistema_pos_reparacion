@@ -96,7 +96,7 @@ $companyInfo = getCompanyInfo();
 
         <div class="text-center mt-4 mb-4 no-print">
             <button class="btn btn-primary mr-2" onclick="window.print()">Imprimir Presupuesto</button>
-            <a href="<?php echo url('budget.php?action=download_pdf&id=' . $budgetId); ?>" class="btn btn-secondary">Descargar PDF</a>
+            <a href="<?php echo url('download_budget_pdf.php?id=' . $budgetId); ?>" class="btn btn-secondary">Descargar PDF</a>
         </div>
     </div>
 

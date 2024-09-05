@@ -1,4 +1,4 @@
-<div class="container mt-4">
+<div class="container-fluid p-0">
     <h1 class="mb-4">Gestión de Productos</h1>
     
     <?php if (hasPermission('products_create')): ?>
@@ -52,3 +52,16 @@
 </div>
 
 <script src="<?php echo url('js/products.js'); ?>"></script>
+
+<style>
+    .container-fluid.p-0 {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+    @media (min-width: 768px) {
+        .container-fluid.p-0 {
+            padding-left: 20px !important;
+            padding-right: 20px !important;
+        }
+    }
+</style>

@@ -112,6 +112,7 @@ $usersSubmenuItems = [
 $configSubmenuItems = [
     ['url' => 'settings.php', 'label' => 'Configuración General', 'permission' => 'settings_view'],
     ['url' => 'company_settings.php', 'label' => 'Datos de la Empresa', 'permission' => 'company_settings_view'],
+    ['url' => 'manage_terms.php', 'label' => 'Términos y Condiciones', 'permission' => 'settings_view'],
     ['url' => 'backup.php', 'label' => 'Copias de Seguridad', 'permission' => 'backup_create'],
 ];
 ?>
@@ -125,7 +126,7 @@ $configSubmenuItems = [
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="<?php echo url('/assets/css/all.min.css'); ?>">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono&display=swap" rel="stylesheet">
@@ -151,10 +152,9 @@ $configSubmenuItems = [
                     echo generateSubmenu('Caja', 'fas fa-cash-register', $cashRegisterSubmenuItems, 'cashRegister');
                     echo generateSubmenu('Clientes', 'fas fa-user-circle', $customerAccountsSubmenuItems, 'customerAccounts');
                     echo generateSubmenu('Reparaciones', 'fas fa-tools', $repairSubmenuItems, 'repairs');
-                    echo generateMenuItem('reports.php', 'fas fa-chart-bar', 'Reportes', 'reports_view', 'reports.php');
                     echo generateSubmenu('Usuarios', 'fas fa-users', $usersSubmenuItems, 'users');
-                    // Nuevo submenú de Configuración
                     echo generateSubmenu('Configuración', 'fas fa-cog', $configSubmenuItems, 'config');
+                    echo generateMenuItem('reports.php', 'fas fa-chart-bar', 'Reportes', 'reports_view', 'reports.php');
                     ?>
                 <?php endif; ?>
             </div>

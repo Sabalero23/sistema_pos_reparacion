@@ -43,37 +43,41 @@ $topSellingProducts = getTopSellingProducts(5);
         <div class="col-12">
             <div class="content-wrapper mx-4">
                 <div class="row align-items-center mb-4">
-                    <div class="col-12 col-md-4 mb-3 mb-md-0">
-                        <h1 class="h2 mb-0">Dashboard</h1>
+                    <div class="col-12 col-md-3 mb-3 mb-md-0">
+                        <h1 class="h3 mb-0">Dashboard</h1>
                     </div>
-                    <div class="col-12 col-md-8">
+                    <div class="col-12 col-md-9">
                         <div class="d-flex flex-wrap justify-content-md-end">
                             <?php if (hasPermission('services_view')): ?>
-                                <a href="<?php echo url('services.php'); ?>" class="btn btn-warning m-1 flex-grow-1 flex-md-grow-0"><i class="fas fa-tools me-2"></i>Órdenes de Servicio</a>
+                                <a href="<?php echo url('services.php'); ?>" class="btn btn-warning m-1"><i class="fas fa-tools me-2"></i>Órdenes de Servicio</a>
                             <?php endif; ?>
                             <?php if (hasPermission('sales_create')): ?>
-                                <a href="<?php echo url('pos.php'); ?>" class="btn btn-primary m-1 flex-grow-1 flex-md-grow-0"><i class="fas fa-cash-register me-2"></i>Punto de Venta</a>
+                                <a href="<?php echo url('pos.php'); ?>" class="btn btn-primary m-1"><i class="fas fa-cash-register me-2"></i>POS</a>
                             <?php endif; ?>
                             <?php if (hasPermission('products_view')): ?>
-                                <a href="<?php echo url('products.php'); ?>" class="btn btn-secondary m-1 flex-grow-1 flex-md-grow-0"><i class="fas fa-box me-2"></i>Gestionar Productos</a>
+                                <a href="<?php echo url('products.php'); ?>" class="btn btn-secondary m-1"><i class="fas fa-box me-2"></i>Productos</a>
                             <?php endif; ?>
                             <?php if (hasPermission('customers_view')): ?>
-                                <a href="<?php echo url('customers.php'); ?>" class="btn btn-info m-1 flex-grow-1 flex-md-grow-0"><i class="fas fa-users me-2"></i>Gestionar Clientes</a>
+                                <a href="<?php echo url('customers.php'); ?>" class="btn btn-info m-1"><i class="fas fa-users me-2"></i>Clientes</a>
                             <?php endif; ?>
                             <?php if (hasPermission('reports_view')): ?>
-                                <a href="<?php echo url('reports.php'); ?>" class="btn btn-success m-1 flex-grow-1 flex-md-grow-0"><i class="fas fa-chart-bar me-2"></i>Reportes</a>
+                                <a href="<?php echo url('reports.php'); ?>" class="btn btn-success m-1"><i class="fas fa-chart-bar me-2"></i>Reportes</a>
                             <?php endif; ?>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
 
     <div class="row g-4">
         <div class="col-12 col-md-6 col-lg-3">
             <div class="card border-primary">
                 <div class="card-body text-primary">
-                    <h5 class="card-title">Ventas Totales</h5>
-                    <p class="card-text fs-3 fw-bold">$<?php echo number_format($totalSales, 0, ',', '.'); ?></p>
-                </div>
+            <h5 class="card-title">Ventas e Ingresos del Mes</h5>
+            <p class="card-text fs-3 fw-bold">$<?php echo number_format(getTotalSales(), 0, ',', '.'); ?></p>
+        </div>
             </div>
         </div>
         <div class="col-12 col-md-6 col-lg-3">
@@ -87,9 +91,9 @@ $topSellingProducts = getTopSellingProducts(5);
         <div class="col-12 col-md-6 col-lg-3">
             <div class="card border-warning">
                 <div class="card-body text-warning">
-                    <h5 class="card-title">Bajo Stock</h5>
-                    <p class="card-text fs-3 fw-bold"><?php echo count($lowStockProducts); ?></p>
-                </div>
+            <h5 class="card-title">Productos con Bajo Stock</h5>
+            <p class="card-text fs-3 fw-bold"><?php echo $lowStockProducts; ?></p>
+        </div>
             </div>
         </div>
         <div class="col-12 col-md-6 col-lg-3">
@@ -102,28 +106,30 @@ $topSellingProducts = getTopSellingProducts(5);
         </div>
     </div>
 
-    <div class="row mt-4 g-4">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <i class="fas fa-chart-bar me-2"></i>Ventas por Día de la Semana
-                </div>
-                <div class="card-body">
-                    <canvas id="salesByDayChart"></canvas>
-                </div>
+    <!-- ... (Gráficos) ... -->
+
+<div class="row mt-4 g-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <i class="fas fa-chart-bar me-2"></i>Ventas por Día de la Semana
             </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header bg-success text-white">
-                    <i class="fas fa-chart-pie me-2"></i>Productos Más Vendidos
-                </div>
-                <div class="card-body">
-                    <canvas id="topProductsChart"></canvas>
-                </div>
+            <div class="card-body">
+                <canvas id="salesByDayChart"></canvas>
             </div>
         </div>
     </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <i class="fas fa-chart-pie me-2"></i>Productos Más Vendidos
+            </div>
+            <div class="card-body">
+                <canvas id="topProductsChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
 
     <div class="row mt-4 g-4">
         <div class="col-md-6">
@@ -153,33 +159,36 @@ $topSellingProducts = getTopSellingProducts(5);
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header bg-warning text-white">
-                    <i class="fas fa-exclamation-triangle me-2"></i>Productos con Bajo Stock
-                </div>
-                <div class="card-body">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Producto</th>
-                                <th class="text-center">Stock Actual</th>
-                                <th class="text-center">Stock Mínimo</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($lowStockProducts as $product): ?>
-                                <tr>
-                                    <td><?php echo htmlspecialchars($product['name']); ?></td>
-                                    <td class="text-center"><?php echo $product['stock_quantity']; ?></td>
-                                    <td class="text-center"><?php echo $product['reorder_level']; ?></td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+        <?php
+$lowStockProductsList = getLowStockProductsList(5);
+?>
+<div class="col-md-6">
+    <div class="card">
+        <div class="card-header bg-warning text-white">
+            <i class="fas fa-exclamation-triangle me-2"></i>Productos con Bajo Stock (5 de <?php echo $lowStockProducts; ?>)
         </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th class="text-center">Stock Actual</th>
+                        <th class="text-center">Stock Mínimo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($lowStockProductsList as $product): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($product['name']); ?></td>
+                            <td class="text-center"><?php echo $product['stock_quantity']; ?></td>
+                            <td class="text-center"><?php echo $product['reorder_level']; ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
     </div>
 </div>
 
@@ -288,7 +297,28 @@ require_once __DIR__ . '/../includes/footer.php';
 // Funciones para obtener datos
 function getTotalSales() {
     global $pdo;
-    $stmt = $pdo->query("SELECT COALESCE(SUM(total_amount), 0) FROM sales");
+    $query = "SELECT COALESCE(SUM(total_amount), 0) 
+              FROM sales 
+              WHERE YEAR(sale_date) = YEAR(CURDATE()) 
+              AND MONTH(sale_date) = MONTH(CURDATE())";
+    $stmt = $pdo->query($query);
+    $salesTotal = $stmt->fetchColumn();
+
+    // Obtener el total de ingresos de dinero del mes actual
+    $incomesTotal = getTotalIncomes();
+
+    // Sumar ventas e ingresos
+    return $salesTotal + $incomesTotal;
+}
+
+function getTotalIncomes() {
+    global $pdo;
+    $query = "SELECT COALESCE(SUM(amount), 0) 
+              FROM cash_register_movements 
+              WHERE movement_type = 'cash_in' 
+              AND YEAR(created_at) = YEAR(CURDATE()) 
+              AND MONTH(created_at) = MONTH(CURDATE())";
+    $stmt = $pdo->query($query);
     return $stmt->fetchColumn();
 }
 
@@ -300,7 +330,15 @@ function getTotalProducts() {
 
 function getLowStockProducts() {
     global $pdo;
-    $stmt = $pdo->query("SELECT * FROM products WHERE stock_quantity <= reorder_level LIMIT 5");
+    $stmt = $pdo->query("SELECT COUNT(*) FROM products WHERE stock_quantity <= reorder_level");
+    return $stmt->fetchColumn();
+}
+
+function getLowStockProductsList($limit = 5) {
+    global $pdo;
+    $stmt = $pdo->prepare("SELECT * FROM products WHERE stock_quantity <= reorder_level ORDER BY stock_quantity ASC LIMIT :limit");
+    $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+    $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 

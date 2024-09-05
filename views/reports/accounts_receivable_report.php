@@ -37,11 +37,13 @@ $totalReceivable = array_sum(array_column($reportData, 'balance'));
             <thead>
                 <tr>
                     <th>Cliente</th>
-                    <th>Total Ventas</th>
-                    <th>Total Pagos</th>
+                    <th>Monto Total</th>
+                    <th>Entrega Inicial</th>
                     <th>Saldo Pendiente</th>
-                    <th>Última Venta</th>
+                    <th>Cuotas Pendientes</th>
+                    <th>Próximo Vencimiento</th>
                     <th>Último Pago</th>
+                    <th>Estado</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -49,13 +51,15 @@ $totalReceivable = array_sum(array_column($reportData, 'balance'));
                 <?php foreach ($reportData as $account): ?>
                 <tr>
                     <td><?php echo htmlspecialchars($account['customer_name']); ?></td>
-                    <td><?php echo number_format($account['total_sales'], 2); ?> ARS</td>
-                    <td><?php echo number_format($account['total_payments'], 2); ?> ARS</td>
+                    <td><?php echo number_format($account['total_amount'], 2); ?> ARS</td>
+                    <td><?php echo number_format($account['down_payment'], 2); ?> ARS</td>
                     <td><?php echo number_format($account['balance'], 2); ?> ARS</td>
-                    <td><?php echo $account['last_sale_date'] ? date('d/m/Y', strtotime($account['last_sale_date'])) : 'N/A'; ?></td>
+                    <td><?php echo $account['pending_installments']; ?> / <?php echo $account['num_installments']; ?></td>
+                    <td><?php echo $account['next_due_date'] ? date('d/m/Y', strtotime($account['next_due_date'])) : 'N/A'; ?></td>
                     <td><?php echo $account['last_payment_date'] ? date('d/m/Y', strtotime($account['last_payment_date'])) : 'N/A'; ?></td>
+                    <td><?php echo ucfirst($account['status']); ?></td>
                     <td>
-                        <a href="<?php echo url('customer_accounts.php?action=view&id=' . $account['customer_id']); ?>" class="btn btn-sm btn-info">Ver Detalle</a>
+                        <a href="<?php echo url('customer_accounts.php?action=view&id=' . $account['account_id']); ?>" class="btn btn-sm btn-info">Ver Detalle</a>
                     </td>
                 </tr>
                 <?php endforeach; ?>

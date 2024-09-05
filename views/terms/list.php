@@ -1,6 +1,5 @@
 <div class="container mt-4">
     <h1 class="mb-4">Gestión de Términos y Condiciones</h1>
-    <a href="<?php echo url('manage_terms.php?action=create'); ?>" class="btn btn-primary mb-3">Crear Nuevos Términos</a>
     
     <table class="table table-striped">
         <thead>

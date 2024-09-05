@@ -1,7 +1,14 @@
 </main>
     <footer class="footer mt-auto py-3 bg-light">
         <div class="container">
-            <span class="text-muted">© <?php echo date('Y'); ?> <?php echo APP_NAME; ?>. Todos los derechos reservados.</span>
+            <div class="row">
+                <div class="col-md-6">
+                    <span class="text-muted">© <?php echo date('Y'); ?> <?php echo APP_NAME; ?>. Todos los derechos reservados.</span>
+                </div>
+                <div class="col-md-6 text-end">
+                    <a href="<?php echo url('term_cond.php'); ?>" class="text-muted">Términos y Condiciones</a>
+                </div>
+            </div>
         </div>
     </footer>
 

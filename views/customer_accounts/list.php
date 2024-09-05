@@ -1,37 +1,66 @@
+<?php
+// Asegúrate de que $accounts esté definido y sea un array
+if (!isset($accounts) || !is_array($accounts)) {
+    echo "Error: No se pueden cargar las cuentas de clientes.";
+    exit;
+}
+?>
+
 <div class="container mt-4">
-    <h1 class="mb-4">Cuentas de Clientes</h1>
-    
-    <table class="table table-striped" id="customerAccountsTable">
-        <thead>
-            <tr>
-                <th>Cliente</th>
-                <th>Total Ventas</th>
-                <th>Total Pagos</th>
-                <th>Saldo Pendiente</th>
-                <th>Última Venta</th>
-                <th>Último Pago</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($accounts as $account): ?>
-                <tr>
-                    <td><?php echo htmlspecialchars($account['name']); ?></td>
-                    <td><?php echo number_format($account['total_sales'], 2); ?> ARS</td>
-                    <td><?php echo number_format($account['total_payments'], 2); ?> ARS</td>
-                    <td><?php echo number_format($account['balance'], 2); ?> ARS</td>
-                    <td><?php echo $account['last_sale_date'] ? date('d/m/Y', strtotime($account['last_sale_date'])) : 'N/A'; ?></td>
-                    <td><?php echo $account['last_payment_date'] ? date('d/m/Y', strtotime($account['last_payment_date'])) : 'N/A'; ?></td>
-                    <td>
-                        <a href="<?php echo url('customer_accounts.php?action=view&id=' . $account['id']); ?>" class="btn btn-sm btn-info">Ver Detalle</a>
-                        <?php if ($account['balance'] > 0): ?>
-                            <button class="btn btn-sm btn-success realizar-pago" data-customer-id="<?php echo $account['id']; ?>" data-customer-name="<?php echo htmlspecialchars($account['name']); ?>" data-balance="<?php echo $account['balance']; ?>">Realizar Pago</button>
-                        <?php endif; ?>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+
+    <?php if (empty($accounts)): ?>
+        <div class="alert alert-info">No hay cuentas de clientes registradas.</div>
+    <?php else: ?>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover" id="customerAccountsTable">
+                <thead>
+                    <tr>
+                        <th>Cliente</th>
+                        <th>Monto Total</th>
+                        <th>Saldo Pendiente</th>
+                        <th>Cuotas Totales</th>
+                        <th>Cuotas Pendientes</th>
+                        <th>Próximo Vencimiento</th>
+                        <th>Último Pago</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($accounts as $account): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($account['customer_name']); ?></td>
+                            <td><?php echo number_format($account['total_amount'], 2); ?> ARS</td>
+                            <td><?php echo number_format($account['balance'], 2); ?> ARS</td>
+                            <td><?php echo $account['num_installments']; ?></td>
+                            <td><?php echo $account['pending_installments']; ?></td>
+                            <td><?php echo $account['next_due_date'] ? date('d/m/Y', strtotime($account['next_due_date'])) : 'N/A'; ?></td>
+                            <td><?php echo $account['last_payment_date'] ? date('d/m/Y', strtotime($account['last_payment_date'])) : 'N/A'; ?></td>
+                            <td><?php echo ucfirst($account['status']); ?></td>
+                            <td>
+                                <a href="<?php echo url('customer_accounts.php?action=view&id=' . $account['id']); ?>" class="btn btn-sm btn-info">
+                                    <i class="fas fa-eye"></i> Ver
+                                </a>
+                                <?php if (hasPermission('customer_accounts_edit')): ?>
+                                    <a href="<?php echo url('customer_accounts.php?action=edit&id=' . $account['id']); ?>" class="btn btn-sm btn-warning">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </a>
+                                <?php endif; ?>
+                                <?php if ($account['balance'] > 0): ?>
+                                    <button class="btn btn-sm btn-success register-payment" 
+                                            data-account-id="<?php echo $account['id']; ?>"
+                                            data-customer-id="<?php echo $account['customer_id']; ?>"
+                                            data-balance="<?php echo $account['balance']; ?>">
+                                        <i class="fas fa-money-bill-wave"></i> Registrar Pago
+                                    </button>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    <?php endif; ?>
 </div>
 
 <!-- Modal para registrar pago -->
@@ -44,22 +73,33 @@
             </div>
             <div class="modal-body">
                 <form id="paymentForm">
+                    <input type="hidden" id="accountId" name="account_id">
                     <input type="hidden" id="customerId" name="customer_id">
+                    <div class="mb-3">
+                        <label for="installmentSelect" class="form-label">Seleccionar Cuota</label>
+                        <select class="form-control" id="installmentSelect" name="installment_id" required>
+                            <!-- Las opciones se llenarán dinámicamente con JavaScript -->
+                        </select>
+                    </div>
                     <div class="mb-3">
                         <label for="paymentAmount" class="form-label">Monto del Pago</label>
                         <input type="number" class="form-control" id="paymentAmount" name="amount" step="0.01" required>
                     </div>
                     <div class="mb-3">
                         <label for="paymentMethod" class="form-label">Método de Pago</label>
-                        <select class="form-select" id="paymentMethod" name="payment_method" required>
+                        <select class="form-control" id="paymentMethod" name="payment_method" required>
                             <option value="efectivo">Efectivo</option>
-                            <option value="transferencia">Transferencia</option>
                             <option value="tarjeta">Tarjeta</option>
+                            <option value="transferencia">Transferencia</option>
                         </select>
                     </div>
                     <div class="mb-3">
+                        <label for="paymentDate" class="form-label">Fecha de Pago</label>
+                        <input type="date" class="form-control" id="paymentDate" name="payment_date" required>
+                    </div>
+                    <div class="mb-3">
                         <label for="paymentNotes" class="form-label">Notas</label>
-                        <textarea class="form-control" id="paymentNotes" name="notes" rows="3"></textarea>
+                        <textarea class="form-control" id="paymentNotes" name="notes"></textarea>
                     </div>
                 </form>
             </div>
@@ -77,66 +117,141 @@ $(document).ready(function() {
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json"
         },
-        "order": [[ 3, "desc" ]]
+        "order": [[ 5, "asc" ]]
     });
 
-    $('.realizar-pago').click(function() {
-        var customerId = $(this).data('customer-id');
-        var customerName = $(this).data('customer-name');
-        var balance = $(this).data('balance');
-        $('#customerId').val(customerId);
-        $('#paymentAmount').attr('max', balance);
-        $('#paymentModalLabel').text('Registrar Pago para ' + customerName);
-        $('#paymentModal').modal('show');
+    function loadPendingInstallments(accountId) {
+    $.ajax({
+        url: '<?php echo url("customer_accounts.php?ajax=1&action=get_pending_installments"); ?>',
+        method: 'GET',
+        data: { account_id: accountId },
+        dataType: 'json',
+        success: function(response) {
+            console.log("Respuesta del servidor:", response);
+            var select = $('#installmentSelect');
+            select.empty();
+            if (response.success && Array.isArray(response.data) && response.data.length > 0) {
+                $.each(response.data, function(index, installment) {
+                    select.append($('<option></option>')
+                        .attr('value', installment.id)
+                        .text('Cuota ' + installment.installment_number + ' - Vence: ' + installment.due_date + ' - Monto: $' + installment.amount)
+                        .data('amount', installment.amount)
+                    );
+                });
+            } else {
+                select.append($('<option></option>').text(response.message || 'No hay cuotas pendientes'));
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+    console.error("Error en la llamada AJAX:", textStatus, errorThrown);
+    console.log("Respuesta completa:", jqXHR.responseText);
+    alert('Error al procesar la solicitud: ' + jqXHR.responseText);
+}
+    });
+}
+
+    $('.register-payment').click(function() {
+    var accountId = $(this).data('account-id');
+    var customerId = $(this).data('customer-id');
+    var balance = $(this).data('balance');
+    $('#accountId').val(accountId);
+    $('#customerId').val(customerId);
+    $('#paymentAmount').attr('max', balance);
+    $('#paymentDate').val(new Date().toISOString().split('T')[0]);
+    loadPendingInstallments(accountId);
+    $('#paymentModal').modal('show');
+});
+
+    $('#installmentSelect').change(function() {
+        var selectedOption = $(this).find('option:selected');
+        var amount = selectedOption.data('amount');
+        $('#paymentAmount').val(amount);
     });
 
     $('#submitPayment').click(function() {
-        Swal.fire({
-            title: '¿Estás seguro?',
-            text: "¿Deseas registrar este pago?",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sí, registrar pago',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: '<?php echo url("customer_accounts.php?action=add_payment"); ?>',
-                    method: 'POST',
-                    data: $('#paymentForm').serialize(),
-                    dataType: 'json',
-                    success: function(response) {
-                        console.log('Respuesta del servidor:', response);
-                        if (response.success) {
-                            Swal.fire({
-                                title: '¡Éxito!',
-                                text: response.message,
-                                icon: 'success'
-                            }).then(() => {
-                                location.reload();
-                            });
-                        } else {
-                            Swal.fire({
-                                title: 'Error',
-                                text: response.message || 'Hubo un problema al procesar la solicitud.',
-                                icon: 'error'
-                            });
-                        }
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        console.error('Error AJAX:', textStatus, errorThrown);
-                        console.error('Respuesta del servidor:', jqXHR.responseText);
-                        Swal.fire({
-                            title: 'Error',
-                            text: 'Hubo un problema al procesar la solicitud. Por favor, inténtalo de nuevo.',
-                            icon: 'error'
-                        });
+    if (!$('#paymentForm')[0].checkValidity()) {
+        $('#paymentForm')[0].reportValidity();
+        return;
+    }
+
+    $.ajax({
+        url: '<?php echo url("customer_accounts.php?ajax=1&action=add_payment"); ?>',
+        method: 'POST',
+        data: $('#paymentForm').serialize(),
+        dataType: 'json',
+        success: function(response) {
+            if (response.success) {
+                Swal.fire({
+                    title: '¡Éxito!',
+                    text: response.message,
+                    icon: 'success',
+                    confirmButtonText: 'Imprimir Recibo'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Redirigir a la página de impresión del recibo
+                        window.open('<?php echo url("views/customer_accounts/payment_receipt.php?id="); ?>' + response.payment_id, '_blank');
                     }
+                    // Recargar la página actual
+                    location.reload();
+                });
+            } else {
+                Swal.fire({
+                    title: 'Error',
+                    text: response.message,
+                    icon: 'error',
+                    confirmButtonText: 'OK'
                 });
             }
-        });
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error("Error en la llamada AJAX:", textStatus, errorThrown);
+            Swal.fire({
+                title: 'Error',
+                text: 'Hubo un problema al procesar la solicitud. Por favor, intente de nuevo.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
     });
 });
+
+    // Inicializar tooltips de Bootstrap
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    });
+});
+
+// Función para aplicar cargos por mora
+function applyLateFees() {
+    if (confirm('¿Está seguro de que desea aplicar cargos por mora a todas las cuentas vencidas?')) {
+        $.ajax({
+            url: '<?php echo url("customer_accounts.php?action=apply_late_fees"); ?>',
+            method: 'POST',
+            dataType: 'json',
+            success: function(response) {
+                if (response.success) {
+                    alert(response.message);
+                    location.reload();
+                } else {
+                    alert('Error: ' + response.message);
+                }
+            },
+            error: function() {
+                alert('Error al procesar la solicitud');
+            }
+        });
+    }
+}
 </script>
+
+<?php if (hasPermission('customer_accounts_adjust')): ?>
+    <div class="mt-4">
+        <button onclick="applyLateFees()" class="btn btn-warning">
+            <i class="fas fa-exclamation-triangle"></i> Aplicar Cargos por Mora
+        </button>
+        <small class="text-muted ms-2">
+            Esto aplicará cargos por mora a todas las cuentas con cuotas vencidas.
+        </small>
+    </div>
+<?php endif; ?>

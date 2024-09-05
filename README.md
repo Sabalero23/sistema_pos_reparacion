@@ -1,189 +1,89 @@
-Sistema POS y Gestión de Órdenes de Trabajo
-Descripción General
-Este sistema es una solución integral para Punto de Venta (POS) y Gestión de Órdenes de Trabajo, diseñado para pequeñas y medianas empresas. Ofrece funcionalidades para manejar ventas, inventario, servicios de reparación, gestión de clientes, y mucho más.
-Características Principales
+# Sistema POS (Point of Sale)
 
+## Descripción
+Este sistema POS (Point of Sale) es una solución integral para la gestión de ventas, inventario, clientes y proveedores. Diseñado para pequeñas y medianas empresas, ofrece una interfaz intuitiva y funcionalidades robustas para optimizar las operaciones diarias de un negocio.
 
-Descripción Detallada
+## Características Principales
 
-1. Ventas y Compras
+- Gestión de usuarios con roles y permisos
+- Gestión de productos y categorías
+- Proceso de ventas y reservas
+- Gestión de clientes y proveedores
+- Gestión de inventario
+- Reportes básicos de ventas
+- Interfaz responsive basada en Bootstrap
 
-Ventas: Gestión de transacciones de venta, incluyendo creación, visualización, edición y cancelación.
-Presupuestos: Creación y gestión de presupuestos para clientes.
-Compras: Administración de compras a proveedores, incluyendo recepción de mercancía.
-Reservas: Sistema para manejar reservas de productos.
-Promociones: Creación y aplicación de promociones y descuentos.
+## Requisitos del Sistema
 
-2. Inventario
+- PHP 7.4 o superior
+- MySQL 5.7 o superior
+- Servidor web (Apache o Nginx recomendado)
+- Extensiones PHP: PDO, PDO_MySQL
+- Navegador web moderno (Chrome, Firefox, Safari, Edge)
 
-Productos: Gestión del catálogo de productos.
-Categorías: Organización de productos en categorías.
-Proveedores: Administración de información de proveedores.
-Control de Inventario: Seguimiento de stock, ajustes y movimientos.
+## Instalación
 
-3. Caja
+1. Clone el repositorio en su servidor web:
+   ```
+   git clone https://github.com/tu-usuario/sistema-pos.git
+   ```
 
-Gestión de Caja: Apertura, cierre y gestión de sesiones de caja.
-Movimientos de Caja: Registro de entradas y salidas de efectivo.
+2. Configure su servidor web para que apunte al directorio `public` como raíz del documento.
 
-4. Clientes
+3. Copie el archivo `config/config.example.php` a `config/config.php` y ajuste las configuraciones según su entorno:
+   ```php
+   define('DB_HOST', 'localhost');
+   define('DB_NAME', 'nombre_de_su_base_de_datos');
+   define('DB_USER', 'su_usuario');
+   define('DB_PASS', 'su_contraseña');
+   define('BASE_URL', 'http://su-dominio.com');
+   ```
 
-Gestión de Clientes: Mantenimiento de la base de datos de clientes.
-Cuentas de Clientes: Seguimiento de saldos y transacciones por cliente.
+4. Importe el esquema de la base de datos ejecutando el script SQL ubicado en `database/schema.sql`.
 
-5. Reparaciones y Servicios
+5. Acceda a la URL de su instalación y siga el asistente de configuración inicial para crear el usuario administrador.
 
-Órdenes de Servicio: Gestión de servicios de reparación.
-Visitas a Domicilio: Programación y seguimiento de visitas técnicas.
-Calendario: Vista general de servicios y visitas programadas.
+## Uso
 
-6. Reportes
+1. Acceda al sistema utilizando las credenciales del administrador creadas durante la instalación.
 
-Generación de informes diversos sobre ventas, inventario, etc.
+2. Comience configurando las categorías de productos, productos y proveedores.
 
-7. Usuarios y Roles
+3. Añada usuarios adicionales y asígneles roles según sea necesario.
 
-Gestión de Usuarios: Administración de cuentas de usuario del sistema.
-Roles y Permisos: Asignación de roles y permisos específicos.
+4. Utilice el módulo de ventas para procesar transacciones.
 
-8. Configuración
+5. Explore las diferentes funcionalidades del sistema a través del menú principal.
 
-Configuración General: Ajustes generales del sistema.
-Datos de la Empresa: Gestión de la información de la empresa.
-Copias de Seguridad: Creación y restauración de backups.
+## Estructura del Proyecto
 
-Desglose de Permisos por Categoría
-Usuarios
+- `public/`: Punto de entrada de la aplicación y assets públicos
+- `includes/`: Funciones y utilidades PHP
+- `views/`: Archivos de vistas PHP
+- `config/`: Archivos de configuración
+- `database/`: Scripts SQL y migraciones
+- `js/`: Scripts JavaScript del lado del cliente
 
-Ver, crear, editar y eliminar usuarios
+## Seguridad
 
-Productos
+- Asegúrese de mantener el archivo `config.php` fuera del acceso público.
+- Utilice siempre HTTPS en producción para proteger la transmisión de datos.
+- Actualice regularmente todas las dependencias y el propio sistema.
 
-Ver, crear, editar y eliminar productos
+## Contribución
 
-Categorías
+Si desea contribuir al proyecto, por favor:
 
-Ver, crear, editar y eliminar categorías
+1. Haga un fork del repositorio
+2. Cree una nueva rama para su característica (`git checkout -b feature/AmazingFeature`)
+3. Haga commit de sus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Haga push a la rama (`git push origin feature/AmazingFeature`)
+5. Abra un Pull Request
 
-Ventas
+## Soporte
 
-Ver, crear, editar y cancelar ventas
+Para reportar problemas o solicitar nuevas características, por favor abra un issue en el repositorio de GitHub.
 
-Presupuestos
+## Licencia
 
-Ver, crear, editar, eliminar y cambiar estado de presupuestos
-
-Caja Registradora
-
-Gestionar, abrir, cerrar y registrar movimientos de caja
-
-Proveedores
-
-Ver, crear, editar y eliminar proveedores
-
-Clientes
-
-Ver, crear, editar y eliminar clientes
-
-Cuentas de Clientes
-
-Ver y ajustar cuentas de clientes
-
-Pagos
-
-Ver, crear, editar y eliminar pagos
-
-Órdenes de Servicio
-
-Ver, crear, editar, eliminar y actualizar estado de órdenes de servicio
-
-Visitas a Domicilio
-
-Ver, crear, editar y eliminar visitas a domicilio
-Ver calendario
-
-Reportes
-
-Ver y generar reportes
-
-Roles y Permisos
-
-Gestionar roles y permisos
-
-Reservas
-
-Ver, crear, editar, eliminar, confirmar, cancelar y convertir reservas
-
-Promociones
-
-Ver, crear, editar, eliminar y aplicar promociones
-
-Inventario
-
-Ver, actualizar, ajustar, ver movimientos y ver stock bajo
-
-Compras
-
-Ver, crear, editar, eliminar, recibir y ver movimientos de compras
-
-Configuración del Sistema
-
-Ver y editar configuración, ver configuración de la empresa
-
-Auditoría
-
-Ver registros de auditoría
-
-Backup y Restauración
-
-Crear, restaurar, eliminar y descargar copias de seguridad
-
-
-Requisitos
-
-PHP 7.4 o superior
-MySQL 5.7 o superior
-Servidor web (Apache, Nginx, etc.)
-Extensiones de PHP: PDO, PDO_MySQL
-
-Instalación
-
-Clone el repositorio o descargue los archivos en su servidor web.
-Cree una base de datos MySQL para el sistema.
-Copie el archivo config/config.example.php a config/config.php y edite las siguientes constantes:
-
-DB_HOST: El host de su base de datos (generalmente 'localhost')
-DB_NAME: El nombre de la base de datos que creó
-DB_USER: El usuario de la base de datos
-DB_PASS: La contraseña del usuario de la base de datos
-BASE_URL: La URL base de su instalación (ej. 'https://sudominio.com')
-
-
-Acceda a https://sudominio.com/install.php para ejecutar el instalador.
-Siga las instrucciones en pantalla para completar la instalación.
-Una vez finalizada la instalación, elimine el archivo install.php por seguridad.
-
-Estructura de la base de datos
-El sistema utiliza las siguientes tablas principales:
-
-users: Almacena la información de los usuarios del sistema.
-products: Contiene el catálogo de productos.
-categories: Categorías de productos.
-sales: Registra las ventas realizadas.
-sale_items: Detalles de los productos incluidos en cada venta.
-customers: Información de los clientes.
-suppliers: Datos de los proveedores.
-inventory: Control de stock de productos.
-settings: Configuraciones generales del sistema.
-
-Uso
-Después de la instalación, puede acceder al sistema utilizando las siguientes credenciales por defecto:
-
-Email: admin@admin.com
-Contraseña: admin1234
-
-Importante: Cambie la contraseña inmediatamente después de su primer inicio de sesión.
-Soporte
-Si encuentra algún problema o tiene alguna pregunta, por favor abra un issue en el repositorio del proyecto o contacte al equipo de soporte en info@cellcomweb.com.ar.
-Licencia
-Este proyecto está licenciado bajo la Licencia MIT. Consulte el archivo LICENSE para más detalles.# sistema_pos_reparacion
+Este proyecto está licenciado bajo la Licencia MIT. Vea el archivo `LICENSE` para más detalles.

@@ -115,8 +115,13 @@ function deleteUser($userId) {
         $stmt = $pdo->prepare("DELETE FROM users WHERE id = ?");
         $stmt->execute([$userId]);
 
-        $pdo->commit();
-        return ['success' => true, 'message' => 'Usuario eliminado exitosamente'];
+        if ($stmt->rowCount() > 0) {
+            $pdo->commit();
+            return ['success' => true, 'message' => 'Usuario eliminado exitosamente'];
+        } else {
+            $pdo->rollBack();
+            return ['success' => false, 'message' => 'No se encontró el usuario para eliminar'];
+        }
     } catch (Exception $e) {
         $pdo->rollBack();
         return ['success' => false, 'message' => 'Error al eliminar usuario: ' . $e->getMessage()];

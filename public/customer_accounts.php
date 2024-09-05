@@ -1,9 +1,76 @@
 <?php
 require_once __DIR__ . '/../config/config.php';
+global $pdo;
 require_once ROOT_PATH . '/includes/auth.php';
 require_once ROOT_PATH . '/includes/roles.php';
 require_once ROOT_PATH . '/includes/customer_account_functions.php';
 
+// Manejo de solicitudes AJAX
+if (isset($_GET['ajax'])) {
+    header('Content-Type: application/json');
+    
+    if (!isLoggedIn() || !hasPermission('customer_accounts_view')) {
+        echo json_encode(['success' => false, 'message' => 'No tienes permiso para acceder a esta función.']);
+        exit;
+    }
+
+    $action = $_GET['action'] ?? '';
+
+    switch ($action) {
+        case 'get_pending_installments':
+    ob_start(); // Iniciamos el buffer de salida
+    header('Content-Type: application/json');
+    if (!hasPermission('customer_accounts_view')) {
+        echo json_encode(['success' => false, 'message' => 'No tienes permiso para ver las cuotas pendientes.']);
+        exit;
+    }
+    $accountId = $_GET['account_id'] ?? null;
+    if (!$accountId) {
+        echo json_encode(['success' => false, 'message' => 'ID de cuenta no proporcionado.']);
+        exit;
+    }
+    $result = getPendingInstallments($accountId);
+    $output = ob_get_clean(); // Capturamos cualquier salida inesperada
+    if (!empty($output)) {
+        error_log("Salida inesperada antes del JSON: " . $output);
+    }
+    echo json_encode($result);
+    exit;
+break;
+
+case 'add_payment':
+    ob_start();
+    header('Content-Type: application/json');
+    if (!hasPermission('customer_accounts_adjust')) {
+        echo json_encode(['success' => false, 'message' => 'No tienes permiso para registrar pagos.']);
+        exit;
+    }
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        global $pdo;
+        if (!isset($pdo) || !($pdo instanceof PDO)) {
+            error_log("Error: La conexión a la base de datos no es válida en add_payment");
+            echo json_encode(['success' => false, 'message' => 'Error de conexión a la base de datos']);
+            exit;
+        }
+        $result = addPayment($_POST);
+        $output = ob_get_clean();
+        if (!empty($output)) {
+            error_log("Salida inesperada antes del JSON en add_payment: " . $output);
+        }
+        echo json_encode($result);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Método no permitido.']);
+    }
+    exit;
+break;
+
+        default:
+            echo json_encode(['success' => false, 'message' => 'Acción no reconocida.']);
+            exit;
+    }
+}
+
+// Manejo de solicitudes normales (no AJAX)
 if (!isLoggedIn() || !hasPermission('customer_accounts_view')) {
     setFlashMessage("No tienes permiso para acceder a esta página.", 'warning');
     redirect('index.php');
@@ -11,68 +78,133 @@ if (!isLoggedIn() || !hasPermission('customer_accounts_view')) {
 }
 
 $action = $_GET['action'] ?? 'list';
-$customerId = $_GET['id'] ?? null;
+$accountId = $_GET['id'] ?? null;
+$customerId = $_GET['customer_id'] ?? null;
 
-// Solo incluir el header si no es una acción AJAX
-if ($action !== 'add_payment') {
-    $pageTitle = "Cuentas de Clientes";
-    require_once ROOT_PATH . '/includes/header.php';
-}
+$pageTitle = "Cuentas de Clientes";
+require_once ROOT_PATH . '/includes/header.php';
 
-try {
-    switch ($action) {
-        case 'list':
-            $accounts = getAllCustomerAccounts();
-            include ROOT_PATH . '/views/customer_accounts/list.php';
-            break;
+?>
 
-        case 'view':
-            if (!$customerId) {
-                throw new Exception("ID de cliente no proporcionado.");
-            }
-            $account = getCustomerAccount($customerId);
-            if (!$account) {
-                throw new Exception("Cuenta de cliente no encontrada.");
-            }
-            if ($account['name'] === 'Consumidor Final' || $account['total_sales'] == 0) {
-                throw new Exception("No se puede ver esta cuenta de cliente.");
-            }
-            $sales = getCustomerSales($customerId);
-            $payments = getPayments($customerId);
-            include ROOT_PATH . '/views/customer_accounts/view.php';
-            break;
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1><?php echo $pageTitle; ?></h1>
+        <?php if (hasPermission('customer_accounts_add')): ?>
+            <a href="<?php echo url('customer_accounts.php?action=add'); ?>" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Añadir Nueva Cuenta
+            </a>
+        <?php endif; ?>
+    </div>
 
-        case 'add_payment':
-            header('Content-Type: application/json');
-            if (!hasPermission('customer_accounts_adjust')) {
-                echo json_encode(['success' => false, 'message' => 'No tienes permiso para registrar pagos.']);
-                exit;
-            }
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $result = addPayment($_POST);
-                echo json_encode($result);
-            } else {
-                echo json_encode(['success' => false, 'message' => 'Método no permitido.']);
-            }
-            exit;
+    <?php
+    try {
+        switch ($action) {
+            case 'list':
+                $accounts = getAllCustomerAccounts();
+                if ($accounts === false) {
+                    setFlashMessage("Error al obtener las cuentas de clientes. Por favor, consulte el registro de errores.", 'error');
+                    $accounts = [];
+                }
+                include ROOT_PATH . '/views/customer_accounts/list.php';
+                break;
 
-        default:
-            redirect('customer_accounts.php');
-            exit;
+            case 'view':
+    if (!$accountId) {
+        throw new Exception("ID de cuenta no proporcionado.");
     }
-} catch (Exception $e) {
-    if ($action === 'add_payment') {
-        header('Content-Type: application/json');
-        echo json_encode(['success' => false, 'message' => $e->getMessage()]);
-    } else {
+    $account = getCustomerAccount($accountId);
+    if (!$account) {
+        throw new Exception("Cuenta de cliente no encontrada.");
+    }
+    include ROOT_PATH . '/views/customer_accounts/view.php';
+    break;
+
+            case 'add':
+                if (!hasPermission('customer_accounts_add')) {
+                    throw new Exception("No tienes permiso para añadir cuentas de clientes.");
+                }
+                $customers = getAllCustomers();
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    $result = addCustomerAccount($_POST);
+                    if ($result['success']) {
+                        setFlashMessage($result['message'], 'success');
+                        redirect('customer_accounts.php');
+                    } else {
+                        $error = $result['message'];
+                    }
+                }
+                include ROOT_PATH . '/views/customer_accounts/add_edit.php';
+                break;
+
+            case 'edit':
+                if (!hasPermission('customer_accounts_edit')) {
+                    throw new Exception("No tienes permiso para editar cuentas de clientes.");
+                }
+                if (!$accountId) {
+                    throw new Exception("ID de cuenta no proporcionado.");
+                }
+                $account = getCustomerAccount($accountId);
+                if (!$account) {
+                    throw new Exception("Cuenta de cliente no encontrada.");
+                }
+                $customers = getAllCustomers();
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    $result = updateCustomerAccount($accountId, $_POST);
+                    if ($result['success']) {
+                        setFlashMessage($result['message'], 'success');
+                        redirect('customer_accounts.php');
+                    } else {
+                        $error = $result['message'];
+                    }
+                }
+                include ROOT_PATH . '/views/customer_accounts/add_edit.php';
+                break;
+
+            case 'add_payment':
+    if (!hasPermission('customer_accounts_adjust')) {
+        echo json_encode(['success' => false, 'message' => 'No tienes permiso para registrar pagos.']);
+        exit;
+    }
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $result = addPayment($_POST);
+        echo json_encode($result);
+        exit;
+    }
+    break;
+            
+            case 'get_pending_installments':
+    ob_start(); // Iniciamos el buffer de salida
+    header('Content-Type: application/json');
+    if (!hasPermission('customer_accounts_view')) {
+        echo json_encode(['success' => false, 'message' => 'No tienes permiso para ver las cuotas pendientes.']);
+        exit;
+    }
+    $accountId = $_GET['account_id'] ?? null;
+    if (!$accountId) {
+        echo json_encode(['success' => false, 'message' => 'ID de cuenta no proporcionado.']);
+        exit;
+    }
+    $result = getPendingInstallments($accountId);
+    $output = ob_get_clean(); // Capturamos cualquier salida inesperada
+    if (!empty($output)) {
+        error_log("Salida inesperada antes del JSON: " . $output);
+    }
+    echo json_encode($result);
+    exit;
+break;
+            default:
+                redirect('customer_accounts.php');
+                exit;
+        }
+    } catch (Exception $e) {
         setFlashMessage($e->getMessage(), 'error');
         redirect('customer_accounts.php');
+        exit;
     }
-    exit;
-}
+    ?>
+</div>
 
-// Solo incluir el footer si no es una acción AJAX
-if ($action !== 'add_payment') {
-    require_once ROOT_PATH . '/includes/footer.php';
-}
+<?php
+require_once ROOT_PATH . '/includes/footer.php';
+
 ?>

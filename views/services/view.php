@@ -37,7 +37,7 @@ function formatPhoneForWhatsApp($phone) {
 $isClosed = $order['status'] === 'cerrado';
 
 // Preparar el mensaje de WhatsApp
-$whatsappMessage = urlencode("Hola " . $order['customer_name'] . ", su Orden de Trabajo se realizó con éxito. Puede pasar a retirar su Equipo. Puede hacer el Seguimiento desde aquí: " . url("seguimiento.php?order_number=" . $order['order_number']));
+$whatsappMessage = urlencode("Hola " . $order['customer_name'] . ", su Orden de trabajo finalizó con éxito. Puede pasar a retirar su Equipo. Puede ver el estado desde aquí: " . url("seguimiento.php?order_number=" . $order['order_number']));
 
 // Preparar el enlace de WhatsApp
 $whatsappLink = "https://wa.me/" . formatPhoneForWhatsApp($order['phone']) . "?text=" . $whatsappMessage;

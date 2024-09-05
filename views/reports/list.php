@@ -45,22 +45,6 @@
         <div class="col-md-4 mb-3">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Reporte de Inventario</h5>
-                    <p class="card-text">Muestra el estado actual del inventario y los movimientos recientes.</p>
-                    <form action="<?php echo url('reports.php?action=generate&type=inventory'); ?>" method="post">
-                        <div class="mb-3">
-                            <label for="inventory_days" class="form-label">Movimientos de los últimos días</label>
-                            <input type="number" class="form-control" id="inventory_days" name="days" value="30" min="1" max="365" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Generar Reporte</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-md-4 mb-3">
-            <div class="card">
-                <div class="card-body">
                     <h5 class="card-title">Reporte de Clientes</h5>
                     <p class="card-text">Analiza las compras de los clientes en un período específico.</p>
                     <form action="<?php echo url('reports.php?action=generate&type=customers'); ?>" method="post">
@@ -96,20 +80,8 @@
                     </form>
                 </div>
             </div>
-        </div>
-        
-        <div class="col-md-4 mb-3">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Reporte de Cuentas por Cobrar</h5>
-                    <p class="card-text">Muestra el estado actual de las cuentas por cobrar de los clientes.</p>
-                    <form action="<?php echo url('reports.php?action=generate&type=accounts_receivable'); ?>" method="post">
-                        <button type="submit" class="btn btn-primary">Generar Reporte</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-        
+        </div>        
+               
         <div class="col-md-4 mb-3">
             <div class="card">
                 <div class="card-body">
@@ -124,6 +96,54 @@
                             <label for="services_end_date" class="form-label">Fecha de fin</label>
                             <input type="date" class="form-control" id="services_end_date" name="end_date" required>
                         </div>
+                        <button type="submit" class="btn btn-primary">Generar Reporte</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Reporte de Ganancias</h5>
+            <p class="card-text">Genera un reporte de ganancias para un período específico.</p>
+            <form action="<?php echo url('reports.php?action=generate&type=profit'); ?>" method="post">
+    <div class="mb-3">
+        <label for="profit_start_date" class="form-label">Fecha de inicio</label>
+        <input type="date" class="form-control" id="profit_start_date" name="start_date">
+    </div>
+    <div class="mb-3">
+        <label for="profit_end_date" class="form-label">Fecha de fin</label>
+        <input type="date" class="form-control" id="profit_end_date" name="end_date">
+    </div>
+    <button type="submit" class="btn btn-primary">Generar Reporte</button>
+</form>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Reporte de Inventario</h5>
+                    <p class="card-text">Muestra el estado actual del inventario y los movimientos recientes.</p>
+                    <form action="<?php echo url('reports.php?action=generate&type=inventory'); ?>" method="post">
+                        <div class="mb-3">
+                            <label for="inventory_days" class="form-label">Movimientos de los últimos días</label>
+                            <input type="number" class="form-control" id="inventory_days" name="days" value="30" min="1" max="365" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Generar Reporte</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+<div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Reporte de Cuentas por Cobrar</h5>
+                    <p class="card-text">Muestra el estado actual de las cuentas por cobrar de los clientes.</p>
+                    <form action="<?php echo url('reports.php?action=generate&type=accounts_receivable'); ?>" method="post">
                         <button type="submit" class="btn btn-primary">Generar Reporte</button>
                     </form>
                 </div>
