@@ -25,6 +25,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Solicitar la Base de datos al Whatsapp. wa.me/5493482549555`
+-- Solicitar la Base de datos al Whatsapp. https://wa.me/5493482549555`
 --
 
