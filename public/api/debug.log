@@ -540,3 +540,358 @@
 2024-09-05 00:03:14 - JSON encoded successfully
 2024-09-05 00:03:14 - Final output: []
 2024-09-05 00:03:14 - Script ended
+2024-09-06 19:50:10 - Script started
+2024-09-06 19:50:10 - Required files loaded
+2024-09-06 19:50:10 - Getting home visits
+2024-09-06 19:50:10 - Raw visits data: Array
+(
+)
+
+2024-09-06 19:50:10 - Events array created
+2024-09-06 19:50:10 - JSON encoded successfully
+2024-09-06 19:50:10 - Final output: []
+2024-09-06 19:50:10 - Script ended
+2024-09-06 19:50:12 - Script started
+2024-09-06 19:50:12 - Required files loaded
+2024-09-06 19:50:12 - Getting home visits
+2024-09-06 19:50:12 - Raw visits data: Array
+(
+)
+
+2024-09-06 19:50:12 - Events array created
+2024-09-06 19:50:12 - JSON encoded successfully
+2024-09-06 19:50:12 - Final output: []
+2024-09-06 19:50:12 - Script ended
+2024-09-07 18:30:53 - Script started
+2024-09-07 18:30:53 - Required files loaded
+2024-09-07 18:30:53 - Getting home visits
+2024-09-07 18:30:53 - Raw visits data: Array
+(
+)
+
+2024-09-07 18:30:53 - Events array created
+2024-09-07 18:30:53 - JSON encoded successfully
+2024-09-07 18:30:53 - Final output: []
+2024-09-07 18:30:53 - Script ended
+2024-09-07 23:24:29 - Script started
+2024-09-07 23:24:29 - Required files loaded
+2024-09-07 23:24:29 - Getting home visits
+2024-09-07 23:24:29 - Raw visits data: Array
+(
+)
+
+2024-09-07 23:24:29 - Events array created
+2024-09-07 23:24:29 - JSON encoded successfully
+2024-09-07 23:24:29 - Final output: []
+2024-09-07 23:24:29 - Script ended
+2024-09-08 03:03:26 - Script started
+2024-09-08 03:03:27 - Required files loaded
+2024-09-08 03:03:27 - Getting home visits
+2024-09-08 03:03:27 - Raw visits data: Array
+(
+    [0] => Array
+        (
+            [id] => 1
+            [customer_id] => 6
+            [visit_date] => 2024-09-09
+            [visit_time] => 14:30:00
+            [notes] => Revisar DVR y Cámaras Hikvision
+            [status] => programada
+            [created_at] => 2024-09-08 03:02:33
+            [updated_at] => 2024-09-08 03:03:11
+            [customer_name] => Rodriguez Claudia
+        )
+
+)
+
+2024-09-08 03:03:27 - Events array created
+2024-09-08 03:03:27 - JSON encoded successfully
+2024-09-08 03:03:27 - Final output: [
+    {
+        "title": "Rodriguez Claudia",
+        "start": "2024-09-09T14:30:00",
+        "url": "https:\/\/taller.cellcomweb.com.ar\/public\/home_visits.php?action=view&id=1"
+    }
+]
+2024-09-08 03:03:27 - Script ended
+2024-09-08 03:03:43 - Script started
+2024-09-08 03:03:43 - Required files loaded
+2024-09-08 03:03:43 - Getting home visits
+2024-09-08 03:03:43 - Raw visits data: Array
+(
+    [0] => Array
+        (
+            [id] => 1
+            [customer_id] => 6
+            [visit_date] => 2024-09-09
+            [visit_time] => 14:30:00
+            [notes] => Revisar DVR y Cámaras Hikvision
+            [status] => programada
+            [created_at] => 2024-09-08 03:02:33
+            [updated_at] => 2024-09-08 03:03:11
+            [customer_name] => Rodriguez Claudia
+        )
+
+)
+
+2024-09-08 03:03:43 - Events array created
+2024-09-08 03:03:43 - JSON encoded successfully
+2024-09-08 03:03:43 - Final output: [
+    {
+        "title": "Rodriguez Claudia",
+        "start": "2024-09-09T14:30:00",
+        "url": "https:\/\/taller.cellcomweb.com.ar\/public\/home_visits.php?action=view&id=1"
+    }
+]
+2024-09-08 03:03:43 - Script ended
+2024-09-08 03:04:30 - Script started
+2024-09-08 03:04:30 - Required files loaded
+2024-09-08 03:04:30 - Getting home visits
+2024-09-08 03:04:30 - Raw visits data: Array
+(
+    [0] => Array
+        (
+            [id] => 1
+            [customer_id] => 6
+            [visit_date] => 2024-09-09
+            [visit_time] => 14:30:00
+            [notes] => Revisar DVR y Cámaras Hikvision
+            [status] => programada
+            [created_at] => 2024-09-08 03:02:33
+            [updated_at] => 2024-09-08 03:03:11
+            [customer_name] => Rodriguez Claudia
+        )
+
+)
+
+2024-09-08 03:04:30 - Events array created
+2024-09-08 03:04:30 - JSON encoded successfully
+2024-09-08 03:04:30 - Final output: [
+    {
+        "title": "Rodriguez Claudia",
+        "start": "2024-09-09T14:30:00",
+        "url": "https:\/\/taller.cellcomweb.com.ar\/public\/home_visits.php?action=view&id=1"
+    }
+]
+2024-09-08 03:04:30 - Script ended
+2024-09-08 12:46:42 - Script started
+2024-09-08 12:46:42 - Required files loaded
+2024-09-08 12:46:42 - Getting home visits
+2024-09-08 12:46:42 - Raw visits data: Array
+(
+    [0] => Array
+        (
+            [id] => 1
+            [customer_id] => 6
+            [visit_date] => 2024-09-09
+            [visit_time] => 14:30:00
+            [notes] => Revisar DVR y Cámaras Hikvision
+            [status] => programada
+            [created_at] => 2024-09-08 03:02:33
+            [updated_at] => 2024-09-08 03:03:11
+            [customer_name] => Rodriguez Claudia
+        )
+
+)
+
+2024-09-08 12:46:42 - Events array created
+2024-09-08 12:46:42 - JSON encoded successfully
+2024-09-08 12:46:42 - Final output: [
+    {
+        "title": "Rodriguez Claudia",
+        "start": "2024-09-09T14:30:00",
+        "url": "https:\/\/taller.cellcomweb.com.ar\/public\/home_visits.php?action=view&id=1"
+    }
+]
+2024-09-08 12:46:42 - Script ended
+2024-09-08 13:03:45 - Script started
+2024-09-08 13:03:45 - Required files loaded
+2024-09-08 13:03:45 - Getting home visits
+2024-09-08 13:03:45 - Raw visits data: Array
+(
+    [0] => Array
+        (
+            [id] => 1
+            [customer_id] => 6
+            [visit_date] => 2024-09-09
+            [visit_time] => 14:30:00
+            [notes] => Revisar DVR y Cámaras Hikvision
+            [status] => programada
+            [created_at] => 2024-09-08 03:02:33
+            [updated_at] => 2024-09-08 03:03:11
+            [customer_name] => Rodriguez Claudia
+            [customer_phone] => 543482628711
+        )
+
+)
+
+2024-09-08 13:03:45 - Events array created
+2024-09-08 13:03:45 - JSON encoded successfully
+2024-09-08 13:03:45 - Final output: [
+    {
+        "title": "Rodriguez Claudia",
+        "start": "2024-09-09T14:30:00",
+        "url": "https:\/\/taller.cellcomweb.com.ar\/public\/home_visits.php?action=view&id=1"
+    }
+]
+2024-09-08 13:03:45 - Script ended
+2024-09-08 13:17:19 - Script started
+2024-09-08 13:17:19 - Required files loaded
+2024-09-08 13:17:19 - Getting home visits
+2024-09-08 13:17:19 - Raw visits data: Array
+(
+    [0] => Array
+        (
+            [id] => 1
+            [customer_id] => 6
+            [visit_date] => 2024-09-09
+            [visit_time] => 14:30:00
+            [notes] => Revisar Cámaras y DVR Hikvision, ver si ya se puede moder de lugar el Domo
+            [status] => programada
+            [created_at] => 2024-09-08 13:17:13
+            [updated_at] => 2024-09-08 13:17:13
+            [access_token] => 42540b8c806e9c444d3a5a2fe908054fb6db967d579c9fd4c7f2e96c81a5d593
+            [customer_name] => Rodriguez Claudia
+            [customer_phone] => 543482628711
+        )
+
+)
+
+2024-09-08 13:17:19 - Events array created
+2024-09-08 13:17:19 - JSON encoded successfully
+2024-09-08 13:17:19 - Final output: [
+    {
+        "title": "Rodriguez Claudia",
+        "start": "2024-09-09T14:30:00",
+        "url": "https:\/\/taller.cellcomweb.com.ar\/public\/home_visits.php?action=view&id=1"
+    }
+]
+2024-09-08 13:17:19 - Script ended
+2024-09-08 13:18:31 - Script started
+2024-09-08 13:18:31 - Required files loaded
+2024-09-08 13:18:31 - Getting home visits
+2024-09-08 13:18:31 - Raw visits data: Array
+(
+    [0] => Array
+        (
+            [id] => 1
+            [customer_id] => 6
+            [visit_date] => 2024-09-09
+            [visit_time] => 14:30:00
+            [notes] => Revisar Cámaras y DVR Hikvision, ver si ya se puede moder de lugar el Domo
+            [status] => programada
+            [created_at] => 2024-09-08 13:17:13
+            [updated_at] => 2024-09-08 13:17:13
+            [access_token] => 42540b8c806e9c444d3a5a2fe908054fb6db967d579c9fd4c7f2e96c81a5d593
+            [customer_name] => Rodriguez Claudia
+            [customer_phone] => 543482628711
+        )
+
+)
+
+2024-09-08 13:18:31 - Events array created
+2024-09-08 13:18:31 - JSON encoded successfully
+2024-09-08 13:18:31 - Final output: [
+    {
+        "title": "Rodriguez Claudia",
+        "start": "2024-09-09T14:30:00",
+        "url": "https:\/\/taller.cellcomweb.com.ar\/public\/home_visits.php?action=view&id=1"
+    }
+]
+2024-09-08 13:18:31 - Script ended
+2024-09-08 13:20:10 - Script started
+2024-09-08 13:20:10 - Required files loaded
+2024-09-08 13:20:10 - Getting home visits
+2024-09-08 13:20:10 - Raw visits data: Array
+(
+    [0] => Array
+        (
+            [id] => 1
+            [customer_id] => 6
+            [visit_date] => 2024-09-09
+            [visit_time] => 14:30:00
+            [notes] => Revisar Cámaras y DVR Hikvision, ver si ya se puede moder de lugar el Domo
+            [status] => programada
+            [created_at] => 2024-09-08 13:17:13
+            [updated_at] => 2024-09-08 13:17:13
+            [access_token] => 42540b8c806e9c444d3a5a2fe908054fb6db967d579c9fd4c7f2e96c81a5d593
+            [customer_name] => Rodriguez Claudia
+            [customer_phone] => 543482628711
+        )
+
+)
+
+2024-09-08 13:20:10 - Events array created
+2024-09-08 13:20:10 - JSON encoded successfully
+2024-09-08 13:20:10 - Final output: [
+    {
+        "title": "Rodriguez Claudia",
+        "start": "2024-09-09T14:30:00",
+        "url": "https:\/\/taller.cellcomweb.com.ar\/public\/home_visits.php?action=view&id=1"
+    }
+]
+2024-09-08 13:20:10 - Script ended
+2024-09-08 13:20:28 - Script started
+2024-09-08 13:20:28 - Required files loaded
+2024-09-08 13:20:28 - Getting home visits
+2024-09-08 13:20:28 - Raw visits data: Array
+(
+    [0] => Array
+        (
+            [id] => 1
+            [customer_id] => 6
+            [visit_date] => 2024-09-09
+            [visit_time] => 14:30:00
+            [notes] => Revisar Cámaras y DVR Hikvision, ver si ya se puede moder de lugar el Domo
+            [status] => programada
+            [created_at] => 2024-09-08 13:17:13
+            [updated_at] => 2024-09-08 13:17:13
+            [access_token] => 42540b8c806e9c444d3a5a2fe908054fb6db967d579c9fd4c7f2e96c81a5d593
+            [customer_name] => Rodriguez Claudia
+            [customer_phone] => 93482628711
+        )
+
+)
+
+2024-09-08 13:20:28 - Events array created
+2024-09-08 13:20:28 - JSON encoded successfully
+2024-09-08 13:20:28 - Final output: [
+    {
+        "title": "Rodriguez Claudia",
+        "start": "2024-09-09T14:30:00",
+        "url": "https:\/\/taller.cellcomweb.com.ar\/public\/home_visits.php?action=view&id=1"
+    }
+]
+2024-09-08 13:20:28 - Script ended
+2024-09-08 13:48:03 - Script started
+2024-09-08 13:48:03 - Required files loaded
+2024-09-08 13:48:03 - Getting home visits
+2024-09-08 13:48:03 - Raw visits data: Array
+(
+    [0] => Array
+        (
+            [id] => 1
+            [customer_id] => 6
+            [visit_date] => 2024-09-09
+            [visit_time] => 14:30:00
+            [notes] => Revisar Cámaras y DVR Hikvision, ver si ya se puede moder de lugar el Domo
+            [status] => programada
+            [created_at] => 2024-09-08 13:17:13
+            [updated_at] => 2024-09-08 13:17:13
+            [access_token] => 42540b8c806e9c444d3a5a2fe908054fb6db967d579c9fd4c7f2e96c81a5d593
+            [customer_name] => Rodriguez Claudia
+            [customer_phone] => 93482628711
+        )
+
+)
+
+2024-09-08 13:48:03 - Events array created
+2024-09-08 13:48:03 - JSON encoded successfully
+2024-09-08 13:48:03 - Final output: [
+    {
+        "title": "Rodriguez Claudia",
+        "start": "2024-09-09T14:30:00",
+        "url": "https:\/\/taller.cellcomweb.com.ar\/public\/home_visits.php?action=view&id=1"
+    }
+]
+2024-09-08 13:48:03 - Script ended

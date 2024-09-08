@@ -2276,3 +2276,282 @@
 [04-Sep-2024 19:41:53 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name, price, stock_quantity FROM products WHERE name LIKE :term OR description LIKE :term OR sku LIKE :term LIMIT 20
 [04-Sep-2024 19:41:53 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 3
 [04-Sep-2024 19:42:42 America/Argentina/Buenos_Aires] Venta creada exitosamente. ID: 108
+[05-Sep-2024 11:35:03 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: consum, Tipo: customer
+[05-Sep-2024 11:35:03 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM customers WHERE name LIKE :term LIMIT 20
+[05-Sep-2024 11:35:03 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[05-Sep-2024 11:35:08 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: g, Tipo: product
+[05-Sep-2024 11:35:08 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name, price, stock_quantity FROM products WHERE name LIKE :term OR description LIKE :term OR sku LIKE :term LIMIT 20
+[05-Sep-2024 11:35:08 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 20
+[05-Sep-2024 11:35:08 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: glas, Tipo: product
+[05-Sep-2024 11:35:08 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name, price, stock_quantity FROM products WHERE name LIKE :term OR description LIKE :term OR sku LIKE :term LIMIT 20
+[05-Sep-2024 11:35:08 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[05-Sep-2024 11:35:28 America/Argentina/Buenos_Aires] Venta creada exitosamente. ID: 109
+[05-Sep-2024 16:33:17 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: consu, Tipo: customer
+[05-Sep-2024 16:33:17 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM customers WHERE name LIKE :term LIMIT 20
+[05-Sep-2024 16:33:17 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[05-Sep-2024 16:33:21 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: asis, Tipo: product
+[05-Sep-2024 16:33:21 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name, price, stock_quantity FROM products WHERE name LIKE :term OR description LIKE :term OR sku LIKE :term LIMIT 20
+[05-Sep-2024 16:33:21 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 2
+[05-Sep-2024 16:33:32 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: godoy, Tipo: customer
+[05-Sep-2024 16:33:32 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM customers WHERE name LIKE :term LIMIT 20
+[05-Sep-2024 16:33:32 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[05-Sep-2024 16:33:38 America/Argentina/Buenos_Aires] Venta creada exitosamente. ID: 110
+[05-Sep-2024 20:03:47 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: C, Tipo: customer
+[05-Sep-2024 20:03:47 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM customers WHERE name LIKE :term LIMIT 20
+[05-Sep-2024 20:03:47 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 19
+[05-Sep-2024 20:03:52 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: Asis, Tipo: product
+[05-Sep-2024 20:03:52 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name, price, stock_quantity FROM products WHERE name LIKE :term OR description LIKE :term OR sku LIKE :term LIMIT 20
+[05-Sep-2024 20:03:52 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 2
+[05-Sep-2024 20:04:03 America/Argentina/Buenos_Aires] Venta creada exitosamente. ID: 111
+[06-Sep-2024 09:40:26 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: gallar, Tipo: customer
+[06-Sep-2024 09:40:26 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM customers WHERE name LIKE :term LIMIT 20
+[06-Sep-2024 09:40:26 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[06-Sep-2024 09:40:35 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: domo, Tipo: product
+[06-Sep-2024 09:40:35 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name, price, stock_quantity FROM products WHERE name LIKE :term OR description LIKE :term OR sku LIKE :term LIMIT 20
+[06-Sep-2024 09:40:35 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[06-Sep-2024 09:41:14 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: micro, Tipo: product
+[06-Sep-2024 09:41:14 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name, price, stock_quantity FROM products WHERE name LIKE :term OR description LIKE :term OR sku LIKE :term LIMIT 20
+[06-Sep-2024 09:41:14 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[06-Sep-2024 09:41:14 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: microsd, Tipo: product
+[06-Sep-2024 09:41:14 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name, price, stock_quantity FROM products WHERE name LIKE :term OR description LIKE :term OR sku LIKE :term LIMIT 20
+[06-Sep-2024 09:41:14 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 0
+[06-Sep-2024 09:41:14 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: micro, Tipo: product
+[06-Sep-2024 09:41:14 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name, price, stock_quantity FROM products WHERE name LIKE :term OR description LIKE :term OR sku LIKE :term LIMIT 20
+[06-Sep-2024 09:41:14 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[06-Sep-2024 09:41:15 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: mi, Tipo: product
+[06-Sep-2024 09:41:15 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name, price, stock_quantity FROM products WHERE name LIKE :term OR description LIKE :term OR sku LIKE :term LIMIT 20
+[06-Sep-2024 09:41:15 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 3
+[06-Sep-2024 09:41:16 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: F4 Se&ntilde;al C, Tipo: product
+[06-Sep-2024 09:41:16 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name, price, stock_quantity FROM products WHERE name LIKE :term OR description LIKE :term OR sku LIKE :term LIMIT 20
+[06-Sep-2024 09:41:16 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 0
+[06-Sep-2024 09:41:16 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: F4 Se&ntilde;al , Tipo: product
+[06-Sep-2024 09:41:16 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name, price, stock_quantity FROM products WHERE name LIKE :term OR description LIKE :term OR sku LIKE :term LIMIT 20
+[06-Sep-2024 09:41:16 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 0
+[06-Sep-2024 09:41:18 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: sd, Tipo: product
+[06-Sep-2024 09:41:18 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name, price, stock_quantity FROM products WHERE name LIKE :term OR description LIKE :term OR sku LIKE :term LIMIT 20
+[06-Sep-2024 09:41:18 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[06-Sep-2024 09:42:35 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: cell, Tipo: customer
+[06-Sep-2024 09:42:35 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM customers WHERE name LIKE :term LIMIT 20
+[06-Sep-2024 09:42:35 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 0
+[06-Sep-2024 09:42:37 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: gallar, Tipo: customer
+[06-Sep-2024 09:42:37 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM customers WHERE name LIKE :term LIMIT 20
+[06-Sep-2024 09:42:37 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[06-Sep-2024 09:42:41 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: do, Tipo: product
+[06-Sep-2024 09:42:41 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name, price, stock_quantity FROM products WHERE name LIKE :term OR description LIKE :term OR sku LIKE :term LIMIT 20
+[06-Sep-2024 09:42:41 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 19
+[06-Sep-2024 09:42:41 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: doom, Tipo: product
+[06-Sep-2024 09:42:41 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name, price, stock_quantity FROM products WHERE name LIKE :term OR description LIKE :term OR sku LIKE :term LIMIT 20
+[06-Sep-2024 09:42:41 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 0
+[06-Sep-2024 09:42:42 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: domo, Tipo: product
+[06-Sep-2024 09:42:42 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name, price, stock_quantity FROM products WHERE name LIKE :term OR description LIKE :term OR sku LIKE :term LIMIT 20
+[06-Sep-2024 09:42:42 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[06-Sep-2024 09:42:51 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: domo, Tipo: product
+[06-Sep-2024 09:42:51 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name, price, stock_quantity FROM products WHERE name LIKE :term OR description LIKE :term OR sku LIKE :term LIMIT 20
+[06-Sep-2024 09:42:51 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[06-Sep-2024 09:42:55 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: do, Tipo: product
+[06-Sep-2024 09:42:55 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name, price, stock_quantity FROM products WHERE name LIKE :term OR description LIKE :term OR sku LIKE :term LIMIT 20
+[06-Sep-2024 09:42:55 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 19
+[06-Sep-2024 09:42:56 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: dom, Tipo: product
+[06-Sep-2024 09:42:56 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name, price, stock_quantity FROM products WHERE name LIKE :term OR description LIKE :term OR sku LIKE :term LIMIT 20
+[06-Sep-2024 09:42:56 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[06-Sep-2024 09:42:57 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: domo, Tipo: product
+[06-Sep-2024 09:42:57 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name, price, stock_quantity FROM products WHERE name LIKE :term OR description LIKE :term OR sku LIKE :term LIMIT 20
+[06-Sep-2024 09:42:57 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[06-Sep-2024 09:43:08 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: sd, Tipo: product
+[06-Sep-2024 09:43:08 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name, price, stock_quantity FROM products WHERE name LIKE :term OR description LIKE :term OR sku LIKE :term LIMIT 20
+[06-Sep-2024 09:43:08 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[06-Sep-2024 12:59:44 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: Cel, Tipo: supplier
+[06-Sep-2024 12:59:44 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM suppliers WHERE name LIKE :term LIMIT 20
+[06-Sep-2024 12:59:44 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 3
+[06-Sep-2024 12:59:55 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: Celu, Tipo: supplier
+[06-Sep-2024 12:59:55 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM suppliers WHERE name LIKE :term LIMIT 20
+[06-Sep-2024 12:59:55 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[06-Sep-2024 12:59:55 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: Celuce, Tipo: supplier
+[06-Sep-2024 12:59:55 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM suppliers WHERE name LIKE :term LIMIT 20
+[06-Sep-2024 12:59:55 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[06-Sep-2024 12:59:55 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: Celuc, Tipo: supplier
+[06-Sep-2024 12:59:55 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM suppliers WHERE name LIKE :term LIMIT 20
+[06-Sep-2024 12:59:55 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[06-Sep-2024 13:02:06 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: Ce, Tipo: supplier
+[06-Sep-2024 13:02:06 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM suppliers WHERE name LIKE :term LIMIT 20
+[06-Sep-2024 13:02:06 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 3
+[06-Sep-2024 13:02:07 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: Cel, Tipo: supplier
+[06-Sep-2024 13:02:07 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM suppliers WHERE name LIKE :term LIMIT 20
+[06-Sep-2024 13:02:07 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 3
+[06-Sep-2024 13:02:08 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: Celu, Tipo: supplier
+[06-Sep-2024 13:02:08 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM suppliers WHERE name LIKE :term LIMIT 20
+[06-Sep-2024 13:02:08 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[06-Sep-2024 13:02:13 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: Celuc, Tipo: supplier
+[06-Sep-2024 13:02:13 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM suppliers WHERE name LIKE :term LIMIT 20
+[06-Sep-2024 13:02:13 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[06-Sep-2024 13:02:18 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: Celucc, Tipo: supplier
+[06-Sep-2024 13:02:18 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM suppliers WHERE name LIKE :term LIMIT 20
+[06-Sep-2024 13:02:18 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 0
+[06-Sep-2024 13:02:19 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: Celucce, Tipo: supplier
+[06-Sep-2024 13:02:19 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM suppliers WHERE name LIKE :term LIMIT 20
+[06-Sep-2024 13:02:19 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 0
+[06-Sep-2024 13:02:20 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: Celuce, Tipo: supplier
+[06-Sep-2024 13:02:20 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM suppliers WHERE name LIKE :term LIMIT 20
+[06-Sep-2024 13:02:20 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[06-Sep-2024 13:03:01 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: C, Tipo: supplier
+[06-Sep-2024 13:03:01 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM suppliers WHERE name LIKE :term LIMIT 20
+[06-Sep-2024 13:03:01 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 7
+[06-Sep-2024 13:03:02 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: Ce, Tipo: supplier
+[06-Sep-2024 13:03:02 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM suppliers WHERE name LIKE :term LIMIT 20
+[06-Sep-2024 13:03:02 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 3
+[06-Sep-2024 13:03:08 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: Domo, Tipo: product
+[06-Sep-2024 13:03:08 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name, price, stock_quantity FROM products WHERE name LIKE :term OR description LIKE :term OR sku LIKE :term LIMIT 20
+[06-Sep-2024 13:03:08 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[06-Sep-2024 13:03:17 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: Sd, Tipo: product
+[06-Sep-2024 13:03:17 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name, price, stock_quantity FROM products WHERE name LIKE :term OR description LIKE :term OR sku LIKE :term LIMIT 20
+[06-Sep-2024 13:03:17 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[06-Sep-2024 13:20:37 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: C, Tipo: supplier
+[06-Sep-2024 13:20:37 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM suppliers WHERE name LIKE :term LIMIT 20
+[06-Sep-2024 13:20:37 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 7
+[06-Sep-2024 13:20:37 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: Ce, Tipo: supplier
+[06-Sep-2024 13:20:37 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM suppliers WHERE name LIKE :term LIMIT 20
+[06-Sep-2024 13:20:37 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 3
+[06-Sep-2024 13:20:46 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: Cel, Tipo: supplier
+[06-Sep-2024 13:20:46 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM suppliers WHERE name LIKE :term LIMIT 20
+[06-Sep-2024 13:20:46 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 3
+[06-Sep-2024 13:20:46 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: Celu, Tipo: supplier
+[06-Sep-2024 13:20:46 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM suppliers WHERE name LIKE :term LIMIT 20
+[06-Sep-2024 13:20:46 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[06-Sep-2024 13:20:51 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: X, Tipo: product
+[06-Sep-2024 13:20:51 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name, price, stock_quantity FROM products WHERE name LIKE :term OR description LIKE :term OR sku LIKE :term LIMIT 20
+[06-Sep-2024 13:20:51 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 10
+[06-Sep-2024 13:20:52 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: Xiaom, Tipo: product
+[06-Sep-2024 13:20:52 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name, price, stock_quantity FROM products WHERE name LIKE :term OR description LIKE :term OR sku LIKE :term LIMIT 20
+[06-Sep-2024 13:20:52 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[06-Sep-2024 17:20:04 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: Consum, Tipo: customer
+[06-Sep-2024 17:20:04 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM customers WHERE name LIKE :term LIMIT 20
+[06-Sep-2024 17:20:04 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[06-Sep-2024 17:20:08 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: and, Tipo: product
+[06-Sep-2024 17:20:08 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name, price, stock_quantity FROM products WHERE name LIKE :term OR description LIKE :term OR sku LIKE :term LIMIT 20
+[06-Sep-2024 17:20:08 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 2
+[06-Sep-2024 17:20:15 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: asis, Tipo: product
+[06-Sep-2024 17:20:15 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name, price, stock_quantity FROM products WHERE name LIKE :term OR description LIKE :term OR sku LIKE :term LIMIT 20
+[06-Sep-2024 17:20:15 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 2
+[06-Sep-2024 17:20:25 America/Argentina/Buenos_Aires] Venta creada exitosamente. ID: 113
+[06-Sep-2024 17:27:35 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: P, Tipo: customer
+[06-Sep-2024 17:27:35 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM customers WHERE name LIKE :term LIMIT 20
+[06-Sep-2024 17:27:35 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 6
+[06-Sep-2024 17:27:36 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: Pereyra, Tipo: customer
+[06-Sep-2024 17:27:36 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM customers WHERE name LIKE :term LIMIT 20
+[06-Sep-2024 17:27:36 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[06-Sep-2024 17:27:40 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: cambio, Tipo: product
+[06-Sep-2024 17:27:40 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name, price, stock_quantity FROM products WHERE name LIKE :term OR description LIKE :term OR sku LIKE :term LIMIT 20
+[06-Sep-2024 17:27:40 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 4
+[06-Sep-2024 17:27:48 America/Argentina/Buenos_Aires] Venta creada exitosamente. ID: 114
+[06-Sep-2024 19:48:01 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: leme, Tipo: customer
+[06-Sep-2024 19:48:01 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM customers WHERE name LIKE :term LIMIT 20
+[06-Sep-2024 19:48:01 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[06-Sep-2024 19:48:05 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: modulo, Tipo: product
+[06-Sep-2024 19:48:05 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name, price, stock_quantity FROM products WHERE name LIKE :term OR description LIKE :term OR sku LIKE :term LIMIT 20
+[06-Sep-2024 19:48:05 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 4
+[06-Sep-2024 19:48:18 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: glass, Tipo: product
+[06-Sep-2024 19:48:18 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name, price, stock_quantity FROM products WHERE name LIKE :term OR description LIKE :term OR sku LIKE :term LIMIT 20
+[06-Sep-2024 19:48:18 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[06-Sep-2024 19:48:22 America/Argentina/Buenos_Aires] Venta creada exitosamente. ID: 115
+[06-Sep-2024 19:49:04 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: celu, Tipo: supplier
+[06-Sep-2024 19:49:04 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM suppliers WHERE name LIKE :term LIMIT 20
+[06-Sep-2024 19:49:04 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[06-Sep-2024 19:49:06 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: mult, Tipo: supplier
+[06-Sep-2024 19:49:06 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM suppliers WHERE name LIKE :term LIMIT 20
+[06-Sep-2024 19:49:06 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 0
+[06-Sep-2024 19:49:09 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: multice, Tipo: supplier
+[06-Sep-2024 19:49:09 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM suppliers WHERE name LIKE :term LIMIT 20
+[06-Sep-2024 19:49:09 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 0
+[06-Sep-2024 19:49:10 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: multic, Tipo: supplier
+[06-Sep-2024 19:49:10 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM suppliers WHERE name LIKE :term LIMIT 20
+[06-Sep-2024 19:49:10 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 0
+[06-Sep-2024 19:49:11 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: ce, Tipo: supplier
+[06-Sep-2024 19:49:11 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM suppliers WHERE name LIKE :term LIMIT 20
+[06-Sep-2024 19:49:11 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 3
+[06-Sep-2024 19:49:19 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: mul, Tipo: supplier
+[06-Sep-2024 19:49:19 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM suppliers WHERE name LIKE :term LIMIT 20
+[06-Sep-2024 19:49:19 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 0
+[06-Sep-2024 19:49:19 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: mul, Tipo: supplier
+[06-Sep-2024 19:49:19 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM suppliers WHERE name LIKE :term LIMIT 20
+[06-Sep-2024 19:49:19 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 0
+[06-Sep-2024 19:49:20 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: mul, Tipo: supplier
+[06-Sep-2024 19:49:20 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM suppliers WHERE name LIKE :term LIMIT 20
+[06-Sep-2024 19:49:20 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 0
+[06-Sep-2024 19:49:20 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: mul, Tipo: supplier
+[06-Sep-2024 19:49:20 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM suppliers WHERE name LIKE :term LIMIT 20
+[06-Sep-2024 19:49:20 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 0
+[06-Sep-2024 19:49:22 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: multi, Tipo: supplier
+[06-Sep-2024 19:49:22 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM suppliers WHERE name LIKE :term LIMIT 20
+[06-Sep-2024 19:49:22 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 0
+[06-Sep-2024 19:49:22 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: multi, Tipo: supplier
+[06-Sep-2024 19:49:22 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM suppliers WHERE name LIKE :term LIMIT 20
+[06-Sep-2024 19:49:22 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 0
+[06-Sep-2024 19:49:22 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: multi, Tipo: supplier
+[06-Sep-2024 19:49:22 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM suppliers WHERE name LIKE :term LIMIT 20
+[06-Sep-2024 19:49:22 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 0
+[06-Sep-2024 19:49:22 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: multi, Tipo: supplier
+[06-Sep-2024 19:49:22 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM suppliers WHERE name LIKE :term LIMIT 20
+[06-Sep-2024 19:49:22 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 0
+[06-Sep-2024 19:49:24 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: cel, Tipo: supplier
+[06-Sep-2024 19:49:24 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM suppliers WHERE name LIKE :term LIMIT 20
+[06-Sep-2024 19:49:24 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 3
+[06-Sep-2024 19:49:30 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: modulo, Tipo: product
+[06-Sep-2024 19:49:30 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name, price, stock_quantity FROM products WHERE name LIKE :term OR description LIKE :term OR sku LIKE :term LIMIT 20
+[06-Sep-2024 19:49:30 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 4
+[07-Sep-2024 09:34:12 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: Consum, Tipo: customer
+[07-Sep-2024 09:34:12 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM customers WHERE name LIKE :term LIMIT 20
+[07-Sep-2024 09:34:12 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[07-Sep-2024 09:34:18 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: ca, Tipo: product
+[07-Sep-2024 09:34:18 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name, price, stock_quantity FROM products WHERE name LIKE :term OR description LIKE :term OR sku LIKE :term LIMIT 20
+[07-Sep-2024 09:34:18 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 20
+[07-Sep-2024 09:34:19 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: cam, Tipo: product
+[07-Sep-2024 09:34:19 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name, price, stock_quantity FROM products WHERE name LIKE :term OR description LIKE :term OR sku LIKE :term LIMIT 20
+[07-Sep-2024 09:34:19 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 12
+[07-Sep-2024 09:34:29 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: glass, Tipo: product
+[07-Sep-2024 09:34:29 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name, price, stock_quantity FROM products WHERE name LIKE :term OR description LIKE :term OR sku LIKE :term LIMIT 20
+[07-Sep-2024 09:34:29 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[07-Sep-2024 09:34:36 America/Argentina/Buenos_Aires] Venta creada exitosamente. ID: 116
+[07-Sep-2024 10:02:48 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: insab, Tipo: customer
+[07-Sep-2024 10:02:48 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM customers WHERE name LIKE :term LIMIT 20
+[07-Sep-2024 10:02:48 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[07-Sep-2024 10:02:49 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: insabra, Tipo: customer
+[07-Sep-2024 10:02:49 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM customers WHERE name LIKE :term LIMIT 20
+[07-Sep-2024 10:02:49 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[07-Sep-2024 10:02:49 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: insabral, Tipo: customer
+[07-Sep-2024 10:02:49 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM customers WHERE name LIKE :term LIMIT 20
+[07-Sep-2024 10:02:49 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[07-Sep-2024 10:02:52 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: cambio, Tipo: product
+[07-Sep-2024 10:02:52 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name, price, stock_quantity FROM products WHERE name LIKE :term OR description LIKE :term OR sku LIKE :term LIMIT 20
+[07-Sep-2024 10:02:52 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 4
+[07-Sep-2024 10:02:59 America/Argentina/Buenos_Aires] Venta creada exitosamente. ID: 117
+[07-Sep-2024 12:03:19 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: consumi, Tipo: customer
+[07-Sep-2024 12:03:19 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM customers WHERE name LIKE :term LIMIT 20
+[07-Sep-2024 12:03:19 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[07-Sep-2024 12:03:23 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: asis, Tipo: product
+[07-Sep-2024 12:03:23 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name, price, stock_quantity FROM products WHERE name LIKE :term OR description LIKE :term OR sku LIKE :term LIMIT 20
+[07-Sep-2024 12:03:23 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 2
+[07-Sep-2024 12:03:35 America/Argentina/Buenos_Aires] Venta creada exitosamente. ID: 118
+[07-Sep-2024 23:32:39 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: clau, Tipo: customer
+[07-Sep-2024 23:32:39 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM customers WHERE name LIKE :term LIMIT 20
+[07-Sep-2024 23:32:39 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[07-Sep-2024 23:32:41 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: claud, Tipo: customer
+[07-Sep-2024 23:32:41 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM customers WHERE name LIKE :term LIMIT 20
+[07-Sep-2024 23:32:41 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[07-Sep-2024 23:42:04 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: claudi, Tipo: customer
+[07-Sep-2024 23:42:04 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM customers WHERE name LIKE :term LIMIT 20
+[07-Sep-2024 23:42:04 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[08-Sep-2024 00:11:24 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: claudia, Tipo: customer
+[08-Sep-2024 00:11:24 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM customers WHERE name LIKE :term LIMIT 20
+[08-Sep-2024 00:11:24 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[08-Sep-2024 02:50:18 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: claud, Tipo: customer
+[08-Sep-2024 02:50:18 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM customers WHERE name LIKE :term LIMIT 20
+[08-Sep-2024 02:50:18 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[08-Sep-2024 02:50:18 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: claudia, Tipo: customer
+[08-Sep-2024 02:50:18 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM customers WHERE name LIKE :term LIMIT 20
+[08-Sep-2024 02:50:18 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[08-Sep-2024 03:02:08 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: claudia, Tipo: customer
+[08-Sep-2024 03:02:08 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM customers WHERE name LIKE :term LIMIT 20
+[08-Sep-2024 03:02:08 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1
+[08-Sep-2024 13:16:32 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Búsqueda iniciada - Término: claudia, Tipo: customer
+[08-Sep-2024 13:16:32 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Query: SELECT id, name FROM customers WHERE name LIKE :term LIMIT 20
+[08-Sep-2024 13:16:32 America/Argentina/Buenos_Aires] [DEBUG SEARCH] Resultados encontrados: 1

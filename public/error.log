@@ -1061,3 +1061,263 @@ Stack trace:
 )
 
 [04-Sep-2024 23:44:25 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[05-Sep-2024 08:16:39 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[05-Sep-2024 08:16:39 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [CREATED] => 1725534996
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[05-Sep-2024 08:16:39 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[05-Sep-2024 10:18:51 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[05-Sep-2024 10:18:51 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [CREATED] => 1725534996
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[05-Sep-2024 10:18:51 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[05-Sep-2024 10:19:21 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[05-Sep-2024 10:19:21 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [CREATED] => 1725534996
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[05-Sep-2024 10:19:21 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[05-Sep-2024 11:34:37 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[05-Sep-2024 11:34:37 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [CREATED] => 1725534996
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[05-Sep-2024 11:34:37 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[05-Sep-2024 16:33:06 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[05-Sep-2024 16:33:06 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [CREATED] => 1725563251
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[05-Sep-2024 16:33:06 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[05-Sep-2024 20:03:26 America/Argentina/Buenos_Aires] Intento de inicio de sesión fallido para el email: info@cellcomweb.com.ar
+[05-Sep-2024 20:03:26 America/Argentina/Buenos_Aires] Intento de inicio de sesión fallido para el email: info@cellcomweb.com.ar
+[05-Sep-2024 20:03:44 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[05-Sep-2024 20:03:44 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [CREATED] => 1725577420
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[05-Sep-2024 20:03:44 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[05-Sep-2024 20:03:46 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[05-Sep-2024 20:03:46 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [CREATED] => 1725577426
+)
+
+[06-Sep-2024 09:09:54 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[06-Sep-2024 09:09:54 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [CREATED] => 1725624586
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[06-Sep-2024 09:09:54 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[06-Sep-2024 09:12:22 America/Argentina/Buenos_Aires] Datos recibidos en addCustomer: {"name":"Leme Fabian","email":"orden@cellcomweb.com.ar","phone":"543482539480","address":"Calle 42 nro 1050"}
+[06-Sep-2024 09:12:22 America/Argentina/Buenos_Aires] Nota: El índice UNIQUE en email no existía o no se pudo eliminar. Esto es normal si ya se había eliminado antes.
+[06-Sep-2024 09:12:22 America/Argentina/Buenos_Aires] Cliente creado exitosamente con ID: 37
+[06-Sep-2024 09:19:22 America/Argentina/Buenos_Aires] Datos recibidos en addCustomer: {"name":"Pereyra Eduardo","email":"orden@cellcomweb.com.ar","phone":"543482678232","address":"Calle 207 nro 51"}
+[06-Sep-2024 09:19:22 America/Argentina/Buenos_Aires] Nota: El índice UNIQUE en email no existía o no se pudo eliminar. Esto es normal si ya se había eliminado antes.
+[06-Sep-2024 09:19:22 America/Argentina/Buenos_Aires] Cliente creado exitosamente con ID: 38
+[06-Sep-2024 09:40:14 America/Argentina/Buenos_Aires] Datos recibidos en addCustomer: {"name":"Gallard Diego","email":"orden@cellcomweb.com.ar","phone":"543482652419","address":"Calle 304 Nro 265"}
+[06-Sep-2024 09:40:14 America/Argentina/Buenos_Aires] Resultado de la inserción: éxito
+[06-Sep-2024 13:03:51 America/Argentina/Buenos_Aires] Fecha y hora de la compra: 2024-09-06 13:03:51
+[06-Sep-2024 13:03:51 America/Argentina/Buenos_Aires] Compra creada exitosamente. ID: 17
+[06-Sep-2024 13:21:06 America/Argentina/Buenos_Aires] Fecha y hora de la compra: 2024-09-06 13:21:06
+[06-Sep-2024 13:21:06 America/Argentina/Buenos_Aires] Compra creada exitosamente. ID: 18
+[06-Sep-2024 16:14:15 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[06-Sep-2024 16:14:15 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [CREATED] => 1725649907
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[06-Sep-2024 16:14:15 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[06-Sep-2024 17:20:01 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[06-Sep-2024 17:20:01 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [CREATED] => 1725649907
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[06-Sep-2024 17:20:01 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[06-Sep-2024 17:23:05 America/Argentina/Buenos_Aires] Datos recibidos en addCustomer: {"name":"Bonora Paulo","email":"orden@cellcomweb.com.ar","phone":"543482535548","address":"Calle 112 Nro 406"}
+[06-Sep-2024 17:23:05 America/Argentina/Buenos_Aires] Nota: El índice UNIQUE en email no existía o no se pudo eliminar. Esto es normal si ya se había eliminado antes.
+[06-Sep-2024 17:23:05 America/Argentina/Buenos_Aires] Cliente creado exitosamente con ID: 40
+[06-Sep-2024 17:27:29 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[06-Sep-2024 17:27:29 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [CREATED] => 1725649907
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[06-Sep-2024 17:27:29 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[06-Sep-2024 18:10:27 America/Argentina/Buenos_Aires] Datos recibidos en addCustomer: {"name":"Insabralde Enzo","email":"orden@cellcomweb.com.ar","phone":"543482548379","address":"Calle 322 nro 15"}
+[06-Sep-2024 18:10:27 America/Argentina/Buenos_Aires] Nota: El índice UNIQUE en email no existía o no se pudo eliminar. Esto es normal si ya se había eliminado antes.
+[06-Sep-2024 18:10:28 America/Argentina/Buenos_Aires] Cliente creado exitosamente con ID: 41
+[06-Sep-2024 19:47:57 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[06-Sep-2024 19:47:57 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [CREATED] => 1725649907
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[06-Sep-2024 19:47:57 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[06-Sep-2024 19:49:40 America/Argentina/Buenos_Aires] Fecha y hora de la compra: 2024-09-06 19:49:40
+[06-Sep-2024 19:49:40 America/Argentina/Buenos_Aires] Compra creada exitosamente. ID: 19
+[07-Sep-2024 08:47:16 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[07-Sep-2024 08:47:16 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [CREATED] => 1725709538
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[07-Sep-2024 08:47:16 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[07-Sep-2024 09:34:09 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[07-Sep-2024 09:34:09 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [CREATED] => 1725709538
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[07-Sep-2024 09:34:09 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[07-Sep-2024 10:02:45 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[07-Sep-2024 10:02:45 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [CREATED] => 1725709538
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[07-Sep-2024 10:02:45 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[07-Sep-2024 12:03:15 America/Argentina/Buenos_Aires] [DEBUG POS] Iniciando página POS
+[07-Sep-2024 12:03:15 America/Argentina/Buenos_Aires] [DEBUG POS] SESSION: Array
+(
+    [CREATED] => 1725709538
+    [user_id] => 1
+    [user_name] => Cellcom Technology
+    [user_role] => 1
+)
+
+[07-Sep-2024 12:03:15 America/Argentina/Buenos_Aires] [DEBUG POS] Usuario autenticado. ID: 1
+[07-Sep-2024 19:04:16 America/Argentina/Buenos_Aires] PHP Warning:  require_once(/home/l0040724/public_html/pos_system/views/home_visits/../config/config.php): Failed to open stream: No such file or directory in /home/l0040724/public_html/pos_system/views/home_visits/create.php on line 3
+[07-Sep-2024 19:04:16 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught Error: Failed opening required '/home/l0040724/public_html/pos_system/views/home_visits/../config/config.php' (include_path='.:/usr/local/lsws/lsphp81/share/pear:/usr/local/lsws/lsphp81/share/php:/usr/share/pear:/usr/share/php') in /home/l0040724/public_html/pos_system/views/home_visits/create.php:3
+Stack trace:
+#0 /home/l0040724/public_html/pos_system/public/home_visits.php(50): include()
+#1 {main}
+  thrown in /home/l0040724/public_html/pos_system/views/home_visits/create.php on line 3
+[07-Sep-2024 19:06:05 America/Argentina/Buenos_Aires] PHP Warning:  require_once(/home/l0040724/public_html/pos_system/public/../views/header.php): Failed to open stream: No such file or directory in /home/l0040724/public_html/pos_system/public/home_visits.php on line 49
+[07-Sep-2024 19:06:05 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught Error: Failed opening required '/home/l0040724/public_html/pos_system/public/../views/header.php' (include_path='.:/usr/local/lsws/lsphp81/share/pear:/usr/local/lsws/lsphp81/share/php:/usr/share/pear:/usr/share/php') in /home/l0040724/public_html/pos_system/public/home_visits.php:49
+Stack trace:
+#0 {main}
+  thrown in /home/l0040724/public_html/pos_system/public/home_visits.php on line 49
+[07-Sep-2024 19:13:43 America/Argentina/Buenos_Aires] PHP Warning:  require_once(/home/l0040724/public_html/pos_system/views/home_visits/../config/config.php): Failed to open stream: No such file or directory in /home/l0040724/public_html/pos_system/views/home_visits/create.php on line 2
+[07-Sep-2024 19:13:43 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught Error: Failed opening required '/home/l0040724/public_html/pos_system/views/home_visits/../config/config.php' (include_path='.:/usr/local/lsws/lsphp81/share/pear:/usr/local/lsws/lsphp81/share/php:/usr/share/pear:/usr/share/php') in /home/l0040724/public_html/pos_system/views/home_visits/create.php:2
+Stack trace:
+#0 /home/l0040724/public_html/pos_system/public/home_visits.php(50): include()
+#1 {main}
+  thrown in /home/l0040724/public_html/pos_system/views/home_visits/create.php on line 2
+[07-Sep-2024 23:24:36 America/Argentina/Buenos_Aires] PHP Warning:  require_once(/home/l0040724/public_html/pos_system/public/../includes/home_visits_functions.php): Failed to open stream: No such file or directory in /home/l0040724/public_html/pos_system/public/home_visits.php on line 4
+[07-Sep-2024 23:24:36 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught Error: Failed opening required '/home/l0040724/public_html/pos_system/public/../includes/home_visits_functions.php' (include_path='.:/usr/local/lsws/lsphp81/share/pear:/usr/local/lsws/lsphp81/share/php:/usr/share/pear:/usr/share/php') in /home/l0040724/public_html/pos_system/public/home_visits.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/l0040724/public_html/pos_system/public/home_visits.php on line 4
+[07-Sep-2024 23:25:25 America/Argentina/Buenos_Aires] PHP Warning:  require_once(/home/l0040724/public_html/pos_system/public/../includes/home_visits.php): Failed to open stream: No such file or directory in /home/l0040724/public_html/pos_system/public/home_visits.php on line 4
+[07-Sep-2024 23:25:25 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught Error: Failed opening required '/home/l0040724/public_html/pos_system/public/../includes/home_visits.php' (include_path='.:/usr/local/lsws/lsphp81/share/pear:/usr/local/lsws/lsphp81/share/php:/usr/share/pear:/usr/share/php') in /home/l0040724/public_html/pos_system/public/home_visits.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/l0040724/public_html/pos_system/public/home_visits.php on line 4
+[07-Sep-2024 23:50:44 America/Argentina/Buenos_Aires] PHP Warning:  require_once(/home/l0040724/public_html/pos_system/views/home_visits/../../includes/home_visits_functions.php): Failed to open stream: No such file or directory in /home/l0040724/public_html/pos_system/views/home_visits/create.php on line 4
+[07-Sep-2024 23:50:44 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught Error: Failed opening required '/home/l0040724/public_html/pos_system/views/home_visits/../../includes/home_visits_functions.php' (include_path='.:/usr/local/lsws/lsphp81/share/pear:/usr/local/lsws/lsphp81/share/php:/usr/share/pear:/usr/share/php') in /home/l0040724/public_html/pos_system/views/home_visits/create.php:4
+Stack trace:
+#0 /home/l0040724/public_html/pos_system/public/home_visits.php(22): include()
+#1 {main}
+  thrown in /home/l0040724/public_html/pos_system/views/home_visits/create.php on line 4
+[07-Sep-2024 23:51:45 America/Argentina/Buenos_Aires] PHP Warning:  require_once(/home/l0040724/public_html/pos_system/views/home_visits/../../includes/home_visits_functions.php): Failed to open stream: No such file or directory in /home/l0040724/public_html/pos_system/views/home_visits/create.php on line 4
+[07-Sep-2024 23:51:45 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught Error: Failed opening required '/home/l0040724/public_html/pos_system/views/home_visits/../../includes/home_visits_functions.php' (include_path='.:/usr/local/lsws/lsphp81/share/pear:/usr/local/lsws/lsphp81/share/php:/usr/share/pear:/usr/share/php') in /home/l0040724/public_html/pos_system/views/home_visits/create.php:4
+Stack trace:
+#0 /home/l0040724/public_html/pos_system/public/home_visits.php(22): include()
+#1 {main}
+  thrown in /home/l0040724/public_html/pos_system/views/home_visits/create.php on line 4
+[07-Sep-2024 23:52:20 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught Error: Class "HomeVisitsFunctions" not found in /home/l0040724/public_html/pos_system/views/home_visits/create.php:7
+Stack trace:
+#0 /home/l0040724/public_html/pos_system/public/home_visits.php(22): include()
+#1 {main}
+  thrown in /home/l0040724/public_html/pos_system/views/home_visits/create.php on line 7
+[08-Sep-2024 03:04:40 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught Error: Call to undefined function getAllSales() in /home/l0040724/public_html/pos_system/views/home_visits/list.php:15
+Stack trace:
+#0 /home/l0040724/public_html/pos_system/public/home_visits.php(81): include()
+#1 {main}
+  thrown in /home/l0040724/public_html/pos_system/views/home_visits/list.php on line 15
+[08-Sep-2024 12:56:05 America/Argentina/Buenos_Aires] PHP Fatal error:  Cannot redeclare getAllHomeVisits() (previously declared in /home/l0040724/public_html/pos_system/includes/home_visit_functions.php:3) in /home/l0040724/public_html/pos_system/views/home_visits/list.php on line 21
+[08-Sep-2024 12:57:44 America/Argentina/Buenos_Aires] PHP Warning:  require_once(/home/l0040724/public_html/pos_system/views/home_visits/../../config/database.php): Failed to open stream: No such file or directory in /home/l0040724/public_html/pos_system/views/home_visits/list.php on line 2
+[08-Sep-2024 12:57:44 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught Error: Failed opening required '/home/l0040724/public_html/pos_system/views/home_visits/../../config/database.php' (include_path='.:/usr/local/lsws/lsphp81/share/pear:/usr/local/lsws/lsphp81/share/php:/usr/share/pear:/usr/share/php') in /home/l0040724/public_html/pos_system/views/home_visits/list.php:2
+Stack trace:
+#0 /home/l0040724/public_html/pos_system/public/home_visits.php(81): include()
+#1 {main}
+  thrown in /home/l0040724/public_html/pos_system/views/home_visits/list.php on line 2
+[08-Sep-2024 13:09:25 America/Argentina/Buenos_Aires] PHP Fatal error:  Cannot redeclare getAllHomeVisits() (previously declared in /home/l0040724/public_html/pos_system/includes/home_visit_functions.php:3) in /home/l0040724/public_html/pos_system/views/home_visits/list.php on line 17
+[08-Sep-2024 13:10:32 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'hv.access_token' in 'field list' in /home/l0040724/public_html/pos_system/includes/home_visit_functions.php:5
+Stack trace:
+#0 /home/l0040724/public_html/pos_system/includes/home_visit_functions.php(5): PDO->query()
+#1 /home/l0040724/public_html/pos_system/public/home_visits.php(80): getAllHomeVisits()
+#2 {main}
+  thrown in /home/l0040724/public_html/pos_system/includes/home_visit_functions.php on line 5
+[08-Sep-2024 13:13:29 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'hv.access_token' in 'field list' in /home/l0040724/public_html/pos_system/includes/home_visit_functions.php:8
+Stack trace:
+#0 /home/l0040724/public_html/pos_system/includes/home_visit_functions.php(8): PDO->query()
+#1 /home/l0040724/public_html/pos_system/public/home_visits.php(80): getAllHomeVisits()
+#2 {main}
+  thrown in /home/l0040724/public_html/pos_system/includes/home_visit_functions.php on line 8
+[08-Sep-2024 13:26:51 America/Argentina/Buenos_Aires] PHP Warning:  require_once(/home/l0040724/public_html/pos_system/public/../includes/home_visits_functions.php): Failed to open stream: No such file or directory in /home/l0040724/public_html/pos_system/public/view_cliente.php on line 3
+[08-Sep-2024 13:26:51 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught Error: Failed opening required '/home/l0040724/public_html/pos_system/public/../includes/home_visits_functions.php' (include_path='.:/usr/local/lsws/lsphp81/share/pear:/usr/local/lsws/lsphp81/share/php:/usr/share/pear:/usr/share/php') in /home/l0040724/public_html/pos_system/public/view_cliente.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/l0040724/public_html/pos_system/public/view_cliente.php on line 3
+[08-Sep-2024 13:47:30 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught Error: Call to undefined function getVisitByToken() in /home/l0040724/public_html/pos_system/public/view_cliente.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/l0040724/public_html/pos_system/public/view_cliente.php on line 13
+[08-Sep-2024 13:48:22 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught Error: Call to undefined function getVisitByToken() in /home/l0040724/public_html/pos_system/public/view_cliente.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/l0040724/public_html/pos_system/public/view_cliente.php on line 13
