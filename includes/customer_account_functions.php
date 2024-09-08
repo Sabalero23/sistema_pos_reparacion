@@ -505,4 +505,31 @@ function addCustomerAccount($data) {
         return ['success' => false, 'message' => 'Error al crear la cuenta de cliente: ' . $e->getMessage()];
     }
 }
+
+function getClientsWithOverdueOrUpcomingInstallments() {
+    global $pdo;
+    
+    $query = "
+    SELECT c.id, c.name, ca.id as account_id, ca.balance, i.due_date, i.amount,
+           CASE 
+               WHEN i.due_date < CURDATE() THEN 'vencida'
+               WHEN i.due_date BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 2 DAY) THEN 'próxima'
+               ELSE 'futura'
+           END as status
+    FROM customers c
+    JOIN customer_accounts ca ON c.id = ca.customer_id
+    JOIN installments i ON ca.id = i.account_id
+    WHERE ca.balance > 0 AND i.status != 'pagada'
+      AND (i.due_date < CURDATE() OR i.due_date BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 2 DAY))
+    ORDER BY i.due_date ASC";
+    
+    try {
+        $stmt = $pdo->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        error_log("Error en getClientsWithOverdueOrUpcomingInstallments: " . $e->getMessage());
+        return false;
+    }
+}
 ?>
