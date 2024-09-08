@@ -8,8 +8,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const modalBody = modalElement.querySelector('.modal-body');
         const closeButton = modalElement.querySelector('.btn-close');
 
-        let content = '<table class="table table-striped">';
-        content += '<thead><tr><th>Cliente</th><th>Saldo</th><th>Fecha Vencimiento</th><th>Monto</th><th>Estado</th></tr></thead>';
+        let content = '<div class="table-responsive"><table class="table table-striped table-sm">';
+        content += '<thead><tr><th>Cliente</th><th>Saldo</th><th>Vencimiento</th><th>Monto</th><th>Estado</th></tr></thead>';
         content += '<tbody>';
 
         clientsWithIssues.forEach(client => {
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </tr>`;
         });
 
-        content += '</tbody></table>';
+        content += '</tbody></table></div>';
         modalBody.innerHTML = content;
 
         // Mostrar el modal
