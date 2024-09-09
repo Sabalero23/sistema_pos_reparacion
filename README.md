@@ -42,6 +42,11 @@ Este sistema POS (Point of Sale) es una solución integral para la gestión de v
 
 6. Disfrute del Sistema
 
+## Demo
+https://taller.whaticket.com.ar
+        usuario / Clave
+admin@admin.com / admin1234@@
+
 ## Soporte
 
 Para reportar problemas o solicitar nuevas características, por favor abra un issue en el repositorio de GitHub.
