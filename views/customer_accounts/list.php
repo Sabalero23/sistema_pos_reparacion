@@ -4,10 +4,12 @@ if (!isset($accounts) || !is_array($accounts)) {
     echo "Error: No se pueden cargar las cuentas de clientes.";
     exit;
 }
+
+// Obtener clientes con cuotas vencidas o próximas
+$clientsWithIssues = getClientsWithOverdueOrUpcomingInstallments();
 ?>
 
 <div class="container mt-4">
-
     <?php if (empty($accounts)): ?>
         <div class="alert alert-info">No hay cuentas de clientes registradas.</div>
     <?php else: ?>
@@ -61,6 +63,17 @@ if (!isset($accounts) || !is_array($accounts)) {
             </table>
         </div>
     <?php endif; ?>
+
+    <?php if (hasPermission('customer_accounts_adjust')): ?>
+        <div class="mt-4">
+            <button onclick="applyLateFees()" class="btn btn-warning">
+                <i class="fas fa-exclamation-triangle"></i> Aplicar Cargos por Mora
+            </button>
+            <small class="text-muted ms-2">
+                Esto aplicará cargos por mora a todas las cuentas con cuotas vencidas.
+            </small>
+        </div>
+    <?php endif; ?>
 </div>
 
 <!-- Modal para registrar pago -->
@@ -111,6 +124,24 @@ if (!isset($accounts) || !is_array($accounts)) {
     </div>
 </div>
 
+<!-- Modal para clientes con problemas de pago -->
+<div class="modal fade" id="clientIssuesModal" tabindex="-1" aria-labelledby="clientIssuesModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="clientIssuesModalLabel">Clientes con Cuotas Vencidas o Próximas</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- El contenido se llenará dinámicamente con JavaScript -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
 $(document).ready(function() {
     $('#customerAccountsTable').DataTable({
@@ -121,46 +152,46 @@ $(document).ready(function() {
     });
 
     function loadPendingInstallments(accountId) {
-    $.ajax({
-        url: '<?php echo url("customer_accounts.php?ajax=1&action=get_pending_installments"); ?>',
-        method: 'GET',
-        data: { account_id: accountId },
-        dataType: 'json',
-        success: function(response) {
-            console.log("Respuesta del servidor:", response);
-            var select = $('#installmentSelect');
-            select.empty();
-            if (response.success && Array.isArray(response.data) && response.data.length > 0) {
-                $.each(response.data, function(index, installment) {
-                    select.append($('<option></option>')
-                        .attr('value', installment.id)
-                        .text('Cuota ' + installment.installment_number + ' - Vence: ' + installment.due_date + ' - Monto: $' + installment.amount)
-                        .data('amount', installment.amount)
-                    );
-                });
-            } else {
-                select.append($('<option></option>').text(response.message || 'No hay cuotas pendientes'));
+        $.ajax({
+            url: '<?php echo url("customer_accounts.php?ajax=1&action=get_pending_installments"); ?>',
+            method: 'GET',
+            data: { account_id: accountId },
+            dataType: 'json',
+            success: function(response) {
+                console.log("Respuesta del servidor:", response);
+                var select = $('#installmentSelect');
+                select.empty();
+                if (response.success && Array.isArray(response.data) && response.data.length > 0) {
+                    $.each(response.data, function(index, installment) {
+                        select.append($('<option></option>')
+                            .attr('value', installment.id)
+                            .text('Cuota ' + installment.installment_number + ' - Vence: ' + installment.due_date + ' - Monto: $' + installment.amount)
+                            .data('amount', installment.amount)
+                        );
+                    });
+                } else {
+                    select.append($('<option></option>').text(response.message || 'No hay cuotas pendientes'));
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error("Error en la llamada AJAX:", textStatus, errorThrown);
+                console.log("Respuesta completa:", jqXHR.responseText);
+                alert('Error al procesar la solicitud: ' + jqXHR.responseText);
             }
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-    console.error("Error en la llamada AJAX:", textStatus, errorThrown);
-    console.log("Respuesta completa:", jqXHR.responseText);
-    alert('Error al procesar la solicitud: ' + jqXHR.responseText);
-}
-    });
-}
+        });
+    }
 
     $('.register-payment').click(function() {
-    var accountId = $(this).data('account-id');
-    var customerId = $(this).data('customer-id');
-    var balance = $(this).data('balance');
-    $('#accountId').val(accountId);
-    $('#customerId').val(customerId);
-    $('#paymentAmount').attr('max', balance);
-    $('#paymentDate').val(new Date().toISOString().split('T')[0]);
-    loadPendingInstallments(accountId);
-    $('#paymentModal').modal('show');
-});
+        var accountId = $(this).data('account-id');
+        var customerId = $(this).data('customer-id');
+        var balance = $(this).data('balance');
+        $('#accountId').val(accountId);
+        $('#customerId').val(customerId);
+        $('#paymentAmount').attr('max', balance);
+        $('#paymentDate').val(new Date().toISOString().split('T')[0]);
+        loadPendingInstallments(accountId);
+        $('#paymentModal').modal('show');
+    });
 
     $('#installmentSelect').change(function() {
         var selectedOption = $(this).find('option:selected');
@@ -169,57 +200,91 @@ $(document).ready(function() {
     });
 
     $('#submitPayment').click(function() {
-    if (!$('#paymentForm')[0].checkValidity()) {
-        $('#paymentForm')[0].reportValidity();
-        return;
-    }
+        if (!$('#paymentForm')[0].checkValidity()) {
+            $('#paymentForm')[0].reportValidity();
+            return;
+        }
 
-    $.ajax({
-        url: '<?php echo url("customer_accounts.php?ajax=1&action=add_payment"); ?>',
-        method: 'POST',
-        data: $('#paymentForm').serialize(),
-        dataType: 'json',
-        success: function(response) {
-            if (response.success) {
-                Swal.fire({
-                    title: '¡Éxito!',
-                    text: response.message,
-                    icon: 'success',
-                    confirmButtonText: 'Imprimir Recibo'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Redirigir a la página de impresión del recibo
-                        window.open('<?php echo url("views/customer_accounts/payment_receipt.php?id="); ?>' + response.payment_id, '_blank');
-                    }
-                    // Recargar la página actual
-                    location.reload();
-                });
-            } else {
+        $.ajax({
+            url: '<?php echo url("customer_accounts.php?ajax=1&action=add_payment"); ?>',
+            method: 'POST',
+            data: $('#paymentForm').serialize(),
+            dataType: 'json',
+            success: function(response) {
+                if (response.success) {
+                    Swal.fire({
+                        title: '¡Éxito!',
+                        text: response.message,
+                        icon: 'success',
+                        confirmButtonText: 'Imprimir Recibo'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Redirigir a la página de impresión del recibo
+                            window.open('<?php echo url("views/customer_accounts/payment_receipt.php?id="); ?>' + response.payment_id, '_blank');
+                        }
+                        // Recargar la página actual
+                        location.reload();
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: response.message,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error("Error en la llamada AJAX:", textStatus, errorThrown);
                 Swal.fire({
                     title: 'Error',
-                    text: response.message,
+                    text: 'Hubo un problema al procesar la solicitud. Por favor, intente de nuevo.',
                     icon: 'error',
                     confirmButtonText: 'OK'
                 });
             }
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.error("Error en la llamada AJAX:", textStatus, errorThrown);
-            Swal.fire({
-                title: 'Error',
-                text: 'Hubo un problema al procesar la solicitud. Por favor, intente de nuevo.',
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
-        }
+        });
     });
-});
 
     // Inicializar tooltips de Bootstrap
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
     });
+
+    // Función para mostrar el modal de clientes con problemas
+    function showClientIssuesModal() {
+        var modalBody = $('#clientIssuesModal .modal-body');
+        modalBody.empty();
+
+        if (clientsWithIssues.length > 0) {
+            var table = $('<table class="table table-striped">').append(
+                '<thead><tr><th>Cliente</th><th>Cuotas Vencidas</th><th>Próximo Vencimiento</th></tr></thead>'
+            );
+            var tbody = $('<tbody>');
+
+            $.each(clientsWithIssues, function(index, client) {
+                var row = $('<tr>').append(
+                    $('<td>').text(client.customer_name),
+                    $('<td>').text(client.overdue_installments),
+                    $('<td>').text(client.next_due_date)
+                );
+                tbody.append(row);
+            });
+
+            table.append(tbody);
+            modalBody.append(table);
+        } else {
+            modalBody.append('<p>No hay clientes con cuotas vencidas o próximas a vencer.</p>');
+        }
+
+        $('#clientIssuesModal').modal('show');
+    }
+
+    // Mostrar el modal automáticamente si hay clientes con problemas
+    if (clientsWithIssues.length > 0) {
+        showClientIssuesModal();
+    }
 });
 
 // Función para aplicar cargos por mora
@@ -244,14 +309,3 @@ function applyLateFees() {
     }
 }
 </script>
-
-<?php if (hasPermission('customer_accounts_adjust')): ?>
-    <div class="mt-4">
-        <button onclick="applyLateFees()" class="btn btn-warning">
-            <i class="fas fa-exclamation-triangle"></i> Aplicar Cargos por Mora
-        </button>
-        <small class="text-muted ms-2">
-            Esto aplicará cargos por mora a todas las cuentas con cuotas vencidas.
-        </small>
-    </div>
-<?php endif; ?>
