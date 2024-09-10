@@ -47,6 +47,52 @@ switch ($action) {
     require_once __DIR__ . '/../includes/header.php';
     include __DIR__ . '/../views/home_visits/create.php';
     break;
+    case 'edit':
+        if (!hasPermission('home_visits_edit')) {
+            $_SESSION['error'] = "No tienes permiso para editar visitas a domicilio.";
+            header('Location: home_visits.php');
+            exit();
+        }
+        
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $visitData = [
+                'customer_id' => $_POST['customer_id'] ?? '',
+                'visit_date' => $_POST['visit_date'] ?? '',
+                'visit_time' => $_POST['visit_time'] ?? '',
+                'notes' => $_POST['notes'] ?? '',
+                'status' => $_POST['status'] ?? 'programada'
+            ];
+            
+            // Validar los datos
+            if (empty($visitData['customer_id']) || empty($visitData['visit_date']) || empty($visitData['visit_time'])) {
+                throw new Exception("Por favor, complete todos los campos obligatorios.");
+            }
+
+            $result = updateHomeVisit($id, $visitData);
+            
+            if ($result['success']) {
+                $_SESSION['flash_message'] = "Visita a domicilio actualizada con éxito.";
+                $_SESSION['flash_type'] = 'success';
+            } else {
+                $_SESSION['flash_message'] = "Error al actualizar la visita: " . $result['message'];
+                $_SESSION['flash_type'] = 'danger';
+            }
+            
+            header('Location: ' . url('home_visits.php'));
+            exit;
+        }
+        
+        $visit = getHomeVisit($id);
+        if (!$visit) {
+            $_SESSION['error'] = "Visita no encontrada.";
+            header('Location: home_visits.php');
+            exit();
+        }
+        
+        require_once __DIR__ . '/../includes/header.php';
+        include __DIR__ . '/../views/home_visits/edit.php';
+        break;
+    
     case 'store':
         if (!hasPermission('home_visits_create')) {
             $_SESSION['error'] = "No tienes permiso para crear visitas a domicilio.";
