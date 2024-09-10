@@ -1,22 +1,54 @@
-# Sistema POS (Point of Sale) y Gestión de Orden de Trabajo con Seguimiento para el cliente.
+Sistema POS y Gestión de Órdenes de Servicio
 
 ## Descripción
-Este sistema POS (Point of Sale) es una solución integral para la gestión de ventas, inventario, clientes y proveedores. Diseñado para pequeñas y medianas empresas, ofrece una interfaz intuitiva y funcionalidades robustas para optimizar las operaciones diarias de un negocio.
+Este sistema es una solución integral para negocios que combinan ventas de productos con servicios de reparación.
+Desarrollado en PHP, ofrece una plataforma robusta para la gestión eficiente de operaciones diarias, inventario, ventas y servicio al cliente.
 
 ## Características Principales
+Gestión de Ventas y POS
+Interfaz de Punto de Venta (POS) intuitiva
+Procesamiento de ventas y devoluciones
+Gestión de descuentos y promociones
 
-- Gestión de usuarios con roles y permisos
-- Gestión de productos y categorías
-- Proceso de ventas y reservas
-- Gestión de clientes y proveedores
-- Gestión de inventario
-- Gestión de Órdenes de trabajo
-- Envío de Whatsapp al crear y terminar órdenes de trabajo
-- El cliente puede ver el estado de la orden de trabajo con el Seguimiento enviado por Whatsapp o escaneando el QR generado en la Orden.
-- Gestión de Visitas a Domicilio
-- Envío de Whatsapp al crear Visitas a Domicilio
-- Reportes 
-- Interfaz responsive basada en Bootstrap
+## RGestión de Inventarios
+Control detallado de stock
+Alertas de bajo stock
+Seguimiento de movimientos de inventario
+
+## Órdenes de Servicio y Reparaciones
+Creación y seguimiento de órdenes de servicio
+Gestión de reparaciones y mantenimiento
+Asignación de técnicos y seguimiento de estado
+
+## Gestión de Presupuestos
+Creación y gestión de presupuestos para clientes
+Conversión de presupuestos a ventas
+Seguimiento de estados de presupuestos (pendiente, aprobado, rechazado)
+
+## Gestión de Clientes
+Base de datos de clientes
+Historial de compras y servicios
+Cuentas de clientes y sistema de crédito
+
+## Compras y Proveedores
+Gestión de pedidos a proveedores
+Seguimiento de recepciones de mercancía
+Directorio de proveedores
+
+## Informes y Análisis
+Paneles de control con métricas clave
+Informes de ventas, inventario y servicio
+Análisis de tendencias y rendimiento
+
+## Gestión de Usuarios y Seguridad
+Sistema de roles y permisos
+Autenticación segura
+Registro de actividades de usuarios
+
+## Gestión Financiera
+Control de caja y movimientos de efectivo
+Gestión de múltiples formas de pago
+Seguimiento de cuentas por cobrar
 
 ## Requisitos del Sistema
 
