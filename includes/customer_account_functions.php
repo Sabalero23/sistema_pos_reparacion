@@ -4,7 +4,7 @@ global $pdo;
 function getAllCustomerAccounts() {
     global $pdo;
     try {
-        $query = "SELECT ca.*, c.name as customer_name,
+        $query = "SELECT ca.*, c.name as customer_name, c.phone as customer_phone,
                          (SELECT COUNT(*) FROM installments 
                           WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
                          (SELECT MIN(due_date) FROM installments 
@@ -13,12 +13,8 @@ function getAllCustomerAccounts() {
                          JOIN customers c ON ca.customer_id = c.id 
                          ORDER BY ca.id DESC";
         
-        error_log("Ejecutando consulta: " . $query);
-        
         $stmt = $pdo->query($query);
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
-        error_log("Número de resultados: " . count($results));
         
         return $results;
     } catch (PDOException $e) {
@@ -510,18 +506,16 @@ function getClientsWithOverdueOrUpcomingInstallments() {
     global $pdo;
     
     $query = "
-    SELECT c.id, c.name, ca.id as account_id, ca.balance, i.due_date, i.amount,
-           CASE 
-               WHEN i.due_date < CURDATE() THEN 'vencida'
-               WHEN i.due_date BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 2 DAY) THEN 'próxima'
-               ELSE 'futura'
-           END as status
+    SELECT c.id, c.name,
+           COUNT(CASE WHEN i.due_date < CURDATE() AND i.status != 'pagada' THEN 1 END) as overdue_installments,
+           MIN(CASE WHEN i.due_date >= CURDATE() AND i.status != 'pagada' THEN i.due_date END) as next_due_date
     FROM customers c
     JOIN customer_accounts ca ON c.id = ca.customer_id
     JOIN installments i ON ca.id = i.account_id
     WHERE ca.balance > 0 AND i.status != 'pagada'
       AND (i.due_date < CURDATE() OR i.due_date BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 2 DAY))
-    ORDER BY i.due_date ASC";
+    GROUP BY c.id
+    ORDER BY c.name ASC";
     
     try {
         $stmt = $pdo->prepare($query);
@@ -531,5 +525,27 @@ function getClientsWithOverdueOrUpcomingInstallments() {
         error_log("Error en getClientsWithOverdueOrUpcomingInstallments: " . $e->getMessage());
         return false;
     }
+}
+
+function saveAccessToken($accountId, $token) {
+    global $pdo;
+    $stmt = $pdo->prepare("UPDATE customer_accounts SET access_token = ? WHERE id = ?");
+    return $stmt->execute([$token, $accountId]);
+}
+
+function getAccountByToken($token) {
+    global $pdo;
+    $stmt = $pdo->prepare("
+        SELECT ca.*, c.name as customer_name, c.phone as customer_phone,
+               (SELECT COUNT(*) FROM installments 
+                WHERE account_id = ca.id AND status != 'pagada') as pending_installments,
+               (SELECT MIN(due_date) FROM installments 
+                WHERE account_id = ca.id AND status != 'pagada') as next_due_date
+        FROM customer_accounts ca
+        JOIN customers c ON ca.customer_id = c.id
+        WHERE ca.access_token = ?
+    ");
+    $stmt->execute([$token]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 ?>

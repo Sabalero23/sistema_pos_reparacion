@@ -1,43 +1,45 @@
-document.addEventListener('DOMContentLoaded', function() {
-    if (clientsWithIssues && clientsWithIssues.length > 0) {
-        const modalElement = document.getElementById('clientIssuesModal');
-        const modal = new bootstrap.Modal(modalElement, {
-            backdrop: 'static',
-            keyboard: false
-        });
-        const modalBody = modalElement.querySelector('.modal-body');
-        const closeButton = modalElement.querySelector('.btn-close');
+document.addEventListener('DOMContentLoaded', function () {
+    var modal = new bootstrap.Modal(document.getElementById('clientIssuesModal'));
+    var modalBody = document.querySelector('#clientIssuesModal .modal-body');
 
-        let content = '<div class="table-responsive"><table class="table table-striped table-sm">';
-        content += '<thead><tr><th>Cliente</th><th>Saldo</th><th>Vencimiento</th><th>Monto</th><th>Estado</th></tr></thead>';
-        content += '<tbody>';
+    function openModal() {
+        modalBody.innerHTML = '';
 
-        clientsWithIssues.forEach(client => {
-            const statusClass = client.status === 'vencida' ? 'text-danger' : 'text-warning';
-            content += `<tr>
-                <td>${client.name}</td>
-                <td>$${parseFloat(client.balance).toFixed(2)}</td>
-                <td>${new Date(client.due_date).toLocaleDateString()}</td>
-                <td>$${parseFloat(client.amount).toFixed(2)}</td>
-                <td class="${statusClass}">${client.status.charAt(0).toUpperCase() + client.status.slice(1)}</td>
-            </tr>`;
-        });
+        if (clientsWithIssues.length === 0) {
+            modalBody.innerHTML = '<p>No hay clientes con cuotas vencidas o próximas.</p>';
+        } else {
+            var table = document.createElement('table');
+            table.className = 'table table-striped';
+            var thead = document.createElement('thead');
+            var tr = document.createElement('tr');
+            ['Cliente', 'Cuotas Vencidas', 'Próximo Vencimiento'].forEach(function (header) {
+                var th = document.createElement('th');
+                th.textContent = header;
+                tr.appendChild(th);
+            });
+            thead.appendChild(tr);
+            table.appendChild(thead);
 
-        content += '</tbody></table></div>';
-        modalBody.innerHTML = content;
+            var tbody = document.createElement('tbody');
+            clientsWithIssues.forEach(function (client) {
+                var tr = document.createElement('tr');
+                [client.name, client.overdue_installments, client.next_due_date].forEach(function (value, index) {
+                    var td = document.createElement('td');
+                    td.textContent = value !== null ? value : 'N/A';
+                    if (index === 2 && value !== null) {
+                        td.textContent = new Date(value).toLocaleDateString();
+                    }
+                    tr.appendChild(td);
+                });
+                tbody.appendChild(tr);
+            });
+            table.appendChild(tbody);
 
-        // Mostrar el modal
+            modalBody.appendChild(table);
+        }
+
         modal.show();
-
-        // Manejar el cierre del modal
-        closeButton.addEventListener('click', function() {
-            modal.hide();
-        });
-
-        modalElement.addEventListener('hidden.bs.modal', function () {
-            document.body.classList.remove('modal-open');
-            document.body.style.overflow = '';
-            document.body.style.paddingRight = '';
-        });
     }
+
+    setInterval(openModal, 5000);
 });

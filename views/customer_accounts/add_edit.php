@@ -63,6 +63,17 @@ $pageTitle = $isEdit ? 'Editar Cuenta de Cliente' : 'Añadir Cuenta de Cliente';
             </div>
 
             <div class="mb-3">
+                <label for="installment_amount" class="form-label">Monto de Cuota</label>
+                <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input type="number" class="form-control" id="installment_amount" name="installment_amount" step="0.01" min="0.01" required value="<?php echo $isEdit ? htmlspecialchars($account['installment_amount']) : ''; ?>" readonly>
+                </div>
+                <div class="invalid-feedback">
+                    El monto de cuota se calcula automáticamente.
+                </div>
+            </div>
+
+            <div class="mb-3">
                 <label for="first_due_date" class="form-label">Fecha de Vencimiento de la Primera Cuota</label>
                 <input type="date" class="form-control" id="first_due_date" name="first_due_date" required value="<?php echo $isEdit ? htmlspecialchars($account['first_due_date']) : ''; ?>">
                 <div class="invalid-feedback">
@@ -132,12 +143,23 @@ $pageTitle = $isEdit ? 'Editar Cuenta de Cliente' : 'Añadir Cuenta de Cliente';
             $(this).addClass('was-validated');
         });
 
-        // Cálculo automático del saldo
-        $('#total_amount, #down_payment').on('input', function() {
+        // Cálculo automático del saldo y monto de cuota
+        function calculateBalance() {
             var totalAmount = parseFloat($('#total_amount').val()) || 0;
             var downPayment = parseFloat($('#down_payment').val()) || 0;
             var balance = totalAmount - downPayment;
-            $('#balance').val(balance.toFixed(2));
+            return balance;
+        }
+
+        function calculateInstallmentAmount() {
+            var balance = calculateBalance();
+            var numInstallments = parseInt($('#num_installments').val()) || 1;
+            var installmentAmount = balance / numInstallments;
+            $('#installment_amount').val(installmentAmount.toFixed(2));
+        }
+
+        $('#total_amount, #down_payment, #num_installments').on('input', function() {
+            calculateInstallmentAmount();
         });
 
         // Validación de la entrega inicial
@@ -148,6 +170,7 @@ $pageTitle = $isEdit ? 'Editar Cuenta de Cliente' : 'Añadir Cuenta de Cliente';
             if (downPayment > totalAmount) {
                 $(this).val(totalAmount.toFixed(2));
             }
+            calculateInstallmentAmount();
         });
 
         // Validación de la fecha de vencimiento
@@ -161,17 +184,10 @@ $pageTitle = $isEdit ? 'Editar Cuenta de Cliente' : 'Añadir Cuenta de Cliente';
             }
         });
 
-        // Cálculo automático de cuotas
-        $('#total_amount, #down_payment, #num_installments').on('input', function() {
-            var totalAmount = parseFloat($('#total_amount').val()) || 0;
-            var downPayment = parseFloat($('#down_payment').val()) || 0;
-            var numInstallments = parseInt($('#num_installments').val()) || 1;
-            
-            var balance = totalAmount - downPayment;
-            var installmentAmount = balance / numInstallments;
-            
-            $('#installment_amount').text(installmentAmount.toFixed(2));
-        });
+        // Calcular monto de cuota inicial si estamos en modo de edición
+        if (<?php echo $isEdit ? 'true' : 'false'; ?>) {
+            calculateInstallmentAmount();
+        }
     });
     </script>
 </body>
