@@ -1,5 +1,11 @@
 <?php $pageTitle = "Detalles de Visita a Domicilio"; ?>
-<?php include __DIR__ . '/../../includes/header.php'; ?>
+<?php
+require_once __DIR__ . '/../../includes/header.php';
+require_once __DIR__ . '/../../includes/utils.php';
+
+// Obtener la información de la empresa
+$companyInfo = getCompanyInfo();
+?>
 
 <div class="container mt-4">
     <h1>Detalles de Visita a Domicilio</h1>
@@ -14,7 +20,8 @@
             
             <?php if ($visit['status'] === 'completada' && !empty($visit['customer_phone'])): ?>
                 <?php
-                $message = urlencode("*La visita programada se realizó con éxito*. Por favor calificá nuestra atención dejando una Reseña aquí https://maps.app.goo.gl/mwAjqxJk3SZJMuJo6");
+                $googleMapsUrl = !empty($companyInfo['google_maps_url']) ? $companyInfo['google_maps_url'] : '#';
+                $message = urlencode("*La visita programada se realizó con éxito*. Por favor calificá nuestra atención dejando una Reseña aquí " . $googleMapsUrl);
                 $whatsappUrl = "https://wa.me/" . preg_replace('/[^0-9]/', '', $visit['customer_phone']) . "?text=" . $message;
                 ?>
                 <a href="<?php echo $whatsappUrl; ?>" class="btn btn-success" target="_blank">

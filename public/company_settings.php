@@ -24,23 +24,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'email' => sanitizeInput($_POST['email']),
         'website' => sanitizeInput($_POST['website']),
         'legal_info' => sanitizeInput($_POST['legal_info']),
-        'receipt_footer' => sanitizeInput($_POST['receipt_footer'])
+        'receipt_footer' => sanitizeInput($_POST['receipt_footer']),
+        'google_maps_url' => sanitizeInput($_POST['google_maps_url'])
     ];
 
-// Manejar la carga del nuevo logo
-if (isset($_FILES['logo']) && $_FILES['logo']['error'] == 0) {
-    $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
-    $uploadDir = __DIR__ . '/../public/uploads/';
-    $logoPath = handleFileUpload($_FILES['logo'], $allowedExtensions, $uploadDir);
-    if ($logoPath) {
-        // Asegurarse de que la ruta comienza con '/public'
-        $companyData['logo_path'] = '/public' . $logoPath;
-        // Eliminar el logo anterior si existe
-        if (!empty($companyInfo['logo_path'])) {
-            deleteFile($companyInfo['logo_path']);
+    // Manejar la carga del nuevo logo
+    if (isset($_FILES['logo']) && $_FILES['logo']['error'] == 0) {
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+        $uploadDir = __DIR__ . '/../public/uploads/';
+        $logoPath = handleFileUpload($_FILES['logo'], $allowedExtensions, $uploadDir);
+        if ($logoPath) {
+            // Asegurarse de que la ruta comienza con '/public'
+            $companyData['logo_path'] = '/public' . $logoPath;
+            // Eliminar el logo anterior si existe
+            if (!empty($companyInfo['logo_path'])) {
+                deleteFile($companyInfo['logo_path']);
+            }
         }
     }
-}
 
     if (updateCompanyInfo($companyData)) {
         setFlashMessage('Información de la empresa actualizada exitosamente', 'success');
@@ -79,11 +80,16 @@ require_once __DIR__ . '/../includes/header.php';
             <input type="url" name="website" id="website" class="form-control" value="<?php echo htmlspecialchars($companyInfo['website']); ?>">
         </div>
         <div class="mb-3">
+            <label for="google_maps_url" class="form-label">URL de Google Maps</label>
+            <input type="url" name="google_maps_url" id="google_maps_url" class="form-control" value="<?php echo htmlspecialchars($companyInfo['google_maps_url'] ?? ''); ?>" placeholder="https://maps.app.goo.gl/...">
+            <small class="form-text text-muted">Ejemplo: https://maps.app.goo.gl/MVz5zhcPAqpA7Nwh8</small>
+        </div>
+        <div class="mb-3">
             <label for="logo" class="form-label">Logo de la Empresa</label>
             <input type="file" name="logo" id="logo" class="form-control" accept="image/*">
             <?php if (!empty($companyInfo['logo_path'])): ?>
-    <img src="<?php echo htmlspecialchars($companyInfo['logo_path']); ?>" alt="Logo actual" class="mt-2" style="max-width: 200px; max-height: 50px;">
-<?php endif; ?>
+                <img src="<?php echo htmlspecialchars($companyInfo['logo_path']); ?>" alt="Logo actual" class="mt-2" style="max-width: 200px; max-height: 50px;">
+            <?php endif; ?>
         </div>
         <div class="mb-3">
             <label for="legal_info" class="form-label">Información Legal</label>

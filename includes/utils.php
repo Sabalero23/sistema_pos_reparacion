@@ -131,7 +131,7 @@ function updateCompanyInfo($data) {
 
     $allowedFields = [
         'name', 'address', 'phone', 'email', 'website',
-        'logo_path', 'legal_info', 'receipt_footer'
+        'logo_path', 'legal_info', 'receipt_footer', 'google_maps_url'
     ];
 
     $updateValues = [];
