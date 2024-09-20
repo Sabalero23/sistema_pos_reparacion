@@ -1,4 +1,15 @@
 <?php
+
+function customLog($message) {
+    $logFolder = __DIR__ . '/../logs';
+    if (!file_exists($logFolder)) {
+        mkdir($logFolder, 0755, true);
+    }
+    $logFile = $logFolder . '/profit_report_' . date('Y-m-d') . '.log';
+    $timestamp = date('Y-m-d H:i:s');
+    file_put_contents($logFile, "[$timestamp] $message" . PHP_EOL, FILE_APPEND);
+}
+
 function generateSalesReport($startDate, $endDate) {
     global $pdo;
     
@@ -195,7 +206,6 @@ function generateCustomersReport($startDate, $endDate) {
     ];
 }
 
-
 function generateCashRegisterReport($startDate, $endDate) {
     global $pdo;
     
@@ -374,58 +384,57 @@ function generateServiceReport($startDate, $endDate) {
     ];
 }
 
-function generateProfitReport($startDate = null, $endDate = null) {
+function generateProfitReport($startDate, $endDate) {
     global $pdo;
     
-    $dateCondition = "";
-    if ($startDate && $endDate) {
-        $dateCondition = " WHERE sale_date BETWEEN :start_date AND :end_date";
-    }
-
-    // Obtener el total de ventas
-    $salesQuery = "SELECT COALESCE(SUM(total_amount), 0) as total_sales FROM sales" . $dateCondition;
+    customLog("Iniciando generateProfitReport. Parámetros recibidos: startDate = $startDate, endDate = $endDate");
+    
+    // Asegurarse de que las fechas estén en el formato correcto
+    $startDate = date('Y-m-d', strtotime($startDate));
+    $endDate = date('Y-m-d', strtotime($endDate));
+    
+    // Ajustar la fecha de fin para incluir todo el día
+    $endDateQuery = date('Y-m-d', strtotime($endDate . ' +1 day'));
+    
+    customLog("Fechas ajustadas para consultas: startDate = $startDate, endDateQuery = $endDateQuery");
+    
+    // Consulta para obtener el total de ventas
+    $salesQuery = "SELECT COALESCE(SUM(total_amount), 0) as total FROM sales WHERE sale_date >= :start_date AND sale_date < :end_date";
     $salesStmt = $pdo->prepare($salesQuery);
-    if ($startDate && $endDate) {
-        $salesStmt->bindParam(':start_date', $startDate);
-        $salesStmt->bindParam(':end_date', $endDate);
-    }
-    $salesStmt->execute();
+    $salesStmt->execute([':start_date' => $startDate, ':end_date' => $endDateQuery]);
     $totalSales = $salesStmt->fetchColumn();
-
-    // Obtener el total de ingresos en efectivo
-    $cashInQuery = "SELECT COALESCE(SUM(amount), 0) as total_cash_in 
-                    FROM cash_register_movements 
-                    WHERE movement_type = 'cash_in'" . 
-                    ($dateCondition ? " AND" . substr($dateCondition, 6) : "");
+    
+    // Consulta para obtener el total de ingresos en efectivo
+    $cashInQuery = "SELECT COALESCE(SUM(amount), 0) as total FROM cash_register_movements WHERE movement_type = 'cash_in' AND created_at >= :start_date AND created_at < :end_date";
     $cashInStmt = $pdo->prepare($cashInQuery);
-    if ($startDate && $endDate) {
-        $cashInStmt->bindParam(':start_date', $startDate);
-        $cashInStmt->bindParam(':end_date', $endDate);
-    }
-    $cashInStmt->execute();
+    $cashInStmt->execute([':start_date' => $startDate, ':end_date' => $endDateQuery]);
     $totalCashIn = $cashInStmt->fetchColumn();
-
-    // Obtener el total de compras
-    $purchasesQuery = "SELECT COALESCE(SUM(total_amount), 0) as total_purchases FROM purchases" . 
-                      ($dateCondition ? str_replace("sale_date", "purchase_date", $dateCondition) : "");
+    
+    // Consulta para obtener el total de compras
+    $purchasesQuery = "SELECT COALESCE(SUM(total_amount), 0) as total FROM purchases WHERE purchase_date >= :start_date AND purchase_date < :end_date";
     $purchasesStmt = $pdo->prepare($purchasesQuery);
-    if ($startDate && $endDate) {
-        $purchasesStmt->bindParam(':start_date', $startDate);
-        $purchasesStmt->bindParam(':end_date', $endDate);
-    }
-    $purchasesStmt->execute();
+    $purchasesStmt->execute([':start_date' => $startDate, ':end_date' => $endDateQuery]);
     $totalPurchases = $purchasesStmt->fetchColumn();
-
-    // Calcular la ganancia
+    
+    // Cálculo de la ganancia
     $profit = $totalSales + $totalCashIn - $totalPurchases;
+    
+    customLog("Resultados: totalSales = $totalSales, totalCashIn = $totalCashIn, totalPurchases = $totalPurchases, profit = $profit");
 
     return [
-        'profit' => $profit,
         'total_sales' => $totalSales,
         'total_cash_in' => $totalCashIn,
         'total_purchases' => $totalPurchases,
+        'profit' => $profit,
         'start_date' => $startDate,
-        'end_date' => $endDate
+        'end_date' => $endDate,
+        'debug_info' => [
+            'start_date' => $startDate,
+            'end_date' => $endDate,
+            'end_date_query' => $endDateQuery,
+            'sales_query' => $salesQuery,
+            'cash_in_query' => $cashInQuery,
+            'purchases_query' => $purchasesQuery
+        ]
     ];
 }
-?>

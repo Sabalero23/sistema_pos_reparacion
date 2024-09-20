@@ -1,26 +1,3 @@
-<?php
-require_once __DIR__ . '/../../config/config.php';
-require_once __DIR__ . '/../../includes/auth.php';
-require_once __DIR__ . '/../../includes/roles.php';
-require_once __DIR__ . '/../../includes/report_functions.php';
-
-if (!isLoggedIn() || !hasPermission('reports_view')) {
-    $_SESSION['flash_message'] = "No tienes permiso para acceder a esta página.";
-    $_SESSION['flash_type'] = 'warning';
-    header('Location: ' . url('index.php'));
-    exit;
-}
-
-$pageTitle = "Reporte de Ganancias";
-require_once __DIR__ . '/../../includes/header.php';
-
-$startDate = $_GET['start_date'] ?? null;
-$endDate = $_GET['end_date'] ?? null;
-
-$reportData = generateProfitReport($startDate, $endDate);
-
-?>
-
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-start mb-4">
         <h1 class="mb-2">Reporte de Ganancias</h1>
@@ -29,34 +6,10 @@ $reportData = generateProfitReport($startDate, $endDate);
         </a>
     </div>
 
-    <form method="GET" action="" class="mb-4">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="start_date">Fecha de inicio:</label>
-                    <input type="date" id="start_date" name="start_date" class="form-control" value="<?php echo $startDate; ?>">
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="end_date">Fecha de fin:</label>
-                    <input type="date" id="end_date" name="end_date" class="form-control" value="<?php echo $endDate; ?>">
-                </div>
-            </div>
-            <div class="col-md-4 d-flex align-items-end">
-                <button type="submit" class="btn btn-primary">Generar Reporte</button>
-            </div>
-        </div>
-    </form>
-
     <div class="card mb-4">
         <div class="card-body">
             <h2 class="card-title">Resumen de Ganancias</h2>
-            <?php if ($startDate && $endDate): ?>
-                <p>Periodo: <?php echo date('d/m/Y', strtotime($startDate)); ?> - <?php echo date('d/m/Y', strtotime($endDate)); ?></p>
-            <?php else: ?>
-                <p>Periodo: Todos los tiempos</p>
-            <?php endif; ?>
+            <p>Periodo: <?php echo date('d/m/Y', strtotime($reportData['start_date'])); ?> - <?php echo date('d/m/Y', strtotime($reportData['end_date'])); ?></p>
             <div class="row">
                 <div class="col-md-3">
                     <h5>Total Ventas</h5>
@@ -81,8 +34,13 @@ $reportData = generateProfitReport($startDate, $endDate);
     </div>
 
     <button onclick="window.print()" class="btn btn-primary">Imprimir Reporte</button>
-</div>
 
-<?php
-require_once __DIR__ . '/../../includes/footer.php';
-?>
+    <?php if (isset($_GET['debug']) && $_GET['debug'] == '1'): ?>
+    <div class="card mt-4">
+        <div class="card-body">
+            <h3>Datos de depuración</h3>
+            <pre><?php print_r($reportData['debug_info']); ?></pre>
+        </div>
+    </div>
+    <?php endif; ?>
+</div>
