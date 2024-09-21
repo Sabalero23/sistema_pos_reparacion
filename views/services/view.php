@@ -22,27 +22,24 @@ $new_balance = $order['total_amount'] + $total_parts_cost - $order['prepaid_amou
 
 // Función para formatear el número de teléfono para WhatsApp
 function formatPhoneForWhatsApp($phone) {
-    // Eliminar todos los caracteres no numéricos
     $phone = preg_replace('/[^0-9]/', '', $phone);
-    
-    // Asegurarse de que el número comience con el código de país (por ejemplo, 54 para Argentina)
     if (substr($phone, 0, 2) !== '54') {
         $phone = '54' . $phone;
     }
-    
     return $phone;
 }
 
-// Verificar si el estado actual es "cerrado"
-$isClosed = $order['status'] === 'cerrado';
+$isClosed = ($order['status'] ?? '') === 'cerrado';
+$whatsappMessage = urlencode("Hola " . ($order['customer_name'] ?? '') . ", su Orden de trabajo finalizó con éxito. Puede pasar a retirar su Equipo. Puede ver el estado desde aquí: " . url("seguimiento.php?order_number=" . ($order['order_number'] ?? '')));
+$whatsappLink = "https://wa.me/" . formatPhoneForWhatsApp($order['phone'] ?? '') . "?text=" . $whatsappMessage;
 
-// Preparar el mensaje de WhatsApp
-$whatsappMessage = urlencode("Hola " . $order['customer_name'] . ", su Orden de trabajo finalizó con éxito. Puede pasar a retirar su Equipo. Puede ver el estado desde aquí: " . url("seguimiento.php?order_number=" . $order['order_number']));
+// Calcula el costo total de las piezas
+$total_parts_cost = array_sum(array_column($order_parts ?? [], 'cost'));
 
-// Preparar el enlace de WhatsApp
-$whatsappLink = "https://wa.me/" . formatPhoneForWhatsApp($order['phone']) . "?text=" . $whatsappMessage;
-
+// Recalcula el saldo
+$new_balance = ($order['total_amount'] ?? 0) + $total_parts_cost - ($order['prepaid_amount'] ?? 0);
 ?>
+
 <div class="container mt-4">
     <h1 class="mb-4">Orden de Servicio #<?php echo htmlspecialchars($order['order_number'] ?? ''); ?></h1>
     
@@ -71,7 +68,7 @@ $whatsappLink = "https://wa.me/" . formatPhoneForWhatsApp($order['phone']) . "?t
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($order['items'] as $item): ?>
+            <?php foreach ($order['items'] ?? [] as $item): ?>
             <tr>
                 <td><?php echo htmlspecialchars($item['description'] ?? ''); ?></td>
                 <td><?php echo number_format($item['cost'] ?? 0, 2); ?> ARS</td>
@@ -86,11 +83,11 @@ $whatsappLink = "https://wa.me/" . formatPhoneForWhatsApp($order['phone']) . "?t
             <table class="table">
                 <tr>
                     <td><strong>Total:</strong></td>
-                    <td><?php echo number_format($order['total_amount'], 2); ?> ARS</td>
+                    <td><?php echo number_format($order['total_amount'] ?? 0, 2); ?> ARS</td>
                 </tr>
                 <tr>
                     <td><strong>Monto Prepago:</strong></td>
-                    <td><?php echo number_format($order['prepaid_amount'], 2); ?> ARS</td>
+                    <td><?php echo number_format($order['prepaid_amount'] ?? 0, 2); ?> ARS</td>
                 </tr>
                 <tr>
                     <td><strong>Piezas Utilizadas:</strong></td>
@@ -104,15 +101,15 @@ $whatsappLink = "https://wa.me/" . formatPhoneForWhatsApp($order['phone']) . "?t
         </div>
         <div class="col-md-6">
             <h3>Estado de la Orden</h3>
-            <p><strong>Estado Actual:</strong> <?php echo htmlspecialchars($order['status']); ?></p>
-            <form action="<?php echo url('services.php?action=update_status&id=' . $order['id']); ?>" method="post">
+            <p><strong>Estado Actual:</strong> <?php echo htmlspecialchars($order['status'] ?? 'No especificado'); ?></p>
+            <form action="<?php echo url('services.php?action=update_status&id=' . ($order['id'] ?? '')); ?>" method="post">
                 <div class="mb-3">
                     <label for="status" class="form-label">Actualizar Estado</label>
                     <select class="form-control" id="status" name="status">
-                        <option value="abierto" <?php echo $order['status'] == 'abierto' ? 'selected' : ''; ?>>Abierto</option>
-                        <option value="en_progreso" <?php echo $order['status'] == 'en_progreso' ? 'selected' : ''; ?>>En Progreso</option>
-                        <option value="cerrado" <?php echo $order['status'] == 'cerrado' ? 'selected' : ''; ?>>Cerrado</option>
-                        <option value="cancelado" <?php echo $order['status'] == 'cancelado' ? 'selected' : ''; ?>>Cancelado</option>
+                        <option value="abierto" <?php echo ($order['status'] ?? '') == 'abierto' ? 'selected' : ''; ?>>Abierto</option>
+                        <option value="en_progreso" <?php echo ($order['status'] ?? '') == 'en_progreso' ? 'selected' : ''; ?>>En Progreso</option>
+                        <option value="cerrado" <?php echo ($order['status'] ?? '') == 'cerrado' ? 'selected' : ''; ?>>Cerrado</option>
+                        <option value="cancelado" <?php echo ($order['status'] ?? '') == 'cancelado' ? 'selected' : ''; ?>>Cancelado</option>
                     </select>
                 </div>
                 <div class="mb-3">
@@ -141,44 +138,63 @@ $whatsappLink = "https://wa.me/" . formatPhoneForWhatsApp($order['phone']) . "?t
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($order_status_history as $history): ?>
+                    <?php foreach ($order_status_history ?? [] as $history): ?>
                     <tr>
-                        <td><?php echo date('d/m/Y H:i', strtotime($history['changed_at'])); ?></td>
-                        <td><?php echo htmlspecialchars($history['status']); ?></td>
-                        <td><?php echo htmlspecialchars($history['notes']); ?></td>
+                        <td><?php echo date('d/m/Y H:i', strtotime($history['changed_at'] ?? 'now')); ?></td>
+                        <td><?php echo htmlspecialchars($history['status'] ?? ''); ?></td>
+                        <td><?php echo htmlspecialchars($history['notes'] ?? ''); ?></td>
                     </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
         <div class="col-md-6">
-            <h3>Notas</h3>
-<?php foreach ($order_notes as $note): ?>
-<div class="card mb-2">
-    <div class="card-body">
-        <p class="card-text"><?php echo nl2br(htmlspecialchars($note['note'])); ?></p>
-        <?php if ($note['image_path']): ?>
-            <div class="mt-2">
-                <a href="<?php echo url($note['image_path']); ?>" target="_blank">
-                    <img src="<?php echo url($note['image_path']); ?>" alt="Nota imagen" class="img-thumbnail" style="max-width: 100px; max-height: 100px;">
-                </a>
+            <h3>Notas e Imágenes</h3>
+            
+            <?php if (!empty($order_notes['images'])): ?>
+            <div class="card mb-4">
+                <div class="card-header">Todas las Imágenes</div>
+                <div class="card-body">
+                    <div class="d-flex flex-wrap">
+                        <?php foreach ($order_notes['images'] as $image): ?>
+                            <div class="mr-2 mb-2">
+                                <a href="<?php echo url($image['path']); ?>" target="_blank">
+                                    <img src="<?php echo url($image['path']); ?>" alt="Imagen de la orden" class="img-thumbnail" style="max-width: 100px; max-height: 100px;">
+                                </a>
+                                <small class="d-block text-muted">
+                                    <?php echo date('d/m/Y H:i', strtotime($image['created_at'])); ?>
+                                    por <?php echo htmlspecialchars($image['user_name']); ?>
+                                </small>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
             </div>
-        <?php endif; ?>
-        <p class="card-text"><small class="text-muted">Por: <?php echo htmlspecialchars($note['user_name']); ?> el <?php echo date('d/m/Y H:i', strtotime($note['created_at'])); ?></small></p>
-    </div>
-</div>
-<?php endforeach; ?>
-<form action="<?php echo url('services.php?action=add_note&id=' . $order['id']); ?>" method="post" enctype="multipart/form-data">
-    <div class="mb-3">
-        <label for="note" class="form-label">Agregar nota</label>
-        <textarea class="form-control" id="note" name="note" rows="3" required></textarea>
-    </div>
-    <div class="mb-3">
-        <label for="note_image" class="form-label">Agregar imagen (opcional)</label>
-        <input type="file" class="form-control" id="note_image" name="note_image" accept="image/*">
-    </div>
-    <button type="submit" class="btn btn-primary">Agregar Nota</button>
-</form>
+            <?php endif; ?>
+            
+            <?php foreach ($order_notes['textNotes'] as $note): ?>
+            <div class="card mb-2">
+                <div class="card-body">
+                    <p class="card-text"><?php echo nl2br(htmlspecialchars($note['note'])); ?></p>
+                    <p class="card-text"><small class="text-muted">
+                        Por: <?php echo htmlspecialchars($note['user_name']); ?> 
+                        el <?php echo date('d/m/Y H:i', strtotime($note['created_at'])); ?>
+                    </small></p>
+                </div>
+            </div>
+            <?php endforeach; ?>
+
+            <form action="<?php echo url('services.php?action=add_note&id=' . ($order['id'] ?? '')); ?>" method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="note" class="form-label">Agregar nota</label>
+                    <textarea class="form-control" id="note" name="note" rows="3" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="note_images" class="form-label">Agregar imágenes (opcional)</label>
+                    <input type="file" class="form-control" id="note_images" name="note_images[]" accept="image/*" multiple>
+                </div>
+                <button type="submit" class="btn btn-primary">Agregar Nota</button>
+            </form>
         </div>
     </div>
 
@@ -193,18 +209,18 @@ $whatsappLink = "https://wa.me/" . formatPhoneForWhatsApp($order['phone']) . "?t
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($order_parts as $part): ?>
+            <?php foreach ($order_parts ?? [] as $part): ?>
             <tr>
-                <td><?php echo htmlspecialchars($part['part_name']); ?></td>
-                <td><?php echo htmlspecialchars($part['part_number']); ?></td>
-                <td><?php echo htmlspecialchars($part['quantity']); ?></td>
-                <td><?php echo number_format($part['cost'], 2); ?> ARS</td>
+                <td><?php echo htmlspecialchars($part['part_name'] ?? ''); ?></td>
+                <td><?php echo htmlspecialchars($part['part_number'] ?? ''); ?></td>
+                <td><?php echo htmlspecialchars($part['quantity'] ?? ''); ?></td>
+                <td><?php echo number_format($part['cost'] ?? 0, 2); ?> ARS</td>
             </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
 
-    <form action="<?php echo url('services.php?action=add_part&id=' . $order['id']); ?>" method="post" class="mt-3">
+    <form action="<?php echo url('services.php?action=add_part&id=' . ($order['id'] ?? '')); ?>" method="post" class="mt-3">
         <h4>Agregar Pieza</h4>
         <div class="row">
             <div class="col-md-3 mb-3">
@@ -226,7 +242,7 @@ $whatsappLink = "https://wa.me/" . formatPhoneForWhatsApp($order['phone']) . "?t
     </form>
 
     <div class="mt-4">
-        <a href="<?php echo url('services.php?action=print&id=' . $order['id']); ?>" class="btn btn-secondary" target="_blank">Imprimir Orden</a>
+        <a href="<?php echo url('services.php?action=print&id=' . ($order['id'] ?? '')); ?>" class="btn btn-secondary" target="_blank">Imprimir Orden</a>
         <a href="<?php echo url('services.php'); ?>" class="btn btn-primary">Volver a la Lista</a>
     </div>
 </div>

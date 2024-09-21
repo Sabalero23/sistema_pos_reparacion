@@ -154,49 +154,91 @@ function getOrderStatusHistory($orderId) {
     }
 }
 
-function addOrderNoteWithImage($orderId, $userId, $note, $image) {
+function getOrderNotes($orderId) {
+    global $pdo;
+    try {
+        $sql = "SELECT son.*, u.name as user_name 
+                FROM service_order_notes son 
+                LEFT JOIN users u ON son.user_id = u.id 
+                WHERE son.service_order_id = ? 
+                ORDER BY son.created_at DESC";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$orderId]);
+        $allNotes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $textNotes = [];
+        $images = [];
+
+        foreach ($allNotes as $note) {
+            if (!empty($note['image_path'])) {
+                $images[] = [
+                    'path' => $note['image_path'],
+                    'created_at' => $note['created_at'],
+                    'user_name' => $note['user_name'] ?? 'Usuario desconocido'
+                ];
+            } elseif (!empty($note['note'])) {
+                $textNotes[] = [
+                    'id' => $note['id'],
+                    'note' => $note['note'],
+                    'user_name' => $note['user_name'] ?? 'Usuario desconocido',
+                    'created_at' => $note['created_at']
+                ];
+            }
+        }
+
+        // Ordenar las imágenes por fecha de creación (la más reciente primero)
+        usort($images, function($a, $b) {
+            return strtotime($b['created_at']) - strtotime($a['created_at']);
+        });
+
+        return [
+            'textNotes' => $textNotes,
+            'images' => $images
+        ];
+    } catch (PDOException $e) {
+        error_log("Error getting order notes: " . $e->getMessage());
+        throw new Exception("Error al obtener las notas de la orden");
+    }
+}
+
+function addOrderNoteWithImages($orderId, $userId, $note, $images) {
     global $pdo;
     try {
         $pdo->beginTransaction();
 
-        $imagePath = null;
-        if ($image && $image['error'] == 0) {
+        // Insertar la nota principal
+        $sql = "INSERT INTO service_order_notes (service_order_id, user_id, note) VALUES (?, ?, ?)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$orderId, $userId, $note]);
+        $noteId = $pdo->lastInsertId();
+
+        // Procesar las imágenes
+        if (!empty($images['name'][0])) {
             $uploadDir = __DIR__ . '/../public/uploads/service_notes/';
             if (!is_dir($uploadDir)) {
                 mkdir($uploadDir, 0755, true);
             }
-            $imageName = uniqid() . '_' . basename($image['name']);
-            $imagePath = '/uploads/service_notes/' . $imageName;
-            move_uploaded_file($image['tmp_name'], $uploadDir . $imageName);
-        }
 
-        $sql = "INSERT INTO service_order_notes (service_order_id, user_id, note, image_path) VALUES (?, ?, ?, ?)";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([$orderId, $userId, $note, $imagePath]);
+            $sql = "INSERT INTO service_order_notes (service_order_id, user_id, note, image_path) VALUES (?, ?, ?, ?)";
+            $stmt = $pdo->prepare($sql);
+
+            foreach ($images['tmp_name'] as $key => $tmp_name) {
+                if ($images['error'][$key] == 0) {
+                    $imageName = uniqid() . '_' . basename($images['name'][$key]);
+                    $imagePath = '/uploads/service_notes/' . $imageName;
+                    if (move_uploaded_file($tmp_name, $uploadDir . $imageName)) {
+                        $stmt->execute([$orderId, $userId, "Imagen adjunta a la nota #$noteId", $imagePath]);
+                    }
+                }
+            }
+        }
 
         $pdo->commit();
         return true;
     } catch (PDOException $e) {
         $pdo->rollBack();
-        error_log("Error adding order note with image: " . $e->getMessage());
+        error_log("Error adding order note with images: " . $e->getMessage());
         throw new Exception("Error al agregar la nota a la orden");
-    }
-}
-
-function getOrderNotes($orderId) {
-    global $pdo;
-    try {
-        $sql = "SELECT son.*, u.name as user_name, son.image_path 
-                FROM service_order_notes son 
-                JOIN users u ON son.user_id = u.id 
-                WHERE son.service_order_id = ? 
-                ORDER BY son.created_at DESC";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([$orderId]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    } catch (PDOException $e) {
-        error_log("Error getting order notes: " . $e->getMessage());
-        throw new Exception("Error al obtener las notas de la orden");
     }
 }
 

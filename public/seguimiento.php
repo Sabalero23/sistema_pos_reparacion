@@ -7,7 +7,7 @@ require_once __DIR__ . '/../includes/phpqrcode/qrlib.php';
 $error = '';
 $order = null;
 $status_history = [];
-$order_notes = [];
+$order_notes_data = [];
 $qr_code = '';
 
 $company_info = getCompanyInfo();
@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || isset($_GET['order_number'])) {
             if ($result) {
                 $order = getServiceOrder($result['id']);
                 $status_history = getOrderStatusHistory($result['id']);
-                $order_notes = getOrderNotes($result['id']);
+                $order_notes_data = getOrderNotes($result['id']);
                 $qr_code = generateQRCode($order['order_number']);
             } else {
                 $error = "No se encontró ninguna orden con ese número.";
@@ -89,23 +89,6 @@ if (!empty($status_history)) {
     $last_status = end($status_history);
     $is_last_status_closed = strtolower($last_status['status']) === 'cerrado';
 }
-?>
-
-<?php
-require_once __DIR__ . '/../config/config.php';
-require_once __DIR__ . '/../includes/service_functions.php';
-require_once __DIR__ . '/../includes/phpqrcode/qrlib.php';
-
-// [El resto del código PHP permanece igual]
-
-?>
-<?php
-require_once __DIR__ . '/../config/config.php';
-require_once __DIR__ . '/../includes/service_functions.php';
-require_once __DIR__ . '/../includes/phpqrcode/qrlib.php';
-
-// [El resto del código PHP permanece igual]
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -312,38 +295,49 @@ require_once __DIR__ . '/../includes/phpqrcode/qrlib.php';
                 </tbody>
             </table>
 
-            <h5>Notas de la Orden</h5>
-            <?php if (empty($order_notes)): ?>
-                <p>No hay notas para esta orden.</p>
+            <h5>Notas e Imágenes de la Orden</h5>
+            <?php if (empty($order_notes_data['textNotes']) && empty($order_notes_data['images'])): ?>
+                <p>No hay notas ni imágenes para esta orden.</p>
             <?php else: ?>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Fecha</th>
-                            <th>Usuario</th>
-                            <th>Nota</th>
-                            <th>Imagen</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($order_notes as $note): ?>
-                        <tr>
-                            <td><?php echo htmlspecialchars($note['created_at']); ?></td>
-                            <td><?php echo htmlspecialchars($note['user_name']); ?></td>
-                            <td><?php echo htmlspecialchars($note['note']); ?></td>
-                            <td>
-                                <?php if (!empty($note['image_path'])): ?>
-                                    <img src="<?php echo htmlspecialchars(url($note['image_path'])); ?>" 
-                                         alt="Nota" 
-                                         class="img-thumbnail" 
-                                         style="max-width: 100px; max-height: 100px; cursor: pointer;"
-                                         onclick="openImageModal('<?php echo htmlspecialchars(url($note['image_path'])); ?>')">
-                                <?php endif; ?>
-                            </td>
-                        </tr>
+                <?php if (!empty($order_notes_data['images'])): ?>
+                    <h6>Imágenes</h6>
+                    <div class="d-flex flex-wrap mb-3">
+                        <?php foreach ($order_notes_data['images'] as $image): ?>
+                            <div class="mr-2 mb-2">
+                                <img src="<?php echo htmlspecialchars(url($image['path'])); ?>" 
+                                     alt="Imagen de la orden" 
+                                     class="img-thumbnail" 
+                                     style="max-width: 100px; max-height: 100px; cursor: pointer;"
+                                     onclick="openImageModal('<?php echo htmlspecialchars(url($image['path'])); ?>')">
+                                <small class="d-block text-muted">
+                                    <?php echo date('d/m/Y H:i', strtotime($image['created_at'])); ?>
+                                </small>
+                            </div>
                         <?php endforeach; ?>
-                    </tbody>
-                </table>
+                    </div>
+                <?php endif; ?>
+
+                <?php if (!empty($order_notes_data['textNotes'])): ?>
+                    <h6>Notas</h6>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Usuario</th>
+                                <th>Nota</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($order_notes_data['textNotes'] as $note): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars(date('d/m/Y H:i', strtotime($note['created_at']))); ?></td>
+                                <td><?php echo htmlspecialchars($note['user_name']); ?></td>
+                                <td><?php echo nl2br(htmlspecialchars($note['note'])); ?></td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                <?php endif; ?>
             <?php endif; ?>
 
             <div class="mt-4 no-print">
@@ -396,14 +390,8 @@ require_once __DIR__ . '/../includes/phpqrcode/qrlib.php';
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         <?php
-        if (!empty($status_history)) {
-            usort($status_history, function($a, $b) {
-                return strtotime($b['changed_at']) - strtotime($a['changed_at']);
-            });
-            $last_status = $status_history[0];
-            if (strtolower(trim($last_status['status'])) === 'cerrado') {
-                echo "$('#orderClosedModal').modal('show');";
-            }
+        if ($is_last_status_closed) {
+            echo "$('#orderClosedModal').modal('show');";
         }
         ?>
     });

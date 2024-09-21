@@ -135,11 +135,11 @@ case 'handle_cash_in':
         case 'add_note':
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $note = $_POST['note'] ?? '';
-        $image = $_FILES['note_image'] ?? null;
+        $images = $_FILES['note_images'] ?? null;
         if (!$orderId || !$note) {
             throw new Exception("Datos insuficientes para agregar la nota.");
         }
-        $result = addOrderNoteWithImage($orderId, $_SESSION['user_id'], $note, $image);
+        $result = addOrderNoteWithImages($orderId, $_SESSION['user_id'], $note, $images);
         if ($result) {
             $_SESSION['flash_message'] = "Nota agregada con éxito.";
             $_SESSION['flash_type'] = 'success';
