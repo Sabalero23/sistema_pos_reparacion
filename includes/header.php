@@ -3,6 +3,7 @@ ob_start();
 require_once __DIR__ . '/../config/config.php';
 require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/roles.php';
+require_once __DIR__ . '/home_visit_functions.php';
 
 // Initialize session if not already started
 if (session_status() == PHP_SESSION_NONE) {
@@ -18,6 +19,10 @@ if (isset($_GET['logout'])) {
 $settings = getSettings();
 $logoPath = $settings['logo_path'] ?? '/uploads/logo.png';
 $appName = $settings['app_name'] ?? APP_NAME;
+
+// Obtener visitas programadas
+$scheduledVisits = getScheduledHomeVisits();
+$scheduledVisitsCount = count($scheduledVisits);
 
 // Helper function to check if a menu item should be active
 function isActiveMenuItem($pageName) {
@@ -173,16 +178,34 @@ $configSubmenuItems = [
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
                             <?php if (isLoggedIn()): ?>
+                                <?php if ($scheduledVisitsCount > 0): ?>
+                                    <li class="nav-item dropdown me-3">
+                                        <a class="nav-link" href="#" id="scheduledVisitsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="fas fa-calendar-check"></i>
+                                            <span class="badge bg-danger"><?php echo $scheduledVisitsCount; ?></span>
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="scheduledVisitsDropdown">
+                                            <li><h6 class="dropdown-header">Visitas Programadas</h6></li>
+                                            <?php foreach ($scheduledVisits as $visit): ?>
+                                                <li><a class="dropdown-item" href="<?php echo url('home_visits.php?action=view&id=' . $visit['id']); ?>">
+                                                    <?php echo htmlspecialchars($visit['customer_name'] . ' - ' . $visit['visit_date']); ?>
+                                                </a></li>
+                                            <?php endforeach; ?>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item" href="<?php echo url('home_visits.php'); ?>">Ver todas las visitas</a></li>
+                                        </ul>
+                                    </li>
+                                <?php endif; ?>
                                 <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" aria-expanded="false">
-        <i class="fas fa-user-circle me-2"></i><?php echo htmlspecialchars($_SESSION['user_name'] ?? 'Usuario'); ?>
-    </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-        <li><a class="dropdown-item" href="<?php echo url('profile.php'); ?>"><i class="fas fa-id-card me-2"></i>Perfil</a></li>
-        <li><hr class="dropdown-divider"></li>
-        <li><a class="dropdown-item" href="<?php echo url('index.php?logout=true'); ?>"><i class="fas fa-sign-out-alt me-2"></i>Cerrar sesión</a></li>
-    </ul>
-</li>
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fas fa-user-circle me-2"></i><?php echo htmlspecialchars($_SESSION['user_name'] ?? 'Usuario'); ?>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" href="<?php echo url('profile.php'); ?>"><i class="fas fa-id-card me-2"></i>Perfil</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" href="<?php echo url('index.php?logout=true'); ?>"><i class="fas fa-sign-out-alt me-2"></i>Cerrar sesión</a></li>
+                                    </ul>
+                                </li>
                             <?php else: ?>
                                 <li class="nav-item">
                                     <a class="nav-link" href="<?php echo url('login.php'); ?>">Iniciar sesión</a>
@@ -212,126 +235,155 @@ $configSubmenuItems = [
 
     <!-- jQuery and Bootstrap Bundle (includes Popper) -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 
-   <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Elementos del DOM
-    const wrapper = document.getElementById('wrapper');
-    const toggleButton = document.getElementById('menu-toggle');
-    const pageContent = document.getElementById('page-content-wrapper');
-    const sidebar = document.getElementById('sidebar-wrapper');
-    const userDropdown = document.getElementById('navbarDropdown');
-    const dropdownMenu = userDropdown.nextElementSibling;
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Elementos del DOM
+        const wrapper = document.getElementById('wrapper');
+        const toggleButton = document.getElementById('menu-toggle');
+        const pageContent = document.getElementById('page-content-wrapper');
+        const sidebar = document.getElementById('sidebar-wrapper');
+        const userDropdown = document.getElementById('navbarDropdown');
+        const scheduledVisitsDropdown = document.getElementById('scheduledVisitsDropdown');
 
-    // Función para alternar el sidebar
-    function toggleSidebar() {
-        wrapper.classList.toggle('toggled');
-        if (wrapper.classList.contains('toggled')) {
-            sidebar.style.marginLeft = '0';
-            if (window.innerWidth >= 768) {
+        // Función para alternar el sidebar
+        function toggleSidebar() {
+            wrapper.classList.toggle('toggled');
+            if (wrapper.classList.contains('toggled')) {
+                sidebar.style.marginLeft = '0';
+                if (window.innerWidth >= 768) {
+                    pageContent.style.marginLeft = 'var(--sidebar-width)';
+                }
+            } else {
+                sidebar.style.marginLeft = 'calc(-1 * var(--sidebar-width))';
+                pageContent.style.marginLeft = '0';
+            }
+        }
+
+        // Event listener para el botón de toggle del sidebar
+        if (toggleButton) {
+            toggleButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                toggleSidebar();
+            });
+        }
+
+        // Manejo del dropdown del usuario
+        if (userDropdown) {
+            const userDropdownMenu = userDropdown.nextElementSibling;
+            
+            userDropdown.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                userDropdownMenu.classList.toggle('show');
+            });
+
+            // Cerrar el dropdown cuando se hace clic fuera de él
+            document.addEventListener('click', function(e) {
+                if (!userDropdown.contains(e.target)) {
+                    userDropdownMenu.classList.remove('show');
+                }
+            });
+        }
+
+        // Manejo del dropdown de visitas programadas
+        if (scheduledVisitsDropdown) {
+            const scheduledVisitsMenu = scheduledVisitsDropdown.nextElementSibling;
+            
+            scheduledVisitsDropdown.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                scheduledVisitsMenu.classList.toggle('show');
+            });
+
+            // Cerrar el dropdown cuando se hace clic fuera de él
+            document.addEventListener('click', function(e) {
+                if (!scheduledVisitsDropdown.contains(e.target)) {
+                    scheduledVisitsMenu.classList.remove('show');
+                }
+            });
+        }
+
+        // Manejar el redimensionamiento de la ventana
+        window.addEventListener('resize', function() {
+            if (window.innerWidth < 768) {
+                wrapper.classList.remove('toggled');
+                sidebar.style.marginLeft = 'calc(-1 * var(--sidebar-width))';
+                pageContent.style.marginLeft = '0';
+            } else if (wrapper.classList.contains('toggled')) {
+                sidebar.style.marginLeft = '0';
                 pageContent.style.marginLeft = 'var(--sidebar-width)';
             }
-        } else {
-            sidebar.style.marginLeft = 'calc(-1 * var(--sidebar-width))';
-            pageContent.style.marginLeft = '0';
-        }
-    }
+        });
 
-    // Event listener para el botón de toggle del sidebar
-    toggleButton.addEventListener('click', function(e) {
-        e.preventDefault();
-        toggleSidebar();
-    });
-
-    // Manejo del dropdown del usuario
-    userDropdown.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        dropdownMenu.classList.toggle('show');
-    });
-
-    // Cerrar el dropdown cuando se hace clic fuera de él
-    document.addEventListener('click', function(e) {
-        if (!userDropdown.contains(e.target)) {
-            dropdownMenu.classList.remove('show');
-        }
-    });
-
-    // Manejar el redimensionamiento de la ventana
-    window.addEventListener('resize', function() {
+        // Asegurar que el sidebar esté oculto en la carga inicial para dispositivos móviles
         if (window.innerWidth < 768) {
             wrapper.classList.remove('toggled');
             sidebar.style.marginLeft = 'calc(-1 * var(--sidebar-width))';
             pageContent.style.marginLeft = '0';
-        } else if (wrapper.classList.contains('toggled')) {
-            sidebar.style.marginLeft = '0';
-            pageContent.style.marginLeft = 'var(--sidebar-width)';
         }
-    });
 
-    // Asegurar que el sidebar esté oculto en la carga inicial para dispositivos móviles
-    if (window.innerWidth < 768) {
-        wrapper.classList.remove('toggled');
-        sidebar.style.marginLeft = 'calc(-1 * var(--sidebar-width))';
-        pageContent.style.marginLeft = '0';
-    }
+        // Inicializar tooltips
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
 
-    // Inicializar tooltips
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl);
-    });
-
-    // Confirmación para acciones de eliminación
-    document.querySelectorAll('.delete-confirm').forEach(function(element) {
-        element.addEventListener('click', function(e) {
-            e.preventDefault();
-            const url = this.getAttribute('href');
-            Swal.fire({
-                title: '¿Estás seguro?',
-                text: "Esta acción no se puede deshacer",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3498db',
-                cancelButtonColor: '#e74c3c',
-                confirmButtonText: 'Sí, eliminar',
-                cancelButtonText: 'Cancelar'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = url;
-                }
+        // Confirmación para acciones de eliminación
+        document.querySelectorAll('.delete-confirm').forEach(function(element) {
+            element.addEventListener('click', function(e) {
+                e.preventDefault();
+                const url = this.getAttribute('href');
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "Esta acción no se puede deshacer",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3498db',
+                    cancelButtonColor: '#e74c3c',
+                    confirmButtonText: 'Sí, eliminar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = url;
+                    }
+                });
             });
         });
+
+        // Código para el datetime-container
+        const datetimeContainer = document.getElementById('datetime-container');
+        if (datetimeContainer) {
+            datetimeContainer.addEventListener('click', function() {
+                window.location.href = '/public/calendar.php'; // Asegúrate de que esta ruta sea correcta
+            });
+        }
+
+        // Función para actualizar fecha y hora
+        function updateDateTime() {
+            const now = new Date();
+            const options = {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: 'numeric',
+                minute: 'numeric',
+                second: 'numeric',
+                timeZone: 'America/Argentina/Buenos_Aires' // Asegúrate de que esta sea la zona horaria correcta
+            };
+            const dateTimeString = now.toLocaleDateString('es-AR', options);
+            const datetimeElement = document.getElementById('datetime');
+            if (datetimeElement) {
+                datetimeElement.textContent = dateTimeString;
+            }
+        }
+
+        // Actualizar fecha y hora inicialmente y luego cada segundo
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
     });
-
-    // Nuevo código para el datetime-container
-    const datetimeContainer = document.getElementById('datetime-container');
-    datetimeContainer.addEventListener('click', function() {
-        window.location.href = '/public/calendar.php'; // Asegúrate de que esta ruta sea correcta
-    });
-
-    // Función para actualizar fecha y hora
-    function updateDateTime() {
-        const now = new Date();
-        const options = {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            hour: 'numeric',
-            minute: 'numeric',
-            second: 'numeric',
-            timeZone: 'America/Buenos_Aires' // Asegúrate de que esta sea la zona horaria correcta
-        };
-        const dateTimeString = now.toLocaleDateString('es-AR', options);
-        document.getElementById('datetime').textContent = dateTimeString;
-    }
-
-    // Actualizar fecha y hora inicialmente y luego cada segundo
-    updateDateTime();
-    setInterval(updateDateTime, 1000);
-});
-</script>
+    </script>
 </body>
 </html>

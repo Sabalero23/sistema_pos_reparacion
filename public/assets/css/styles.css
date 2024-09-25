@@ -716,6 +716,7 @@ a:hover, a:focus {
 }
 
 .modal-dialog {
+    z-index: 1060 !important;
     position: relative;
     width: auto;
     margin: 0.5rem;
@@ -1064,6 +1065,7 @@ input:checked + .slider:before {
     max-width:
 
 .modal-content {
+    z-index: 1050 !important;
     position: relative;
     display: -ms-flexbox;
     display: flex;
@@ -1076,4 +1078,54 @@ input:checked + .slider:before {
     border: 1px solid rgba(0, 0, 0, .2);
     border-radius: .3rem;
     outline: 0;
+}
+
+    #clientIssuesModal {
+        z-index: 1056 !important;
+    }
+    .modal-backdrop {
+        z-index: 1040 !important;
+    }
+    body.modal-open {
+        overflow: hidden;
+    }
+.dropdown-menu.show {
+    display: block;
+}
+
+.navbar .badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 0.7rem;
+}
+
+.navbar .nav-link {
+    position: relative;
+}
+
+#scheduledVisitsDropdown {
+    padding-right: 1rem;
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    position: absolute;
+    z-index: 1000;
+    display: none;
+    min-width: 10rem;
+    padding: 0.5rem 0;
+    margin: 0;
+    font-size: 1rem;
+    color: #212529;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 0.25rem;
+}
+
+.dropdown-menu.show {
+    display: block;
 }
