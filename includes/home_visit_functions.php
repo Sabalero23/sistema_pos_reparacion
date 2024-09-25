@@ -81,3 +81,16 @@ function getHomeVisitByToken($token) {
     $stmt->execute([$token]);
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
+
+function getScheduledHomeVisits() {
+    global $pdo;
+    $query = "SELECT hv.id, hv.visit_date, hv.visit_time, c.name as customer_name
+              FROM home_visits hv
+              JOIN customers c ON hv.customer_id = c.id
+              WHERE hv.status = 'programada'
+              ORDER BY hv.visit_date ASC, hv.visit_time ASC
+              LIMIT 5";
+    $stmt = $pdo->prepare($query);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
