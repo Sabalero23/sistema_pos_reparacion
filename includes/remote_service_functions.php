@@ -12,12 +12,17 @@ function getAllRemoteServices() {
 
 function getRemoteService($id) {
     global $pdo;
-    $stmt = $pdo->prepare("SELECT rs.*, c.name as customer_name, c.phone as customer_phone, rs.access_token 
+    $stmt = $pdo->prepare("SELECT rs.*, c.name as customer_name, c.phone as customer_phone 
                            FROM remote_services rs 
                            JOIN customers c ON rs.customer_id = c.id 
                            WHERE rs.id = ?");
     $stmt->execute([$id]);
-    return $stmt->fetch(PDO::FETCH_ASSOC);
+    $service = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    // Depuración: registrar los datos recuperados
+    error_log("Datos del servicio recuperados: " . print_r($service, true));
+    
+    return $service;
 }
 
 function createRemoteService($data) {
@@ -42,6 +47,13 @@ function createRemoteService($data) {
 function updateRemoteService($id, $data) {
     global $pdo;
     try {
+        // Verificar si el customer_id existe en la tabla customers
+        $stmt = $pdo->prepare("SELECT id FROM customers WHERE id = ?");
+        $stmt->execute([$data['customer_id']]);
+        if (!$stmt->fetch()) {
+            throw new Exception("El cliente especificado no existe.");
+        }
+
         $stmt = $pdo->prepare("UPDATE remote_services 
                                SET customer_id = ?, service_date = ?, service_time = ?, notes = ?, status = ? 
                                WHERE id = ?");
@@ -54,7 +66,7 @@ function updateRemoteService($id, $data) {
             $id
         ]);
         return ['success' => true];
-    } catch (PDOException $e) {
+    } catch (Exception $e) {
         return ['success' => false, 'message' => 'Error al actualizar el servicio remoto: ' . $e->getMessage()];
     }
 }
