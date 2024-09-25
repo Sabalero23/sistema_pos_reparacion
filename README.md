@@ -10,7 +10,7 @@ Interfaz de Punto de Venta (POS) intuitiva
 Procesamiento de ventas y devoluciones
 Gestión de descuentos y promociones
 
-## RGestión de Inventarios
+## Gestión de Inventarios
 Control detallado de stock
 Alertas de bajo stock
 Seguimiento de movimientos de inventario
@@ -19,6 +19,11 @@ Seguimiento de movimientos de inventario
 Creación y seguimiento de órdenes de servicio
 Gestión de reparaciones y mantenimiento
 Asignación de técnicos y seguimiento de estado
+
+## Programar Visitas a Domicilio y Servicios Remotos
+Programar fecha y hora para visitas al domiclio del cliente
+Programar fecha y hora para servicio remoto al cliente
+Seguimiento para el usuario
 
 ## Gestión de Presupuestos
 Creación y gestión de presupuestos para clientes
