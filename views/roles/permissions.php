@@ -12,6 +12,7 @@ $permissionsByCategory = [
     'Pagos' => ['payments_view', 'payments_create', 'payments_edit', 'payments_delete'],
     'Órdenes de servicio' => ['services_view', 'services_create', 'services_edit', 'services_delete', 'services_update_status'],
     'Visitas a Domicilio' => ['home_visits_view', 'home_visits_create', 'home_visits_edit', 'home_visits_delete', 'calendar_view', 'home_visits_send_whatsapp'],
+    'Servicios Remotos' => ['remote_services_view', 'remote_services_create', 'remote_services_edit', 'remote_services_delete', 'remote_services_update_status', 'remote_services_send_notification'],
     'Reportes' => ['reports_view', 'reports_generate'],
     'Roles y Permisos' => ['roles_manage'],
     'Reservas' => ['reservations_view', 'reservations_create', 'reservations_edit', 'reservations_delete', 'reservations_confirm', 'reservations_cancel', 'reservations_convert'],

@@ -106,6 +106,7 @@ $customerAccountsSubmenuItems = [
 $repairSubmenuItems = [
     ['url' => 'services.php', 'label' => 'Órdenes de Servicio', 'permission' => 'services_view'],
     ['url' => 'home_visits.php', 'label' => 'Visitas a Domicilio', 'permission' => 'home_visits_view'],
+    ['url' => 'remote_services.php', 'label' => 'Servicio Remoto', 'permission' => 'remote_services_view'],
     ['url' => 'calendar.php', 'label' => 'Calendario', 'permission' => 'calendar_view'],
 ];
 
