@@ -8,10 +8,6 @@ if (!isset($accounts) || !is_array($accounts)) {
 // Obtener clientes con cuotas vencidas o próximas
 $clientsWithIssues = getClientsWithOverdueOrUpcomingInstallments();
 
-// Función para generar un token de acceso único
-function generateAccessToken() {
-    return bin2hex(random_bytes(32));
-}
 ?>
 
 <div class="container mt-4">
