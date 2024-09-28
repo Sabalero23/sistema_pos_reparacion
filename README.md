@@ -92,7 +92,7 @@ Este sistema es una solución integral para negocios que combinan ventas de prod
 ## Configuración de la Tienda Online
 
 1. Acceda al panel de administración
-2. Vaya a la sección "Configuración de Tienda Online"
+2. Vaya a la sección "Configuración", luego a "Datos de la Empresa"
 3. Active la opción "Habilitar Tienda Online"
 4. Configure los productos que desea mostrar en la tienda
 5. Personalice la apariencia de la tienda si lo desea
