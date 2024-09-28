@@ -1,4 +1,4 @@
-# Sistema POS, Gestión de Órdenes de Servicio y Tienda Online
+# Sistema POS, Gestión de Órdenes de Servicio, Programar Visitas a Domicilio, Programar Servicios remotos, y Tienda Online.
 
 ## Descripción
 Este sistema es una solución integral para negocios que combinan ventas de productos con servicios de reparación y ahora incluye una tienda online. Desarrollado en PHP, ofrece una plataforma robusta para la gestión eficiente de operaciones diarias, inventario, ventas, servicio al cliente y comercio electrónico.
