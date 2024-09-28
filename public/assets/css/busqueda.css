@@ -1,0 +1,205 @@
+/* Estilos generales */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header */
+header {
+    background-color: #fff;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.btn-volver {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Botón del carrito */
+.boton-carrito {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    text-decoration: none;
+    background-color: #3498db;
+    color: #fff;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    z-index: 1000;
+}
+
+.boton-carrito:hover {
+    background-color: #2980b9;
+    transform: scale(1.1);
+}
+
+.boton-carrito i {
+    font-size: 24px;
+}
+
+.numerito {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #e74c3c;
+    color: #fff;
+    border-radius: 50%;
+    padding: 4px 8px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* Contenido principal */
+.main-content {
+    flex-grow: 1;
+    padding: 2rem;
+    padding-bottom: 80px; /* Espacio para el botón flotante del carrito */
+}
+
+.titulo-principal {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+/* Contenedor de productos */
+.contenedor-productos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.producto {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.producto:hover {
+    transform: translateY(-5px);
+}
+
+.producto-imagen {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.producto-detalles {
+    padding: 1rem;
+}
+
+.producto-titulo {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.producto-precio {
+    font-weight: bold;
+    color: #e74c3c;
+}
+
+.producto-agregar {
+    border: none;
+    background-color: #3498db;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.producto-agregar:hover {
+    background-color: #2980b9;
+}
+
+/* Footer */
+footer {
+    background-color: #33333300;
+    color: #333;
+    text-align: center;
+    padding: 1rem;
+}
+
+/* Paginación */
+.pagination {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    padding: 0;
+    margin-top: 2rem;
+}
+
+.pagination li {
+    margin: 0 0.5rem;
+}
+
+.pagination a {
+    text-decoration: none;
+    color: #333;
+    padding: 0.5rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.pagination a:hover,
+.pagination .active a {
+    background-color: #3498db;
+    color: #fff;
+}
+
+/* Estilos para la información de depuración */
+.debug-info {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+/* Estilos para mensaje de no resultados */
+.no-resultados {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #6c757d;
+    margin-top: 2rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .contenedor-productos {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+
+    .boton-carrito {
+        width: 50px;
+        height: 50px;
+    }
+
+    .boton-carrito i {
+        font-size: 20px;
+    }
+}
