@@ -7,12 +7,10 @@ $categoria_id = isset($_GET['categoria']) ? intval($_GET['categoria']) : null;
 $pagina_actual = isset($_GET['pagina']) ? max(1, intval($_GET['pagina'])) : 1;
 $productos_por_pagina = ITEMS_PER_PAGE;
 
-$categorias = getCategorias();
 $total_productos = contarProductos($categoria_id);
 $total_paginas = max(1, ceil($total_productos / $productos_por_pagina));
 
 $pagina_actual = min($pagina_actual, $total_paginas);
-
 $productos = getProductos($categoria_id, $pagina_actual, $productos_por_pagina);
 
 $companyInfo = getCompanyInfo();
@@ -31,17 +29,7 @@ $pageTitle = "Tienda - " . ($companyInfo['name'] ?? 'Nuestra Tienda');
 </head>
 <body>
     <div class="wrapper">
-        <nav class="sidebar">
-            <div class="logo">
-                <a href="<?php echo url('/'); ?>"><?php echo htmlspecialchars($companyInfo['name'] ?? 'Nuestra Tienda'); ?></a>
-            </div>
-            <ul>
-                <li><a href="<?php echo url('/tienda.php'); ?>" class="<?php echo !$categoria_id ? 'active' : ''; ?>" data-categoria-id="">Todos los productos</a></li>
-                <?php foreach ($categorias as $categoria): ?>
-                    <li><a href="<?php echo url('/tienda.php?categoria=' . $categoria['id']); ?>" class="<?php echo $categoria_id == $categoria['id'] ? 'active' : ''; ?>" data-categoria-id="<?php echo $categoria['id']; ?>"><?php echo htmlspecialchars($categoria['name']); ?></a></li>
-                <?php endforeach; ?>
-            </ul>
-        </nav>
+        <?php include 'tienda_sidebar_menu.php'; ?>
 
         <div class="main-content">
             <header>
@@ -71,19 +59,39 @@ $pageTitle = "Tienda - " . ($companyInfo['name'] ?? 'Nuestra Tienda');
                     <!-- La paginación se generará dinámicamente aquí -->
                 </div>
             </main>
-
-            <footer>
-                <p>&copy; <?php echo date('Y'); ?> <?php echo htmlspecialchars($companyInfo['name'] ?? 'Nuestra Tienda'); ?>. Todos los derechos reservados.</p>
-            </footer>
-        </div>
+<br>
+<br>
+            <div class="footer-container">
+                <footer>
+                    <p class="footer-text">&copy; <?php echo date('Y'); ?> <?php echo htmlspecialchars($companyInfo['name'] ?? 'Nuestra Tienda'); ?>. Todos los derechos reservados.</p>
+                </footer>
+                <a href="<?php echo url('/index.php'); ?>" class="pos-link">Sistema POS</a>
+            </div>
     </div>
 
-    <script>
-        var categoriaActual = <?php echo json_encode($categoria_id); ?>;
-        var paginaActual = <?php echo json_encode($pagina_actual); ?>;
-        var totalPaginas = <?php echo json_encode($total_paginas); ?>;
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const menuToggle = document.querySelector('.menu-toggle');
+        const sidebar = document.querySelector('.sidebar');
+
+        menuToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('active');
+        });
+
+        const links = document.querySelectorAll('.sidebar a');
+        links.forEach(link => {
+            link.addEventListener('click', function() {
+                sidebar.classList.remove('active');
+            });
+        });
+
         var baseUrl = <?php echo json_encode(url('/')); ?>;
-    </script>
+    });
+</script>
+<script>
+    window.baseUrl = "<?php echo BASE_URL; ?>";
+</script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.11.2/toastify.min.js"></script>
     <script src="<?php echo url('js/tienda.js'); ?>"></script>
 </body>

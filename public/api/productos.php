@@ -1,37 +1,38 @@
 <?php
-// Deshabilitar la salida de errores PHP
-ini_set('display_errors', 0);
-error_reporting(E_ALL);
+header('Content-Type: application/json');
+header('Cache-Control: public, max-age=300'); // Cache for 5 minutes
 
-// Función para manejar errores y devolverlos como JSON
-function handleError($errno, $errstr, $errfile, $errline) {
-    $error = [
-        'error' => 'Error del servidor',
-        'message' => $errstr,
-        'file' => $errfile,
-        'line' => $errline
-    ];
-    header('Content-Type: application/json');
-    echo json_encode($error);
-    exit;
-}
-
-// Establecer el manejador de errores personalizado
-set_error_handler("handleError");
-
-// Iniciar el búfer de salida
-ob_start();
-
-// Incluir los archivos necesarios
 require_once __DIR__ . '/../../config/config.php';
-require_once __DIR__ . '/../../includes/utils.php';
 require_once __DIR__ . '/../../includes/tienda_functions.php';
+require_once __DIR__ . '/../../includes/utils.php';
 
 try {
-    $categoria_id = isset($_GET['categoria']) ? intval($_GET['categoria']) : null;
-    $pagina = isset($_GET['pagina']) ? max(1, intval($_GET['pagina'])) : 1;
-    $productos_por_pagina = 20;
+    $response = obtenerProductos();
+    echo json_encode($response);
+} catch (Exception $e) {
+    error_log("Error en productos.php: " . $e->getMessage());
+    http_response_code(500);
+    echo json_encode([
+        'error' => 'Error del servidor',
+        'message' => 'Ha ocurrido un error al procesar su solicitud.'
+    ]);
+}
 
+function obtenerProductos() {
+    $categoria_id = filter_input(INPUT_GET, 'categoria', FILTER_VALIDATE_INT);
+    $pagina = filter_input(INPUT_GET, 'pagina', FILTER_VALIDATE_INT) ?: 1;
+    $productos_por_pagina = defined('ITEMS_PER_PAGE') ? ITEMS_PER_PAGE : 12;
+
+    // Generar clave de caché
+    $cache_key = md5("productos_{$categoria_id}_{$pagina}");
+    
+    // Intentar obtener del caché
+    $cached_response = obtenerCache($cache_key);
+    if ($cached_response !== false) {
+        return $cached_response;
+    }
+
+    // Si no está en caché, obtener de la base de datos
     $productos = getProductos($categoria_id, $pagina, $productos_por_pagina);
     $total_productos = contarProductos($categoria_id);
 
@@ -39,27 +40,25 @@ try {
         'productos' => $productos,
         'total_productos' => $total_productos,
         'pagina_actual' => $pagina,
-        'productos_por_pagina' => $productos_por_pagina
+        'productos_por_pagina' => $productos_por_pagina,
+        'total_paginas' => ceil($total_productos / $productos_por_pagina)
     ];
 
-    // Limpiar cualquier salida previa
-    ob_clean();
+    // Guardar en caché
+    guardarCache($cache_key, $response, 300); // 5 minutos
 
-    // Establecer las cabeceras y enviar la respuesta JSON
-    header('Content-Type: application/json');
-    echo json_encode($response);
-} catch (Exception $e) {
-    // Limpiar cualquier salida previa
-    ob_clean();
-
-    // Loguear el error
-    error_log("Error en productos.php: " . $e->getMessage());
-
-    // Enviar respuesta de error como JSON
-    header('Content-Type: application/json');
-    http_response_code(500);
-    echo json_encode(['error' => 'Error del servidor', 'message' => $e->getMessage()]);
+    return $response;
 }
 
-// Finalizar y liberar el búfer de salida
-ob_end_flush();
+function obtenerCache($key) {
+    if (function_exists('apcu_fetch')) {
+        return apcu_fetch($key);
+    }
+    return false;
+}
+
+function guardarCache($key, $data, $ttl) {
+    if (function_exists('apcu_store')) {
+        apcu_store($key, $data, $ttl);
+    }
+}
