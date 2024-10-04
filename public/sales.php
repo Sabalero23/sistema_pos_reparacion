@@ -62,6 +62,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 exit;
             }
             break;
+        case 'edit':
+            if (hasPermission('sales_edit')) {
+                $result = $saleFunctions->updateSale($_POST);
+                if ($result['success']) {
+                    $_SESSION['flash_message'] = $result['message'];
+                    $_SESSION['flash_type'] = 'success';
+                    header('Location: ' . url('sales.php?action=view&id=' . $saleId));
+                    exit;
+                } else {
+                    $error = $result['message'];
+                }
+            } else {
+                $_SESSION['flash_message'] = "No tienes permiso para editar ventas.";
+                $_SESSION['flash_type'] = 'warning';
+                header('Location: ' . url('sales.php'));
+                exit;
+            }
+            break;
         case 'cancel':
             if (hasPermission('sales_cancel')) {
                 $result = cancelSale($saleId);
@@ -89,6 +107,20 @@ switch ($action) {
             include __DIR__ . '/../views/sales/create.php';
         } else {
             $_SESSION['flash_message'] = "No tienes permiso para crear ventas.";
+            $_SESSION['flash_type'] = 'warning';
+            header('Location: ' . url('sales.php'));
+            exit;
+        }
+        break;
+    case 'edit':
+        if (hasPermission('sales_edit')) {
+            $sale = $saleFunctions->getSaleById($saleId);
+            $saleItems = $saleFunctions->getSaleItems($saleId);
+            $products = getAllProducts();
+            $customers = getAllCustomers();
+            include __DIR__ . '/../views/sales/edit.php';
+        } else {
+            $_SESSION['flash_message'] = "No tienes permiso para editar ventas.";
             $_SESSION['flash_type'] = 'warning';
             header('Location: ' . url('sales.php'));
             exit;
