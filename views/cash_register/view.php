@@ -17,6 +17,9 @@
                     <th>Tipo</th>
                     <th>Monto</th>
                     <th>Notas</th>
+                    <?php if (hasPermission('cash_register_edit')): ?>
+                        <th>Acciones</th>
+                    <?php endif; ?>
                 </tr>
             </thead>
             <tbody>
@@ -26,6 +29,13 @@
                         <td><?php echo ucfirst($movement['movement_type']); ?></td>
                         <td><?php echo number_format($movement['amount'], 2); ?> <?php echo CURRENCY; ?></td>
                         <td><?php echo $movement['notes']; ?></td>
+                        <?php if (hasPermission('cash_register_edit')): ?>
+                            <td>
+                                <?php if (isset($movement['id']) && !empty($movement['id']) && isset($movement['created_at'])): ?>
+                                    <a href="<?php echo url('cash_register.php?action=edit&id=' . $movement['id'] . '&date=' . date('Y-m-d', strtotime($movement['created_at']))); ?>" class="btn btn-sm btn-primary">Editar</a>
+                                <?php endif; ?>
+                            </td>
+                        <?php endif; ?>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
