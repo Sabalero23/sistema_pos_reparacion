@@ -52,6 +52,7 @@ Este sistema es una solución integral para negocios que combinan ventas de prod
 
 ### Gestión Financiera
 - Control de caja y movimientos de efectivo
+- Editar movimientos (Nueva función)
 - Gestión de múltiples formas de pago
 - Seguimiento de cuentas por cobrar
 
