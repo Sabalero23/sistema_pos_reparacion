@@ -5,7 +5,6 @@ require_once __DIR__ . '/../includes/roles.php';
 require_once __DIR__ . '/../includes/service_functions.php';
 require_once __DIR__ . '/../includes/cash_register_functions.php';
 
-
 if (!isLoggedIn() || !hasPermission('services_view')) {
     $_SESSION['flash_message'] = "No tienes permiso para acceder a esta página.";
     $_SESSION['flash_type'] = 'warning';
@@ -27,76 +26,126 @@ try {
             break;
 
         case 'create':
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $orderData = [
-            'customer_id' => $_POST['customer_id'] ?? '',
-            'brand' => $_POST['brand'] ?? '',
-            'model' => $_POST['model'] ?? '',
-            'serial_number' => $_POST['serial_number'] ?? '',
-            'warranty' => $_POST['warranty'] ?? 0,
-            'total_amount' => $_POST['total_amount'] ?? 0,
-            'prepaid_amount' => $_POST['prepaid_amount'] ?? 0,
-            'services' => $_POST['services'] ?? []
-        ];
-
-        $result = createServiceOrder($orderData);
-        if ($result['success']) {
-            if ($result['prepaid_amount'] > 0) {
-                // Guardamos la información de la orden en la sesión
-                $_SESSION['pending_cash_in'] = [
-                    'order_id' => $result['order_id'],
-                    'order_number' => $result['order_number'],
-                    'customer_name' => $result['customer_name'],
-                    'amount' => $result['prepaid_amount']
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $orderData = [
+                    'customer_id' => $_POST['customer_id'] ?? '',
+                    'brand' => $_POST['brand'] ?? '',
+                    'model' => $_POST['model'] ?? '',
+                    'serial_number' => $_POST['serial_number'] ?? '',
+                    'warranty' => $_POST['warranty'] ?? 0,
+                    'total_amount' => $_POST['total_amount'] ?? 0,
+                    'prepaid_amount' => $_POST['prepaid_amount'] ?? 0,
+                    'services' => $_POST['services'] ?? []
                 ];
-                // Redirigimos a una página intermedia para manejar el ingreso de efectivo
-                header('Location: ' . url('services.php?action=handle_cash_in'));
-                exit;
-            } else {
-                $_SESSION['flash_message'] = $result['message'];
-                $_SESSION['flash_type'] = 'success';
-                header('Location: ' . url('services.php?action=view&id=' . $result['order_id']));
+
+                $result = createServiceOrder($orderData);
+                if ($result['success']) {
+                    if ($result['prepaid_amount'] > 0) {
+                        $_SESSION['pending_cash_in'] = [
+                            'order_id' => $result['order_id'],
+                            'order_number' => $result['order_number'],
+                            'customer_name' => $result['customer_name'],
+                            'amount' => $result['prepaid_amount']
+                        ];
+                        header('Location: ' . url('services.php?action=handle_cash_in'));
+                        exit;
+                    } else {
+                        $_SESSION['flash_message'] = $result['message'];
+                        $_SESSION['flash_type'] = 'success';
+                        header('Location: ' . url('services.php?action=view&id=' . $result['order_id']));
+                        exit;
+                    }
+                } else {
+                    $error = $result['message'];
+                }
+            }
+            $terms = getActiveTermsAndConditions();
+            require_once __DIR__ . '/../includes/header.php';
+            include __DIR__ . '/../views/services/create.php';
+            break;
+
+        case 'edit':
+            if (!hasPermission('services_edit')) {
+                throw new Exception("No tienes permiso para editar órdenes de servicio.");
+            }
+            if (!$orderId) {
+                throw new Exception("ID de orden no proporcionado.");
+            }
+            $order = getServiceOrder($orderId);
+            if (!$order) {
+                throw new Exception("Orden de servicio no encontrada.");
+            }
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $updateData = [
+                    'id' => $orderId,
+                    'customer_id' => $_POST['customer_id'] ?? '',
+                    'brand' => $_POST['brand'] ?? '',
+                    'model' => $_POST['model'] ?? '',
+                    'serial_number' => $_POST['serial_number'] ?? '',
+                    'warranty' => $_POST['warranty'] ?? 0,
+                    'total_amount' => $_POST['total_amount'] ?? 0,
+                    'prepaid_amount' => $_POST['prepaid_amount'] ?? 0,
+                    'services' => $_POST['services'] ?? []
+                ];
+                $result = updateServiceOrder($updateData);
+                if ($result['success']) {
+                    $newPrepaidAmount = floatval($_POST['prepaid_amount']);
+                    $oldPrepaidAmount = floatval($result['old_prepaid_amount']);
+                    $additionalPrepaid = $newPrepaidAmount - $oldPrepaidAmount;
+                    
+                    if ($additionalPrepaid > 0) {
+                        $_SESSION['pending_cash_in'] = [
+                            'order_id' => $orderId,
+                            'order_number' => $order['order_number'],
+                            'customer_name' => $order['customer_name'],
+                            'amount' => $additionalPrepaid
+                        ];
+                        header('Location: ' . url('services.php?action=handle_cash_in'));
+                        exit;
+                    }
+                    
+                    $_SESSION['flash_message'] = "Orden de servicio actualizada con éxito.";
+                    $_SESSION['flash_type'] = 'success';
+                    header('Location: ' . url('services.php?action=view&id=' . $orderId));
+                    exit;
+                } else {
+                    $error = $result['message'];
+                }
+            }
+            require_once __DIR__ . '/../includes/header.php';
+            include __DIR__ . '/../views/services/edit.php';
+            break;
+
+        case 'handle_cash_in':
+            if (!isset($_SESSION['pending_cash_in'])) {
+                header('Location: ' . url('services.php'));
                 exit;
             }
-        } else {
-            $error = $result['message'];
-        }
-    }
-    $terms = getActiveTermsAndConditions();
-    require_once __DIR__ . '/../includes/header.php';
-    include __DIR__ . '/../views/services/create.php';
-    break;
-
-case 'handle_cash_in':
-    if (!isset($_SESSION['pending_cash_in'])) {
-        header('Location: ' . url('services.php'));
-        exit;
-    }
-    
-    $pendingCashIn = $_SESSION['pending_cash_in'];
-    
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $amount = filter_input(INPUT_POST, 'amount', FILTER_VALIDATE_FLOAT);
-        $notes = "Seña de {$pendingCashIn['customer_name']} de la orden {$pendingCashIn['order_number']}";
-        
-        $result = addCashRegisterMovement('cash_in', $amount, $notes);
-        
-        if ($result['success']) {
-            unset($_SESSION['pending_cash_in']);
-            $_SESSION['flash_message'] = "Ingreso de efectivo registrado exitosamente.";
-            $_SESSION['flash_type'] = 'success';
-            header('Location: ' . url('services.php?action=view&id=' . $pendingCashIn['order_id']));
-            exit;
-        } else {
-            $_SESSION['flash_message'] = $result['message'];
-            $_SESSION['flash_type'] = 'error';
-        }
-    }
-    
-    $pageTitle = "Registrar Ingreso de Efectivo";
-    require_once __DIR__ . '/../includes/header.php';
-    include __DIR__ . '/../views/services/cash_in_modal.php';
-    break;
+            
+            $pendingCashIn = $_SESSION['pending_cash_in'];
+            
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $amount = filter_input(INPUT_POST, 'amount', FILTER_VALIDATE_FLOAT);
+                $notes = $_POST['notes'] ?? "Seña de {$pendingCashIn['customer_name']} de la orden {$pendingCashIn['order_number']}";
+                
+                $result = addCashRegisterMovement('cash_in', $amount, $notes);
+                
+                if ($result['success']) {
+                    unset($_SESSION['pending_cash_in']);
+                    $_SESSION['flash_message'] = "Ingreso de efectivo registrado exitosamente.";
+                    $_SESSION['flash_type'] = 'success';
+                    header('Location: ' . url('services.php?action=view&id=' . $pendingCashIn['order_id']));
+                    exit;
+                } else {
+                    $_SESSION['flash_message'] = $result['message'];
+                    $_SESSION['flash_type'] = 'error';
+                }
+            }
+            
+            $pageTitle = "Registrar Ingreso de Efectivo";
+            require_once __DIR__ . '/../includes/header.php';
+            include __DIR__ . '/../views/services/cash_in_modal.php';
+            break;
 
         case 'view':
             if (!$orderId) {
@@ -133,23 +182,23 @@ case 'handle_cash_in':
             break;
 
         case 'add_note':
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $note = $_POST['note'] ?? '';
-        $images = $_FILES['note_images'] ?? null;
-        if (!$orderId || !$note) {
-            throw new Exception("Datos insuficientes para agregar la nota.");
-        }
-        $result = addOrderNoteWithImages($orderId, $_SESSION['user_id'], $note, $images);
-        if ($result) {
-            $_SESSION['flash_message'] = "Nota agregada con éxito.";
-            $_SESSION['flash_type'] = 'success';
-        } else {
-            throw new Exception("Error al agregar la nota.");
-        }
-        header('Location: ' . url('services.php?action=view&id=' . $orderId));
-        exit;
-    }
-    break;
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $note = $_POST['note'] ?? '';
+                $images = $_FILES['note_images'] ?? null;
+                if (!$orderId || !$note) {
+                    throw new Exception("Datos insuficientes para agregar la nota.");
+                }
+                $result = addOrderNoteWithImages($orderId, $_SESSION['user_id'], $note, $images);
+                if ($result) {
+                    $_SESSION['flash_message'] = "Nota agregada con éxito.";
+                    $_SESSION['flash_type'] = 'success';
+                } else {
+                    throw new Exception("Error al agregar la nota.");
+                }
+                header('Location: ' . url('services.php?action=view&id=' . $orderId));
+                exit;
+            }
+            break;
 
         case 'add_part':
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {

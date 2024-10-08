@@ -4,9 +4,11 @@ require_once __DIR__ . '/../config/config.php';
 function getAllServiceOrders() {
     global $pdo;
     try {
-        $sql = "SELECT so.*, c.name as customer_name, c.id as customer_id 
+        $sql = "SELECT so.*, c.name as customer_name, c.id as customer_id,
+                       sd.brand, sd.model
                 FROM service_orders so 
                 JOIN customers c ON so.customer_id = c.id 
+                LEFT JOIN service_devices sd ON so.id = sd.service_order_id
                 ORDER BY so.created_at DESC";
         return $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
@@ -345,5 +347,110 @@ function addCustomer($data) {
     } catch (PDOException $e) {
         error_log("Excepción PDO en addCustomer: " . $e->getMessage());
         return ['success' => false, 'message' => 'Error de base de datos al crear el cliente: ' . $e->getMessage()];
+    }
+}
+
+function getDeviceInfo($orderId) {
+    global $pdo;
+    try {
+        $sql = "SELECT brand, model FROM service_devices WHERE service_order_id = ?";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$orderId]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        error_log("Error getting device info: " . $e->getMessage());
+        return ['brand' => '', 'model' => ''];
+    }
+}
+
+function updateServiceOrder($data) {
+    global $pdo;
+    try {
+        $pdo->beginTransaction();
+
+        // Obtener el monto prepagado anterior
+        $stmt = $pdo->prepare("SELECT prepaid_amount FROM service_orders WHERE id = ?");
+        $stmt->execute([$data['id']]);
+        $oldPrepaidAmount = $stmt->fetchColumn();
+
+        // Actualizar la tabla service_orders
+        $sql = "UPDATE service_orders SET 
+                customer_id = ?, 
+                warranty = ?, 
+                total_amount = ?, 
+                prepaid_amount = ?, 
+                balance = ?
+                WHERE id = ?";
+        $stmt = $pdo->prepare($sql);
+        $balance = $data['total_amount'] - $data['prepaid_amount'];
+        $stmt->execute([
+            $data['customer_id'],
+            $data['warranty'],
+            $data['total_amount'],
+            $data['prepaid_amount'],
+            $balance,
+            $data['id']
+        ]);
+
+        // Actualizar la tabla service_devices
+        $sql = "UPDATE service_devices SET 
+                brand = ?, 
+                model = ?, 
+                serial_number = ?
+                WHERE service_order_id = ?";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            $data['brand'],
+            $data['model'],
+            $data['serial_number'],
+            $data['id']
+        ]);
+
+        // Eliminar los servicios existentes
+        $sql = "DELETE FROM service_items WHERE service_order_id = ?";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$data['id']]);
+
+        // Insertar los nuevos servicios
+        $sql = "INSERT INTO service_items (service_order_id, description, cost) VALUES (?, ?, ?)";
+        $stmt = $pdo->prepare($sql);
+        foreach ($data['services'] as $service) {
+            $stmt->execute([$data['id'], $service['description'], floatval($service['cost'])]);
+        }
+
+        $pdo->commit();
+        return [
+            'success' => true, 
+            'message' => 'Orden de servicio actualizada con éxito.',
+            'old_prepaid_amount' => $oldPrepaidAmount
+        ];
+    } catch (Exception $e) {
+        $pdo->rollBack();
+        error_log("Error updating service order: " . $e->getMessage());
+        return ['success' => false, 'message' => 'Error al actualizar la orden de servicio: ' . $e->getMessage()];
+    }
+}
+
+function getServiceOrderForEdit($id) {
+    global $pdo;
+    try {
+        $sql = "SELECT so.*, c.name as customer_name, c.email, c.phone, c.address, 
+                       sd.brand, sd.model, sd.serial_number
+                FROM service_orders so 
+                JOIN customers c ON so.customer_id = c.id 
+                JOIN service_devices sd ON so.id = sd.service_order_id 
+                WHERE so.id = ?";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$id]);
+        $order = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($order) {
+            $order['items'] = getServiceItems($id);
+        }
+
+        return $order;
+    } catch (PDOException $e) {
+        error_log("Error getting service order for edit: " . $e->getMessage());
+        throw new Exception("Error al obtener la orden de servicio para editar");
     }
 }

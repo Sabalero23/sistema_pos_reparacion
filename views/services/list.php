@@ -34,9 +34,10 @@ function generateWhatsAppUrl($phoneNumber, $message, $orderNumber) {
     <table id="serviceOrdersTable" class="table table-striped">
         <thead>
             <tr>
-                <th>Número de Orden</th>
                 <th>Cliente</th>
                 <th>Fecha</th>
+                <th>Marca</th>
+                <th>Modelo</th>
                 <th>Estado</th>
                 <th>Total</th>
                 <th>Acciones</th>
@@ -47,28 +48,30 @@ function generateWhatsAppUrl($phoneNumber, $message, $orderNumber) {
                 $customerInfo = getCustomerInfo($order['customer_id']);
             ?>
             <tr>
-                <td data-order="<?php echo $order['order_number']; ?>">
-                    <?php echo htmlspecialchars($order['order_number']); ?>
-                </td>
                 <td><?php echo htmlspecialchars($order['customer_name']); ?></td>
                 <td data-order="<?php echo strtotime($order['created_at']); ?>">
                     <?php echo date('d/m/Y H:i', strtotime($order['created_at'])); ?>
                 </td>
+                <td><?php echo htmlspecialchars($order['brand'] ?? ''); ?></td>
+                <td><?php echo htmlspecialchars($order['model'] ?? ''); ?></td>
                 <td><?php echo htmlspecialchars($order['status']); ?></td>
                 <td data-order="<?php echo $order['total_amount']; ?>">
                     <?php echo number_format($order['total_amount'], 2, ',', '.'); ?>
                 </td>
                 <td>
-                    <a href="<?php echo url('services.php?action=view&id=' . $order['id']); ?>" class="btn btn-sm btn-info">Ver</a>
-                    <?php if (!empty($customerInfo['phone'])): 
-                        $message = "Hola {$customerInfo['name']}, su orden de trabajo ha sido creada con éxito.";
-                        $whatsappUrl = generateWhatsAppUrl($customerInfo['phone'], $message, $order['order_number']);
-                    ?>
-                    <a href="<?php echo $whatsappUrl; ?>" class="btn btn-sm btn-success" target="_blank">
-                        Enviar WhatsApp
-                    </a>
-                    <?php endif; ?>
-                </td>
+    <a href="<?php echo url('services.php?action=view&id=' . $order['id']); ?>" class="btn btn-sm btn-info">Ver</a>
+    <?php if (hasPermission('services_edit')): ?>
+        <a href="<?php echo url('services.php?action=edit&id=' . $order['id']); ?>" class="btn btn-sm btn-warning">Editar</a>
+    <?php endif; ?>
+    <?php if (!empty($customerInfo['phone'])): 
+        $message = "Hola {$customerInfo['name']}, su orden de trabajo ha sido creada con éxito.";
+        $whatsappUrl = generateWhatsAppUrl($customerInfo['phone'], $message, $order['order_number']);
+    ?>
+    <a href="<?php echo $whatsappUrl; ?>" class="btn btn-sm btn-success" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    <?php endif; ?>
+</td>
             </tr>
             <?php endforeach; ?>
         </tbody>
@@ -85,10 +88,9 @@ $(document).ready(function() {
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"
         },
-        "order": [[0, "desc"]], // Ordenar por la primera columna (Número de Orden) de forma descendente
+        "order": [[1, "desc"]], // Ordenar por la columna de fecha de forma descendente
         "columnDefs": [
-            { "type": "num", "targets": 0 }, // Asegura que la primera columna se trate como numérica
-            { "orderable": false, "targets": 5 } // Hace que la columna de acciones no sea ordenable
+            { "orderable": false, "targets": 6 } // Hace que la columna de acciones no sea ordenable
         ]
     });
 });

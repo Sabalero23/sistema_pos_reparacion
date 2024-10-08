@@ -22,7 +22,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="notes" class="form-label">Notas</label>
-                        <input type="text" class="form-control" id="notes" name="notes" value="Seña de <?php echo htmlspecialchars($pendingCashIn['customer_name']); ?> de la orden <?php echo htmlspecialchars($pendingCashIn['order_number']); ?>" readonly>
+                        <input type="text" class="form-control" id="notes" name="notes" value="Seña de <?php echo htmlspecialchars($pendingCashIn['customer_name']); ?> de la orden <?php echo htmlspecialchars($pendingCashIn['order_number']); ?>">
                     </div>
                 </div>
                 <div class="modal-footer">
