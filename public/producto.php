@@ -49,6 +49,8 @@ $shareText = urlencode("¡Mira este producto: {$producto['name']}!");
                 <div class="producto-info">
                     <h1><?php echo htmlspecialchars($producto['name']); ?></h1>
                     <p class="precio">$<?php echo $producto['price_formatted']; ?></p>
+                    <p class="stock">Stock Disponible: <?php echo $producto['stock_quantity']; ?></p>
+<br>
                     <p class="descripcion"><?php echo nl2br(htmlspecialchars($producto['description'])); ?></p>
                     <button class="agregar-al-carrito" id="agregar-al-carrito" data-id="<?php echo $producto['id']; ?>">
                         Agregar al carrito
