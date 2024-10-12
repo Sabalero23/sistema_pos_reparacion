@@ -4,27 +4,26 @@ require_once __DIR__ . '/../../includes/auth.php';
 require_once __DIR__ . '/../../includes/roles.php';
 require_once __DIR__ . '/../../includes/utils.php';
 require_once __DIR__ . '/../../includes/customer_account_functions.php';
+require_once __DIR__ . '/../../includes/payment_functions.php';
 
-if (!isLoggedIn() || !hasPermission('customer_accounts_view')) {
-    $_SESSION['flash_message'] = "No tienes permiso para acceder a esta página.";
-    $_SESSION['flash_type'] = 'warning';
-    header('Location: ' . url('index.php'));
-    exit;
+// Verificar autenticación y permisos
+if (!isLoggedIn() || !hasPermission('payments_view')) {
+    die("No tienes permiso para acceder a esta página.");
 }
 
-$paymentId = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-
+// Obtener el ID del pago y verificar que sea válido
+$paymentId = filter_input(INPUT_GET, 'payment_id', FILTER_SANITIZE_NUMBER_INT);
 if (!$paymentId) {
     die("ID de pago no proporcionado");
 }
 
-$payment = getPaymentById($paymentId);
-
+// Obtener los detalles del pago
+$payment = getPaymentDetails($paymentId);
 if (!$payment) {
     die("Pago no encontrado");
 }
 
-$customer = getCustomerById($payment['customer_id']);
+// Obtener información de la empresa
 $companyInfo = getCompanyInfo();
 
 // Función para formatear el método de pago
@@ -45,18 +44,18 @@ function formatPaymentMethod($method) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recibo de Pago - <?php echo htmlspecialchars($payment['id']); ?></title>
     <style>
-
         @page {
             size: A4;
             margin: 0;
         }
         body {
             font-family: Arial, sans-serif;
-            line-height: 1.3;
+            line-height: 1.4;
             color: #333;
             margin: 0;
             padding: 10mm;
             font-size: 10pt;
+            box-sizing: border-box;
         }
         .header {
             text-align: center;
@@ -64,11 +63,11 @@ function formatPaymentMethod($method) {
         }
         .header img {
             max-width: 50mm;
-            max-height: 20mm;
+            max-height: 25mm;
         }
         .header h1 {
             color: #2c3e50;
-            margin: 2mm 0;
+            margin: 3mm 0;
             font-size: 14pt;
         }
         .info-section {
@@ -79,20 +78,21 @@ function formatPaymentMethod($method) {
             border-bottom: 1px solid #eee;
             padding-bottom: 1mm;
             font-size: 12pt;
-            margin: 2mm 0;
         }
         table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 5mm;
+            page-break-inside: avoid;
         }
         th, td {
             padding: 2mm;
-            border: 0.5pt solid #ddd;
+            border: 1pt solid #ddd;
             text-align: left;
+            font-size: 9pt;
         }
         th {
-            background-color: #f2f2f2;
+            background-color: #f8f9fa;
             font-weight: bold;
         }
         .total {
@@ -106,28 +106,55 @@ function formatPaymentMethod($method) {
             color: #777;
         }
         @media print {
-            body {
-                width: 210mm;
-                height: 297mm;
+            @page {
+                size: A5;
+                margin: 0;
             }
-        }
-        @media print {
+            body {
+                padding: 5mm;
+                font-size: 9pt;
+            }
+            .header {
+                margin-bottom: 3mm;
+            }
+            .header img {
+                max-width: 40mm;
+                max-height: 20mm;
+            }
+            .header h1 {
+                font-size: 12pt;
+                margin: 2mm 0;
+            }
+            .info-section {
+                margin-bottom: 3mm;
+            }
+            .info-section h2 {
+                font-size: 10pt;
+                padding-bottom: 0.5mm;
+            }
+            th, td {
+                padding: 1.5mm;
+                font-size: 8pt;
+            }
+            .footer {
+                margin-top: 3mm;
+                font-size: 7pt;
+            }
             .no-print {
                 display: none;
             }
         }
     </style>
-    </style>
 </head>
 <body>
     <div class="header">
-        <?php if ($companyInfo['logo_path']): ?>
+        <?php if (!empty($companyInfo['logo_path'])): ?>
             <img src="<?php echo htmlspecialchars($companyInfo['logo_path']); ?>" alt="Logo de la empresa">
         <?php endif; ?>
         <h1><?php echo htmlspecialchars($companyInfo['name']); ?></h1>
         <p><?php echo htmlspecialchars($companyInfo['address']); ?></p>
         <p>Tel: <?php echo htmlspecialchars($companyInfo['phone']); ?> | Email: <?php echo htmlspecialchars($companyInfo['email']); ?></p>
-        <?php if ($companyInfo['website']): ?>
+        <?php if (!empty($companyInfo['website'])): ?>
             <p>Web: <?php echo htmlspecialchars($companyInfo['website']); ?></p>
         <?php endif; ?>
     </div>
@@ -136,15 +163,27 @@ function formatPaymentMethod($method) {
         <h2>Recibo de Pago</h2>
         <p><strong>Número de Recibo:</strong> <?php echo htmlspecialchars($payment['id']); ?></p>
         <p><strong>Fecha:</strong> <?php echo date('d/m/Y', strtotime($payment['payment_date'])); ?></p>
-        <p><strong>Cliente:</strong> <?php echo htmlspecialchars($customer['name']); ?></p>
+        <p><strong>Cliente:</strong> <?php echo htmlspecialchars($payment['customer_name']); ?></p>
     </div>
 
     <div class="info-section">
         <h2>Detalles del Pago</h2>
         <table>
             <tr>
-                <th>Monto</th>
+                <th>Concepto</th>
+                <td>Pago de cuota</td>
+            </tr>
+            <tr>
+                <th>Monto Total de la Cuenta</th>
+                <td>$<?php echo number_format($payment['total_amount'], 2, ',', '.'); ?></td>
+            </tr>
+            <tr>
+                <th>Monto Pagado</th>
                 <td>$<?php echo number_format($payment['amount'], 2, ',', '.'); ?></td>
+            </tr>
+            <tr>
+                <th>Saldo Restante</th>
+                <td>$<?php echo number_format($payment['balance'], 2, ',', '.'); ?></td>
             </tr>
             <tr>
                 <th>Método de Pago</th>
@@ -160,8 +199,8 @@ function formatPaymentMethod($method) {
     </div>
 
     <div class="footer">
-        <p><?php echo htmlspecialchars($companyInfo['receipt_footer']); ?></p>
-        <p><?php echo htmlspecialchars($companyInfo['legal_info']); ?></p>
+        <p><?php echo htmlspecialchars($companyInfo['receipt_footer'] ?? ''); ?></p>
+        <p><?php echo htmlspecialchars($companyInfo['legal_info'] ?? ''); ?></p>
     </div>
 
     <div class="no-print">
@@ -171,6 +210,7 @@ function formatPaymentMethod($method) {
 
     <script>
         window.onload = function() {
+            // Imprimir automáticamente al cargar la página
             window.print();
         }
     </script>

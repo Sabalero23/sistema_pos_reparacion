@@ -52,13 +52,29 @@ $pageTitle = "Tienda - " . ($companyInfo['name'] ?? 'Nuestra Tienda');
                 </h1>
                 
                 <div id="contenedor-productos" class="contenedor-productos">
-                    <!-- Los productos se cargarán dinámicamente aquí -->
+                    <?php foreach ($productos as $producto): ?>
+                        <div class="producto">
+                            <img src="<?php echo $producto['image_path']; ?>" alt="<?php echo htmlspecialchars($producto['name']); ?>">
+                            <div class="producto-detalles">
+                                <h3><?php echo htmlspecialchars($producto['name']); ?></h3>
+                                <p class="precio">$<?php echo $producto['price_formatted']; ?></p>
+                                <a href="<?php echo url("/producto.php?id={$producto['id']}"); ?>" class="ver-producto">Ver producto</a>
+                                <button class="producto-agregar" id="producto-<?php echo $producto['id']; ?>" data-id="<?php echo $producto['id']; ?>">Agregar</button>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
 
-                <div id="paginacion">
-                    <!-- La paginación se generará dinámicamente aquí -->
-                </div>
+                <?php 
+                if ($total_paginas > 1) {
+                    $url_base = $categoria_id 
+                        ? url("/tienda.php?categoria={$categoria_id}")
+                        : url("/tienda.php");
+                    echo generarPaginacion($pagina_actual, $total_paginas, $url_base); 
+                }
+                ?>
             </main>
+<br>
 <br>
 <br>
             <div class="footer-container">
@@ -67,32 +83,15 @@ $pageTitle = "Tienda - " . ($companyInfo['name'] ?? 'Nuestra Tienda');
                 </footer>
                 <a href="<?php echo url('/index.php'); ?>" class="pos-link">Sistema POS</a>
             </div>
+        </div>
     </div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const menuToggle = document.querySelector('.menu-toggle');
-        const sidebar = document.querySelector('.sidebar');
-
-        menuToggle.addEventListener('click', function() {
-            sidebar.classList.toggle('active');
-        });
-
-        const links = document.querySelectorAll('.sidebar a');
-        links.forEach(link => {
-            link.addEventListener('click', function() {
-                sidebar.classList.remove('active');
-            });
-        });
-
-        var baseUrl = <?php echo json_encode(url('/')); ?>;
-    });
-</script>
-<script>
-    window.baseUrl = "<?php echo BASE_URL; ?>";
-</script>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.11.2/toastify.min.js"></script>
+    <script>
+        window.baseUrl = <?php echo json_encode(BASE_URL); ?>;
+        window.initialProducts = <?php echo json_encode($productos); ?>;
+    </script>
     <script src="<?php echo url('js/tienda.js'); ?>"></script>
 </body>
 </html>

@@ -28,7 +28,7 @@ $productId = $_GET['id'] ?? null;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     switch ($action) {
         case 'add':
-            $result = addProduct($_POST);
+            $result = addProduct($_POST, $_FILES['image'] ?? null);
             if ($result['success']) {
                 $_SESSION['flash_message'] = $result['message'];
                 $_SESSION['flash_type'] = 'success';
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             break;
         case 'edit':
             if ($productId) {
-                $result = updateProduct($productId, $_POST);
+                $result = updateProduct($productId, $_POST, $_FILES['image'] ?? null);
                 if ($result['success']) {
                     $_SESSION['flash_message'] = $result['message'];
                     $_SESSION['flash_type'] = 'success';

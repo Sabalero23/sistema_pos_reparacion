@@ -128,28 +128,53 @@ function getCompanyInfo() {
 // Función para actualizar la información de la empresa
 function updateCompanyInfo($data) {
     global $pdo;
-
-    $allowedFields = [
-        'name', 'address', 'phone', 'email', 'website',
-        'logo_path', 'legal_info', 'receipt_footer', 'google_maps_url'
+    
+    $sql = "UPDATE company_info SET 
+            name = :name,
+            address = :address,
+            phone = :phone,
+            email = :email,
+            website = :website,
+            legal_info = :legal_info,
+            receipt_footer = :receipt_footer,
+            google_maps_url = :google_maps_url,
+            online_store_enabled = :online_store_enabled";
+    
+    if (isset($data['logo_path'])) {
+        $sql .= ", logo_path = :logo_path";
+    }
+    
+    $sql .= " WHERE id = 1";  // Asumiendo que solo hay una fila en la tabla company_info
+    
+    $stmt = $pdo->prepare($sql);
+    
+    $params = [
+        ':name' => $data['name'],
+        ':address' => $data['address'],
+        ':phone' => $data['phone'],
+        ':email' => $data['email'],
+        ':website' => $data['website'],
+        ':legal_info' => $data['legal_info'],
+        ':receipt_footer' => $data['receipt_footer'],
+        ':google_maps_url' => $data['google_maps_url'],
+        ':online_store_enabled' => $data['online_store_enabled']
     ];
-
-    $updateValues = [];
-    $params = [];
-
-    foreach ($allowedFields as $field) {
-        if (isset($data[$field])) {
-            $updateValues[] = "$field = :$field";
-            $params[":$field"] = $data[$field];
-        }
+    
+    if (isset($data['logo_path'])) {
+        $params[':logo_path'] = $data['logo_path'];
     }
-
-    if (!empty($updateValues)) {
-        $sql = "UPDATE company_info SET " . implode(', ', $updateValues);
-        $stmt = $pdo->prepare($sql);
-        return $stmt->execute($params);
-    }
-
-    return false;
+    
+    return $stmt->execute($params);
 }
-?>
+
+// Nuevas funciones para la tienda online
+
+/**
+ * Escapa el HTML para prevenir XSS
+ * 
+ * @param string $string
+ * @return string
+ */
+function e($string) {
+    return htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
+}

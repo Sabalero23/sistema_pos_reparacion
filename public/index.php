@@ -25,13 +25,22 @@ function getTodaySalesTotal() {
     return $result['total'] ?? 0;
 }
 
+function getTodayIncome() {
+    global $pdo;
+    $query = "SELECT SUM(amount) as total FROM cash_register_movements WHERE DATE(created_at) = CURDATE() AND movement_type = 'cash_in'";
+    $stmt = $pdo->prepare($query);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result['total'] ?? 0;
+}
+
 // Obtener estadísticas básicas
 $totalSales = getTotalSales();
-$totalProducts = getTotalProducts();
 $lowStockProducts = getLowStockProducts();
 $recentSales = getRecentSales(5);
 $todaySalesCount = getTodaySalesCount();
 $todaySalesTotal = getTodaySalesTotal();
+$todayIncome = getTodayIncome();
 
 // Obtener datos para los gráficos
 $salesByDayOfWeek = getSalesByDayOfWeek();
@@ -69,31 +78,22 @@ $topSellingProducts = getTopSellingProducts(5);
             </div>
         </div>
     </div>
-</div>
 
     <div class="row g-4">
         <div class="col-12 col-md-6 col-lg-3">
             <div class="card border-primary">
                 <div class="card-body text-primary">
-            <h5 class="card-title">Ventas e Ingresos del Mes</h5>
-            <p class="card-text fs-3 fw-bold">$<?php echo number_format(getTotalSales(), 0, ',', '.'); ?></p>
-        </div>
+                    <h5 class="card-title">Ventas e Ingresos del Mes</h5>
+                    <p class="card-text fs-3 fw-bold">$<?php echo number_format(getTotalSales(), 0, ',', '.'); ?></p>
+                </div>
             </div>
         </div>
         <div class="col-12 col-md-6 col-lg-3">
             <div class="card border-success">
                 <div class="card-body text-success">
-                    <h5 class="card-title">Total Productos</h5>
-                    <p class="card-text fs-3 fw-bold"><?php echo $totalProducts; ?></p>
+                    <h5 class="card-title">Ingresos Hoy</h5>
+                    <p class="card-text fs-3 fw-bold">$<?php echo number_format($todayIncome, 0, ',', '.'); ?></p>
                 </div>
-            </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-3">
-            <div class="card border-warning">
-                <div class="card-body text-warning">
-            <h5 class="card-title">Productos con Bajo Stock</h5>
-            <p class="card-text fs-3 fw-bold"><?php echo $lowStockProducts; ?></p>
-        </div>
             </div>
         </div>
         <div class="col-12 col-md-6 col-lg-3">
@@ -104,32 +104,38 @@ $topSellingProducts = getTopSellingProducts(5);
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- ... (Gráficos) ... -->
-
-<div class="row mt-4 g-4">
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header bg-primary text-white">
-                <i class="fas fa-chart-bar me-2"></i>Ventas por Día de la Semana
-            </div>
-            <div class="card-body">
-                <canvas id="salesByDayChart"></canvas>
+        <div class="col-12 col-md-6 col-lg-3">
+            <div class="card border-warning">
+                <div class="card-body text-warning">
+                    <h5 class="card-title">Productos con Bajo Stock</h5>
+                    <p class="card-text fs-3 fw-bold"><?php echo $lowStockProducts; ?></p>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header bg-success text-white">
-                <i class="fas fa-chart-pie me-2"></i>Productos Más Vendidos
+
+    <div class="row mt-4 g-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <i class="fas fa-chart-bar me-2"></i>Ventas por Día de la Semana
+                </div>
+                <div class="card-body">
+                    <canvas id="salesByDayChart"></canvas>
+                </div>
             </div>
-            <div class="card-body">
-                <canvas id="topProductsChart"></canvas>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <i class="fas fa-chart-pie me-2"></i>Productos Más Vendidos
+                </div>
+                <div class="card-body">
+                    <canvas id="topProductsChart"></canvas>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
     <div class="row mt-4 g-4">
         <div class="col-md-6">
@@ -160,35 +166,35 @@ $topSellingProducts = getTopSellingProducts(5);
             </div>
         </div>
         <?php
-$lowStockProductsList = getLowStockProductsList(5);
-?>
-<div class="col-md-6">
-    <div class="card">
-        <div class="card-header bg-warning text-white">
-            <i class="fas fa-exclamation-triangle me-2"></i>Productos con Bajo Stock (5 de <?php echo $lowStockProducts; ?>)
+        $lowStockProductsList = getLowStockProductsList(5);
+        ?>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-warning text-white">
+                    <i class="fas fa-exclamation-triangle me-2"></i>Productos con Bajo Stock (5 de <?php echo $lowStockProducts; ?>)
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th class="text-center">Stock Actual</th>
+                                <th class="text-center">Stock Mínimo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($lowStockProductsList as $product): ?>
+                                <tr>
+                                    <td><?php echo htmlspecialchars($product['name']); ?></td>
+                                    <td class="text-center"><?php echo $product['stock_quantity']; ?></td>
+                                    <td class="text-center"><?php echo $product['reorder_level']; ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-        <div class="card-body">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Producto</th>
-                        <th class="text-center">Stock Actual</th>
-                        <th class="text-center">Stock Mínimo</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($lowStockProductsList as $product): ?>
-                        <tr>
-                            <td><?php echo htmlspecialchars($product['name']); ?></td>
-                            <td class="text-center"><?php echo $product['stock_quantity']; ?></td>
-                            <td class="text-center"><?php echo $product['reorder_level']; ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
     </div>
 </div>
 
@@ -319,12 +325,6 @@ function getTotalIncomes() {
               AND YEAR(created_at) = YEAR(CURDATE()) 
               AND MONTH(created_at) = MONTH(CURDATE())";
     $stmt = $pdo->query($query);
-    return $stmt->fetchColumn();
-}
-
-function getTotalProducts() {
-    global $pdo;
-    $stmt = $pdo->query("SELECT COUNT(*) FROM products");
     return $stmt->fetchColumn();
 }
 

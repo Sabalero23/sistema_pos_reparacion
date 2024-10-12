@@ -16,16 +16,24 @@ function getProductById($id) {
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-function addProduct($data) {
+function addProduct($data, $image) {
     global $pdo;
     $errors = validateProductData($data);
     if (!empty($errors)) {
         return ['success' => false, 'message' => implode('<br>', $errors)];
     }
 
+    $imagePath = null;
+    if ($image && $image['error'] === UPLOAD_ERR_OK) {
+        $imagePath = uploadProductImage($image);
+        if (!$imagePath) {
+            return ['success' => false, 'message' => 'Error al subir la imagen del producto.'];
+        }
+    }
+
     try {
-        $stmt = $pdo->prepare("INSERT INTO products (name, description, sku, category_id, price, cost_price, stock_quantity, reorder_level, supplier_id) 
-                               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt = $pdo->prepare("INSERT INTO products (name, description, sku, category_id, price, cost_price, stock_quantity, reorder_level, supplier_id, image_path, active_in_store) 
+                               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->execute([
             $data['name'],
             $data['description'],
@@ -35,7 +43,9 @@ function addProduct($data) {
             $data['cost_price'],
             $data['stock_quantity'],
             $data['reorder_level'],
-            $data['supplier_id']
+            $data['supplier_id'],
+            $imagePath,
+            isset($data['active_in_store']) ? 1 : 0
         ]);
         return ['success' => true, 'message' => 'Producto añadido exitosamente.'];
     } catch (PDOException $e) {
@@ -43,11 +53,26 @@ function addProduct($data) {
     }
 }
 
-function updateProduct($id, $data) {
+function updateProduct($id, $data, $image) {
     global $pdo;
     $errors = validateProductData($data, false);
     if (!empty($errors)) {
         return ['success' => false, 'message' => implode('<br>', $errors)];
+    }
+
+    $currentProduct = getProductById($id);
+    $imagePath = $currentProduct['image_path'];
+
+    if ($image && $image['error'] === UPLOAD_ERR_OK) {
+        $newImagePath = uploadProductImage($image);
+        if ($newImagePath) {
+            if ($imagePath && file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+            $imagePath = $newImagePath;
+        } else {
+            return ['success' => false, 'message' => 'Error al subir la nueva imagen del producto.'];
+        }
     }
 
     try {
@@ -60,7 +85,9 @@ function updateProduct($id, $data) {
                                cost_price = ?, 
                                stock_quantity = ?, 
                                reorder_level = ?, 
-                               supplier_id = ? 
+                               supplier_id = ?,
+                               image_path = ?,
+                               active_in_store = ?
                                WHERE id = ?");
         $result = $stmt->execute([
             $data['name'],
@@ -72,6 +99,8 @@ function updateProduct($id, $data) {
             $data['stock_quantity'],
             $data['reorder_level'],
             $data['supplier_id'],
+            $imagePath,
+            isset($data['active_in_store']) ? 1 : 0,
             $id
         ]);
         
@@ -88,6 +117,11 @@ function updateProduct($id, $data) {
 function deleteProduct($id) {
     global $pdo;
     try {
+        $product = getProductById($id);
+        if ($product['image_path'] && file_exists($product['image_path'])) {
+            unlink($product['image_path']);
+        }
+
         // Verificar si el producto está siendo utilizado en otras tablas
         $tables = ['budget_items', 'sale_items', 'purchase_items', 'reservation_items'];
         foreach ($tables as $table) {
@@ -135,6 +169,28 @@ function validateProductData($data, $isNew = true) {
     }
 
     return $errors;
+}
+
+function uploadProductImage($image) {
+    $targetDir = "uploads/products/";
+    if (!file_exists($targetDir)) {
+        mkdir($targetDir, 0777, true);
+    }
+
+    $fileName = basename($image["name"]);
+    $targetFilePath = $targetDir . $fileName;
+    $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+
+    // Permitir ciertos formatos de archivo
+    $allowTypes = array('jpg', 'png', 'jpeg', 'gif');
+    if (in_array($fileType, $allowTypes)) {
+        // Subir archivo al servidor
+        if (move_uploaded_file($image["tmp_name"], $targetFilePath)) {
+            return $targetFilePath;
+        }
+    }
+
+    return false;
 }
 
 function getAllCategories() {
@@ -237,4 +293,3 @@ function getSupplierById($id) {
     $stmt->execute([$id]);
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
-?>

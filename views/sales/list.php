@@ -73,38 +73,41 @@ $sales = getAllSales(); // Asume que tienes una función que obtiene todas las v
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($sales as $sale): ?>
-                <tr>
-                    <td><?php echo $sale['id']; ?></td>
-                    <td><?php echo formatDateTime($sale['sale_date']); ?></td>
-                    <td><?php echo htmlspecialchars($sale['customer_name'] ?? 'Consumidor Final'); ?></td>
-                    <td><?php echo number_format($sale['total_amount'], 2) . ' ' . CURRENCY; ?></td>
-                    <td><?php echo ucfirst($sale['payment_method']); ?></td>
-                    <td><?php echo ucfirst($sale['status']); ?></td>
-                    <td>
-                        <a href="<?php echo url('sales.php?action=view&id=' . $sale['id']); ?>" class="btn btn-sm btn-info">Ver</a>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
+    <?php foreach ($sales as $sale): ?>
+    <tr>
+        <td><?php echo $sale['id']; ?></td>
+        <td><?php echo formatDateTime($sale['sale_date']); ?></td>
+        <td><?php echo htmlspecialchars($sale['customer_name'] ?? 'Consumidor Final'); ?></td>
+        <td><?php echo number_format($sale['total_amount'], 2) . ' ' . CURRENCY; ?></td>
+        <td><?php echo ucfirst($sale['payment_method']); ?></td>
+        <td><?php echo ucfirst($sale['status']); ?></td>
+        <td>
+            <a href="<?php echo url('sales.php?action=view&id=' . $sale['id']); ?>" class="btn btn-sm btn-info">Ver</a>
+            <?php if (hasPermission('sales_edit')): ?>
+                <a href="<?php echo url('sales.php?action=edit&id=' . $sale['id']); ?>" class="btn btn-sm btn-warning">Editar</a>
+            <?php endif; ?>
+        </td>
+    </tr>
+    <?php endforeach; ?>
+</tbody>
+</table>
+</div>
 
-    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
-    <script>
-    $(document).ready(function() {
-        $('#salesTable').DataTable({
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"
-            },
-            "order": [[1, "desc"]], // Ordenar por fecha (columna 1) de forma descendente
-            "pageLength": 25, // Mostrar 25 registros por página
-            "columnDefs": [
-                { "orderable": false, "targets": 6 } // Desactivar ordenamiento para la columna de acciones
-            ]
-        });
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#salesTable').DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"
+        },
+        "order": [[1, "desc"]], // Ordenar por fecha (columna 1) de forma descendente
+        "pageLength": 25, // Mostrar 25 registros por página
+        "columnDefs": [
+            { "orderable": false, "targets": 6 } // Desactivar ordenamiento para la columna de acciones
+        ]
     });
-    </script>
+});
+</script>
 
 <?php require_once __DIR__ . '/../../includes/footer.php'; ?>

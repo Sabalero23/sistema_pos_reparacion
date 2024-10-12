@@ -1,7 +1,7 @@
 <div class="container mt-4">
     <h1 class="mb-4">Añadir Producto</h1>
 
-    <form action="<?php echo url('products.php?action=add'); ?>" method="post" class="needs-validation" novalidate>
+    <form action="<?php echo url('products.php?action=add'); ?>" method="post" class="needs-validation" novalidate enctype="multipart/form-data">
         <div class="mb-3">
             <label for="name" class="form-label">Nombre</label>
             <input type="text" class="form-control" id="name" name="name" required>
@@ -68,6 +68,14 @@
                     <option value="<?php echo $supplier['id']; ?>"><?php echo htmlspecialchars($supplier['name']); ?></option>
                 <?php endforeach; ?>
             </select>
+        </div>
+        <div class="mb-3">
+            <label for="image" class="form-label">Imagen del Producto</label>
+            <input type="file" class="form-control" id="image" name="image" accept="image/*">
+        </div>
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="active_in_store" name="active_in_store" value="1" checked>
+            <label class="form-check-label" for="active_in_store">Activo en la Tienda Online</label>
         </div>
         <button type="submit" class="btn btn-primary">Añadir Producto</button>
         <a href="<?php echo url('products.php'); ?>" class="btn btn-secondary">Cancelar</a>

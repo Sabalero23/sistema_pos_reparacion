@@ -16,22 +16,38 @@
         <table class="table table-striped table-hover" id="productsTable">
             <thead>
                 <tr>
+                    <th>Imagen</th>
                     <th>SKU</th>
                     <th>Nombre</th>
                     <th>Categoría</th>
                     <th>Precio</th>
                     <th>Stock</th>
+                    <th>Activo en Tienda</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($products as $product): ?>
                     <tr>
+                        <td>
+                            <?php if (!empty($product['image_path'])): ?>
+                                <img src="<?php echo $product['image_path']; ?>" alt="Imagen de <?php echo htmlspecialchars($product['name']); ?>" class="img-thumbnail" style="max-width: 50px; max-height: 50px;">
+                            <?php else: ?>
+                                <span class="text-muted">Sin imagen</span>
+                            <?php endif; ?>
+                        </td>
                         <td><?php echo htmlspecialchars($product['sku']); ?></td>
                         <td><?php echo htmlspecialchars($product['name']); ?></td>
                         <td><?php echo htmlspecialchars($product['category_name']); ?></td>
                         <td><?php echo number_format($product['price'], 2); ?></td>
                         <td><?php echo $product['stock_quantity']; ?></td>
+                        <td>
+                            <?php if ($product['active_in_store']): ?>
+                                <span class="badge bg-success">Activo</span>
+                            <?php else: ?>
+                                <span class="badge bg-secondary">Inactivo</span>
+                            <?php endif; ?>
+                        </td>
                         <td>
                             <?php if (hasPermission('products_edit')): ?>
                                 <a href="<?php echo url('products.php?action=edit&id=' . $product['id']); ?>" class="btn btn-sm btn-warning">
@@ -39,7 +55,7 @@
                                 </a>
                             <?php endif; ?>
                             <?php if (hasPermission('products_delete')): ?>
-                                <button class="btn btn-sm btn-danger delete-product" data-id="<?php echo $product['id']; ?>">
+                                <button class="btn btn-sm btn-danger delete-product" data-id="<?php echo $product['id']; ?>" data-name="<?php echo htmlspecialchars($product['name']); ?>">
                                     <i class="fas fa-trash"></i> Eliminar
                                 </button>
                             <?php endif; ?>

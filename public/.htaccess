@@ -1,0 +1,21 @@
+RewriteEngine On
+RewriteBase /
+
+# Manejar /api/productos explícitamente
+RewriteRule ^api/productos$ api/productos.php [L]
+
+# Para todas las demás solicitudes que no sean archivos o directorios existentes
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . tienda.php [L]
+
+# Prevenir listado de directorios
+Options -Indexes
+
+# Configurar el manejo de errores
+ErrorDocument 404 /404.php
+ErrorDocument 500 /500.php
+
+# Forzar HTTPS (descomenta si tienes SSL configurado)
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]

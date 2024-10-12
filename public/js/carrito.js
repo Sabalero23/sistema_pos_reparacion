@@ -8,7 +8,39 @@ document.addEventListener('DOMContentLoaded', function () {
     const closeModal = document.querySelector(".close");
     const formCliente = document.querySelector("#form-cliente");
 
-    let productosEnCarrito = JSON.parse(localStorage.getItem("productos-en-carrito")) || [];
+    let productosEnCarrito = [];
+
+function cargarProductosCarrito() {
+    console.log('Iniciando carga de productos del carrito...');
+    fetch(`${window.baseUrl}/api/obtener_carrito.php`)
+        .then(response => {
+            console.log('Respuesta recibida:', response);
+            return response.text(); // Cambiamos a .text() para ver el contenido real
+        })
+        .then(text => {
+            console.log('Texto de la respuesta:', text);
+            try {
+                return JSON.parse(text);
+            } catch (error) {
+                console.error('Error al parsear JSON:', error);
+                throw new Error(`Respuesta no válida del servidor: ${text}`);
+            }
+        })
+        .then(data => {
+            console.log('Datos del carrito:', data);
+            if (data.success) {
+                productosEnCarrito = data.productos;
+                mostrarProductosCarrito();
+                actualizarContadorCarrito(data.total_items);
+            } else {
+                throw new Error(data.error || 'Error desconocido al cargar el carrito');
+            }
+        })
+        .catch(error => {
+            console.error('Error al cargar el carrito:', error);
+            mostrarError(`No se pudo cargar el carrito. Error: ${error.message}`);
+        });
+}
 
     function mostrarProductosCarrito() {
         if (!contenedorCarrito) return;
@@ -17,8 +49,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (productosEnCarrito.length === 0) {
             contenedorCarrito.innerHTML = "<p class='carrito-vacio'>El carrito está vacío</p>";
+            actualizarTotal(0);
             return;
         }
+
+        let totalCarritoValor = 0;
 
         productosEnCarrito.forEach(producto => {
             const div = document.createElement("div");
@@ -33,58 +68,169 @@ document.addEventListener('DOMContentLoaded', function () {
                         <span>${producto.cantidad}</span>
                         <button class="btn-cantidad" data-id="${producto.id}" data-action="increase">+</button>
                     </div>
-                    <p class="subtotal-producto">Subtotal: $${(parseFloat(producto.price) * producto.cantidad).toFixed(2)}</p>
+                    <p class="subtotal-producto">Subtotal: $${producto.subtotal.toFixed(2)}</p>
                 </div>
                 <button class="btn-eliminar" data-id="${producto.id}">Eliminar</button>
             `;
             contenedorCarrito.appendChild(div);
+            totalCarritoValor += producto.subtotal;
         });
 
-        actualizarTotal();
+        actualizarTotal(totalCarritoValor);
     }
 
-    function actualizarTotal() {
-        if (!totalCarrito) return;
-
-        const total = productosEnCarrito.reduce((acc, producto) => acc + (parseFloat(producto.price) * producto.cantidad), 0);
-        totalCarrito.textContent = `Total: $${total.toFixed(2)}`;
-    }
-
-    function eliminarProducto(id) {
-        productosEnCarrito = productosEnCarrito.filter(producto => producto.id !== parseInt(id));
-        localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
-        mostrarProductosCarrito();
-        actualizarContadorCarrito();
-    }
-
-    function vaciarCarrito() {
-        productosEnCarrito = [];
-        localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
-        mostrarProductosCarrito();
-        actualizarContadorCarrito();
-    }
-
-    function actualizarContadorCarrito() {
-        if (!contadorCarrito) return;
-
-        const cantidad = productosEnCarrito.reduce((acc, producto) => acc + producto.cantidad, 0);
-        contadorCarrito.textContent = cantidad;
-    }
-
-    function actualizarCantidad(id, action) {
-        const index = productosEnCarrito.findIndex(producto => producto.id === parseInt(id));
-        if (index !== -1) {
-            if (action === 'increase') {
-                productosEnCarrito[index].cantidad++;
-            } else if (action === 'decrease' && productosEnCarrito[index].cantidad > 1) {
-                productosEnCarrito[index].cantidad--;
-            }
-            localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
-            mostrarProductosCarrito();
-            actualizarContadorCarrito();
+    function actualizarTotal(total) {
+        if (totalCarrito) {
+            totalCarrito.textContent = `Total: $${total.toFixed(2)}`;
         }
     }
 
+    function actualizarContadorCarrito(totalItems) {
+        if (contadorCarrito) {
+            contadorCarrito.textContent = totalItems;
+        }
+    }
+
+    function eliminarProducto(id) {
+        console.log(`Eliminando producto: ${id}`);
+        fetch(`${window.baseUrl}/api/eliminar_del_carrito.php`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ producto_id: id })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Respuesta de eliminación:', data);
+            if (data.success) {
+                cargarProductosCarrito(); // Recargar el carrito completo
+            } else {
+                throw new Error(data.error || 'Error al eliminar el producto');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            mostrarError('No se pudo eliminar el producto. Por favor, intenta de nuevo.');
+        });
+    }
+
+function actualizarCantidad(id, action) {
+    console.log(`Actualizando cantidad: producto ${id}, acción ${action}`);
+    fetch(`${window.baseUrl}/api/actualizar_cantidad_carrito.php`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ producto_id: id, action: action })
+    })
+    .then(response => {
+        console.log('Respuesta recibida:', response);
+        return response.text();
+    })
+    .then(text => {
+        console.log('Texto de la respuesta:', text);
+        try {
+            return JSON.parse(text);
+        } catch (error) {
+            console.error('Error al parsear JSON:', error);
+            throw new Error(`Respuesta no válida del servidor: ${text}`);
+        }
+    })
+    .then(data => {
+        console.log('Datos de actualización:', data);
+        if (data.success) {
+            cargarProductosCarrito(); // Recargar todo el carrito
+        } else {
+            throw new Error(data.error || 'Error al actualizar la cantidad');
+        }
+    })
+    .catch(error => {
+        console.error('Error al actualizar cantidad:', error);
+        mostrarError('No se pudo actualizar la cantidad. Por favor, intenta de nuevo.');
+    });
+}
+
+    function vaciarCarrito() {
+        fetch(`${window.baseUrl}/api/vaciar_carrito.php`, {
+            method: 'POST'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                productosEnCarrito = [];
+                mostrarProductosCarrito();
+                actualizarContadorCarrito(0);
+            } else {
+                throw new Error(data.error || 'Error al vaciar el carrito');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            mostrarError('No se pudo vaciar el carrito. Por favor, intenta de nuevo.');
+        });
+    }
+
+    function abrirModal() {
+        if (productosEnCarrito.length === 0) {
+            mostrarError("El carrito está vacío. Agrega productos antes de comprar.");
+            return;
+        }
+        if (modal) {
+            modal.style.display = "block";
+        }
+    }
+
+    function cerrarModal() {
+        if (modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    function enviarPedido(e) {
+        e.preventDefault();
+        const nombre = document.querySelector("#nombre").value;
+        const telefono = document.querySelector("#telefono").value;
+        const email = document.querySelector("#email").value;
+        const direccion = document.querySelector("#direccion").value;
+
+        let mensaje = `Nuevo pedido de ${nombre}%0A%0A`;
+        mensaje += `Teléfono: ${telefono}%0A`;
+        mensaje += `Email: ${email}%0A`;
+        mensaje += `Dirección: ${direccion}%0A%0A`;
+        mensaje += `Productos:%0A`;
+
+        productosEnCarrito.forEach(producto => {
+            mensaje += `${producto.name} x${producto.cantidad} - $${producto.subtotal.toFixed(2)}%0A`;
+        });
+
+        const total = productosEnCarrito.reduce((acc, producto) => acc + producto.subtotal, 0);
+        mensaje += `%0ATotal: $${total.toFixed(2)}`;
+
+        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${mensaje}`;
+        window.open(whatsappUrl, '_blank');
+
+        cerrarModal();
+        vaciarCarrito();
+    }
+
+    function mostrarError(mensaje) {
+        console.error(mensaje);
+        if (typeof Toastify !== 'undefined') {
+            Toastify({
+                text: mensaje,
+                duration: 3000,
+                gravity: "top",
+                position: 'right',
+                backgroundColor: "#e74c3c",
+                stopOnFocus: true
+            }).showToast();
+        } else {
+            alert(mensaje);
+        }
+    }
+
+    // Event Listeners
     if (contenedorCarrito) {
         contenedorCarrito.addEventListener('click', (e) => {
             if (e.target.classList.contains('btn-eliminar')) {
@@ -111,45 +257,6 @@ document.addEventListener('DOMContentLoaded', function () {
         formCliente.addEventListener('submit', enviarPedido);
     }
 
-    function abrirModal() {
-        if (productosEnCarrito.length === 0) {
-            alert("El carrito está vacío. Agrega productos antes de comprar.");
-            return;
-        }
-        modal.style.display = "block";
-    }
-
-    function cerrarModal() {
-        modal.style.display = "none";
-    }
-
-    function enviarPedido(e) {
-        e.preventDefault();
-        const nombre = document.querySelector("#nombre").value;
-        const telefono = document.querySelector("#telefono").value;
-        const email = document.querySelector("#email").value;
-        const direccion = document.querySelector("#direccion").value;
-
-        let mensaje = `Nuevo pedido de ${nombre}%0A%0A`;
-        mensaje += `Teléfono: ${telefono}%0A`;
-        mensaje += `Email: ${email}%0A`;
-        mensaje += `Dirección: ${direccion}%0A%0A`;
-        mensaje += `Productos:%0A`;
-
-        productosEnCarrito.forEach(producto => {
-            mensaje += `${producto.name} x${producto.cantidad} - $${(parseFloat(producto.price) * producto.cantidad).toFixed(2)}%0A`;
-        });
-
-        const total = productosEnCarrito.reduce((acc, producto) => acc + (parseFloat(producto.price) * producto.cantidad), 0);
-        mensaje += `%0ATotal: $${total.toFixed(2)}`;
-
-        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${mensaje}`;
-        window.open(whatsappUrl, '_blank');
-
-        cerrarModal();
-        vaciarCarrito();
-    }
-
-    mostrarProductosCarrito();
-    actualizarContadorCarrito();
+    // Cargar productos del carrito al iniciar
+    cargarProductosCarrito();
 });

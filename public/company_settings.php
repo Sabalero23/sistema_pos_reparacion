@@ -25,7 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'website' => sanitizeInput($_POST['website']),
         'legal_info' => sanitizeInput($_POST['legal_info']),
         'receipt_footer' => sanitizeInput($_POST['receipt_footer']),
-        'google_maps_url' => sanitizeInput($_POST['google_maps_url'])
+        'google_maps_url' => sanitizeInput($_POST['google_maps_url']),
+        'online_store_enabled' => isset($_POST['online_store_enabled']) ? 1 : 0
     ];
 
     // Manejar la carga del nuevo logo
@@ -99,8 +100,15 @@ require_once __DIR__ . '/../includes/header.php';
             <label for="receipt_footer" class="form-label">Pie de Página del Comprobante</label>
             <textarea name="receipt_footer" id="receipt_footer" class="form-control" rows="3"><?php echo htmlspecialchars($companyInfo['receipt_footer']); ?></textarea>
         </div>
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="online_store_enabled" name="online_store_enabled" <?php echo isset($companyInfo['online_store_enabled']) && $companyInfo['online_store_enabled'] ? 'checked' : ''; ?>>
+            <label class="form-check-label" for="online_store_enabled">Habilitar Tienda Online</label>
+        </div>
         <button type="submit" class="btn btn-primary">Guardar Cambios</button>
     </form>
 </div>
 
-<?php require_once __DIR__ . '/../includes/footer.php'; ?>
+<?php
+require_once __DIR__ . '/../includes/footer.php';
+
+?>

@@ -64,4 +64,19 @@ function applyPaymentToSales($customerId, $amount) {
         $remainingAmount -= $paymentForSale;
     }
 }
+
+function getPaymentDetails($paymentId) {
+    global $pdo;
+    
+    $query = "SELECT p.*, c.name as customer_name, ca.total_amount, ca.balance
+              FROM payments p
+              JOIN customers c ON p.customer_id = c.id
+              JOIN customer_accounts ca ON p.account_id = ca.id
+              WHERE p.id = ?";
+    
+    $stmt = $pdo->prepare($query);
+    $stmt->execute([$paymentId]);
+    
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
 ?>

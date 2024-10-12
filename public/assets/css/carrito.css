@@ -29,7 +29,7 @@ header {
 }
 
 /* Contenido principal */
-.main-content {
+main {
     flex-grow: 1;
     padding: 2rem;
 }
@@ -56,17 +56,18 @@ header {
 }
 
 .imagen-producto-carrito {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     object-fit: cover;
     margin-right: 1rem;
+    border-radius: 4px;
 }
 
 .detalles-producto {
     flex-grow: 1;
 }
 
-.cantidad-producto {
+.cantidad-control {
     display: flex;
     align-items: center;
     margin-top: 0.5rem;
@@ -78,6 +79,7 @@ header {
     border: none;
     padding: 0.2rem 0.5rem;
     cursor: pointer;
+    border-radius: 3px;
 }
 
 .btn-eliminar {
@@ -87,6 +89,7 @@ header {
     padding: 0.5rem 1rem;
     cursor: pointer;
     margin-left: 1rem;
+    border-radius: 3px;
 }
 
 /* Total y acciones del carrito */
@@ -165,19 +168,51 @@ footer {
     cursor: pointer;
 }
 
+/* Formulario en el modal */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.btn-enviar {
+    background-color: #2ecc71;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 100%;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .producto-carrito {
-        flex-direction: column;
-        align-items: flex-start;
+        flex-direction: row;
+        align-items: center;
     }
 
     .imagen-producto-carrito {
-        margin-bottom: 1rem;
+        width: 60px;
+        height: 60px;
+        margin-bottom: 0;
+        margin-right: 1rem;
     }
 
     .acciones-carrito {
         flex-direction: column;
+        align-items: stretch;
     }
 
     .btn-vaciar,
@@ -185,4 +220,43 @@ footer {
         width: 100%;
         margin-top: 1rem;
     }
+
+    .modal-content {
+        width: 90%;
+        margin: 10% auto;
+    }
+}
+
+/* Estilos adicionales para mejorar la apariencia */
+.producto-carrito h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+}
+
+.producto-carrito p {
+    margin: 0 0 0.5rem 0;
+    color: #666;
+}
+
+.cantidad-control span {
+    margin: 0 0.5rem;
+    font-weight: bold;
+}
+
+.btn-cantidad:hover,
+.btn-eliminar:hover,
+.btn-vaciar:hover,
+.btn-comprar:hover,
+.btn-enviar:hover {
+    opacity: 0.9;
+}
+
+/* Estilo para el contador del carrito en el header */
+.contador-carrito {
+    background-color: #e74c3c;
+    color: #fff;
+    border-radius: 50%;
+    padding: 0.2rem 0.5rem;
+    font-size: 0.9rem;
+    font-weight: bold;
 }

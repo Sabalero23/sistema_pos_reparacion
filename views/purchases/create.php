@@ -30,35 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-<style>
-.list-group-item {
-    background-color: white;
-    color: #2c3031;
-}
 
-/* Estilos para el widget de autocompletado */
-.ui-autocomplete {
-    background-color: white;
-    border: 1px solid #ccc;
-    max-height: 200px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    z-index: 1000;
-}
-
-.ui-menu-item {
-    padding: 5px 10px;
-    cursor: pointer;
-}
-
-.ui-menu-item:hover {
-    background-color: #f0f0f0;
-}
-
-.ui-helper-hidden-accessible {
-    display: none;
-}
-</style>
 <div class="container mt-4">
     <h1 class="mb-4">Nueva Compra</h1>
 
@@ -74,10 +46,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="invalid-feedback">Por favor, seleccione un proveedor.</div>
         </div>
 
+        <button type="button" id="addProduct" class="btn btn-secondary mb-3">Añadir Producto</button>
+
         <div id="productList">
             <div class="product-item mb-3">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <input type="text" class="form-control product-search" placeholder="Buscar producto" required>
                         <input type="hidden" class="product-id" name="items[0][product_id]" required>
                     </div>
@@ -88,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <input type="number" step="0.01" class="form-control price" name="items[0][price]" placeholder="Precio" required min="0.01">
                     </div>
                     <div class="col-md-2">
-                        <input type="text" class="form-control subtotal" placeholder="Subtotal" readonly>
+                        <span class="form-control-plaintext subtotal">0.00</span>
                     </div>
                     <div class="col-md-2">
                         <button type="button" class="btn btn-danger remove-product"><i class="fas fa-trash"></i></button>
@@ -96,8 +70,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             </div>
         </div>
-
-        <button type="button" id="addProduct" class="btn btn-secondary mb-3">Añadir Producto</button>
 
         <div class="mb-3">
             <label for="total_amount" class="form-label">Total</label>
@@ -109,8 +81,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </form>
 </div>
 
+<style>
+    .ui-autocomplete {
+        max-height: 200px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        z-index: 1000 !important;
+    }
+</style>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
 <script src="<?php echo url('js/purchases.js'); ?>"></script>
 
 <?php

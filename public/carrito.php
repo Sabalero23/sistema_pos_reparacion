@@ -75,7 +75,11 @@ if (substr($whatsappNumber, 0, 2) !== '54') {
         </div>
     </div>
 
-    <script src="<?php echo url('js/carrito.js'); ?>"></script>
+<!-- Justo antes de cargar carrito.js, agrega: -->
+<script>
+    window.baseUrl = '<?php echo url("/"); ?>';
+</script>
+<script src="<?php echo url('js/carrito.js'); ?>"></script>
     <script>
         var whatsappNumber = "<?php echo $whatsappNumber; ?>";
     </script>

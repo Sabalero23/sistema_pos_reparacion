@@ -30,53 +30,50 @@ $clientsWithIssues = getClientsWithOverdueOrUpcomingInstallments();
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($accounts as $account): ?>
-                        <tr>
-                            <td><?php echo htmlspecialchars($account['customer_name']); ?></td>
-                            <td><?php echo number_format($account['total_amount'], 2); ?> ARS</td>
-                            <td><?php echo number_format($account['balance'], 2); ?> ARS</td>
-                            <td><?php echo $account['num_installments']; ?></td>
-                            <td><?php echo $account['pending_installments']; ?></td>
-                            <td><?php echo $account['next_due_date'] ? date('d/m/Y', strtotime($account['next_due_date'])) : 'N/A'; ?></td>
-                            <td><?php echo $account['last_payment_date'] ? date('d/m/Y', strtotime($account['last_payment_date'])) : 'N/A'; ?></td>
-                            <td><?php echo ucfirst($account['status']); ?></td>
-                            <td>
-                                <a href="<?php echo url('customer_accounts.php?action=view&id=' . $account['id']); ?>" class="btn btn-sm btn-info">
-                                    <i class="fas fa-eye"></i> Ver
-                                </a>
-                                <?php if (hasPermission('customer_accounts_edit')): ?>
-                                    <a href="<?php echo url('customer_accounts.php?action=edit&id=' . $account['id']); ?>" class="btn btn-sm btn-warning">
-                                        <i class="fas fa-edit"></i> Editar
-                                    </a>
-                                <?php endif; ?>
-                                <?php if ($account['balance'] > 0): ?>
-
-                                <?php endif; ?>
-                                <?php
-                                $accessToken = generateAccessToken();
-                                saveAccessToken($account['id'], $accessToken);
-                                $publicViewUrl = url("customer_accounts_view.php?token={$accessToken}");
-                                $whatsappMessage = urlencode("Hola, aquí puedes ver los detalles de tu cuenta: {$publicViewUrl}");
-                                
-                                if (isset($account['customer_phone']) && !empty($account['customer_phone'])) {
-                                    $whatsappUrl = "https://wa.me/" . preg_replace('/[^0-9]/', '', $account['customer_phone']) . "?text={$whatsappMessage}";
-                                    ?>
-                                    <a href="<?php echo $whatsappUrl; ?>" class="btn btn-sm btn-success" target="_blank">
-                                        <i class="fab fa-whatsapp"></i> Enviar WhatsApp
-                                    </a>
-                                <?php
-                                } else {
-                                    ?>
-                                    <button class="btn btn-sm btn-secondary" disabled title="No hay número de teléfono disponible">
-                                        <i class="fab fa-whatsapp"></i> WhatsApp no disponible
-                                    </button>
-                                <?php
-                                }
-                                ?>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
+    <?php foreach ($accounts as $account): ?>
+        <tr>
+            <td><?php echo htmlspecialchars($account['customer_name']); ?></td>
+            <td><?php echo number_format($account['total_amount'], 2); ?> ARS</td>
+            <td><?php echo number_format($account['balance'], 2); ?> ARS</td>
+            <td><?php echo $account['num_installments']; ?></td>
+            <td><?php echo $account['pending_installments'] ?? 'N/A'; ?></td>
+            <td><?php echo $account['next_due_date'] ? date('d/m/Y', strtotime($account['next_due_date'])) : 'N/A'; ?></td>
+            <td><?php echo $account['last_payment_date'] ? date('d/m/Y', strtotime($account['last_payment_date'])) : 'N/A'; ?></td>
+            <td><?php echo ucfirst($account['status']); ?></td>
+            <td>
+                <a href="<?php echo url('customer_accounts.php?action=view&id=' . $account['id']); ?>" class="btn btn-sm btn-info">
+                    <i class="fas fa-eye"></i> Ver
+                </a>
+                <?php if (hasPermission('customer_accounts_edit')): ?>
+                    <a href="<?php echo url('customer_accounts.php?action=edit&id=' . $account['id']); ?>" class="btn btn-sm btn-warning">
+                        <i class="fas fa-edit"></i> Editar
+                    </a>
+                <?php endif; ?>
+                <?php
+                $accessToken = generateAccessToken();
+                saveAccessToken($account['id'], $accessToken);
+                $publicViewUrl = url("customer_accounts_view.php?token={$accessToken}");
+                $whatsappMessage = urlencode("Hola, aquí puedes ver los detalles de tu cuenta: {$publicViewUrl}");
+                
+                if (isset($account['customer_phone']) && !empty($account['customer_phone'])) {
+                    $whatsappUrl = "https://wa.me/" . preg_replace('/[^0-9]/', '', $account['customer_phone']) . "?text={$whatsappMessage}";
+                    ?>
+                    <a href="<?php echo $whatsappUrl; ?>" class="btn btn-sm btn-success" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Enviar WhatsApp
+                    </a>
+                <?php
+                } else {
+                    ?>
+                    <button class="btn btn-sm btn-secondary" disabled title="No hay número de teléfono disponible">
+                        <i class="fab fa-whatsapp"></i> WhatsApp no disponible
+                    </button>
+                <?php
+                }
+                ?>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</tbody>
             </table>
         </div>
     <?php endif; ?>
@@ -91,54 +88,6 @@ $clientsWithIssues = getClientsWithOverdueOrUpcomingInstallments();
             </small>
         </div>
     <?php endif; ?>
-</div>
-
-<!-- Modal para registrar pago -->
-<div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="paymentModalLabel">Registrar Pago</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="paymentForm">
-                    <input type="hidden" id="accountId" name="account_id">
-                    <input type="hidden" id="customerId" name="customer_id">
-                    <div class="mb-3">
-                        <label for="installmentSelect" class="form-label">Seleccionar Cuota</label>
-                        <select class="form-control" id="installmentSelect" name="installment_id" required>
-                            <!-- Las opciones se llenarán dinámicamente con JavaScript -->
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="paymentAmount" class="form-label">Monto del Pago</label>
-                        <input type="number" class="form-control" id="paymentAmount" name="amount" step="0.01" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="paymentMethod" class="form-label">Método de Pago</label>
-                        <select class="form-control" id="paymentMethod" name="payment_method" required>
-                            <option value="efectivo">Efectivo</option>
-                            <option value="tarjeta">Tarjeta</option>
-                            <option value="transferencia">Transferencia</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="paymentDate" class="form-label">Fecha de Pago</label>
-                        <input type="date" class="form-control" id="paymentDate" name="payment_date" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="paymentNotes" class="form-label">Notas</label>
-                        <textarea class="form-control" id="paymentNotes" name="notes"></textarea>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" id="submitPayment">Registrar Pago</button>
-            </div>
-        </div>
-    </div>
 </div>
 
 <!-- Modal para clientes con problemas de pago -->
@@ -161,8 +110,6 @@ $clientsWithIssues = getClientsWithOverdueOrUpcomingInstallments();
 
 <script>
 $(document).ready(function() {
-    // ... (código anterior sin cambios)
-
     // Función para mostrar el modal de clientes con problemas
     function showClientIssuesModal() {
         var modalBody = $('#clientIssuesModal .modal-body');
@@ -196,8 +143,6 @@ $(document).ready(function() {
     if (clientsWithIssues.length > 0) {
         showClientIssuesModal();
     }
-
-    // ... (resto del código sin cambios)
 });
 
 // Variable global para almacenar los clientes con problemas

@@ -25,6 +25,8 @@ $productos = buscarProductos($termino_busqueda, $pagina_actual, $productos_por_p
     <title><?php echo htmlspecialchars($pageTitle); ?></title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.11.2/toastify.min.css">
     <link rel="stylesheet" href="<?php echo url('/assets/css/tienda.css'); ?>">
     <link rel="stylesheet" href="<?php echo url('/assets/css/busqueda.css'); ?>">
 </head>
@@ -48,9 +50,19 @@ $productos = buscarProductos($termino_busqueda, $pagina_actual, $productos_por_p
                 <p>Página actual: <?php echo $pagina_actual; ?> de <?php echo $total_paginas; ?></p>
             </div>
 
-            <div id="contenedor-productos" class="contenedor-productos">
-                <!-- Los productos se cargarán aquí dinámicamente -->
-            </div>
+            <table id="tabla-productos" class="display">
+                <thead>
+                    <tr>
+                        <th>Imagen</th>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Los productos se cargarán dinámicamente aquí -->
+                </tbody>
+            </table>
 
             <?php 
             if ($total_paginas > 1) {
@@ -65,11 +77,14 @@ $productos = buscarProductos($termino_busqueda, $pagina_actual, $productos_por_p
         </footer>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.11.2/toastify.min.js"></script>
     <script>
         var productosEncontrados = <?php echo json_encode($productos); ?>;
         var baseUrl = '<?php echo url('/'); ?>';
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.11.2/toastify.min.js"></script>
+    <script src="<?php echo url('js/tienda.js'); ?>"></script>
     <script src="<?php echo url('js/busqueda.js'); ?>"></script>
 </body>
 </html>

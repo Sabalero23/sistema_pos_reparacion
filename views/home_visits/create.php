@@ -26,14 +26,7 @@ if (!isLoggedIn() || !hasPermission('home_visits_create')) {
     <!-- jQuery UI CSS -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     
-    <style>
-        .ui-autocomplete {
-            max-height: 200px;
-            overflow-y: auto;
-            overflow-x: hidden;
-            z-index: 1000 !important;
-        }
-    </style>
+
 </head>
 <body>
     <div class="container mt-4">
