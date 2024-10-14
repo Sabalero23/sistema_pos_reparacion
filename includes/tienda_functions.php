@@ -36,7 +36,7 @@ function getCategorias() {
 
     global $pdo;
     try {
-        $stmt = $pdo->prepare("SELECT id, name FROM categories ORDER BY name");
+        $stmt = $pdo->prepare("SELECT id, name FROM categories WHERE active_in_store = 1 ORDER BY name");
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
@@ -57,7 +57,7 @@ function getProductos($categoria_id = null, $pagina = 1, $productos_por_pagina =
     
     $offset = ($pagina - 1) * $productos_por_pagina;
     $params = [':offset' => $offset, ':limit' => $productos_por_pagina];
-    $where_clause = "WHERE p.active_in_store = 1";
+    $where_clause = "WHERE p.active_in_store = 1 AND c.active_in_store = 1";
     
     if ($categoria_id !== null) {
         $where_clause .= " AND p.category_id = :categoria_id";
@@ -101,15 +101,17 @@ function contarProductos($categoria_id = null) {
 
     global $pdo;
     
-    $where_clause = "WHERE active_in_store = 1";
+    $where_clause = "WHERE p.active_in_store = 1 AND c.active_in_store = 1";
     $params = [];
     
     if ($categoria_id !== null) {
-        $where_clause .= " AND category_id = :categoria_id";
+        $where_clause .= " AND p.category_id = :categoria_id";
         $params[':categoria_id'] = $categoria_id;
     }
     
-    $sql = "SELECT COUNT(*) FROM products $where_clause";
+    $sql = "SELECT COUNT(*) FROM products p 
+            LEFT JOIN categories c ON p.category_id = c.id 
+            $where_clause";
     
     try {
         $stmt = $pdo->prepare($sql);
@@ -142,7 +144,7 @@ function buscarProductos($termino_busqueda, $pagina = 1, $productos_por_pagina =
     $sql = "SELECT p.id, p.name, p.price, p.image_path, c.name as category_name 
             FROM products p
             LEFT JOIN categories c ON p.category_id = c.id
-            WHERE p.active_in_store = 1 
+            WHERE p.active_in_store = 1 AND c.active_in_store = 1
             AND (LOWER(p.name) LIKE :termino OR LOWER(p.description) LIKE :termino)
             ORDER BY 
                 CASE 
@@ -244,9 +246,10 @@ function contarProductosBusqueda($termino_busqueda) {
     
     $termino_busqueda = '%' . strtolower($termino_busqueda) . '%';
     
-    $sql = "SELECT COUNT(*) FROM products 
-            WHERE active_in_store = 1 
-            AND (LOWER(name) LIKE :termino OR LOWER(description) LIKE :termino)";
+    $sql = "SELECT COUNT(*) FROM products p
+            LEFT JOIN categories c ON p.category_id = c.id
+            WHERE p.active_in_store = 1 AND c.active_in_store = 1
+            AND (LOWER(p.name) LIKE :termino OR LOWER(p.description) LIKE :termino)";
     
     try {
         $stmt = $pdo->prepare($sql);
@@ -272,7 +275,7 @@ function getProductoDetalle($producto_id) {
     $sql = "SELECT p.*, c.name as category_name 
             FROM products p
             LEFT JOIN categories c ON p.category_id = c.id
-            WHERE p.id = :id AND p.active_in_store = 1";
+            WHERE p.id = :id AND p.active_in_store = 1 AND c.active_in_store = 1";
     
     try {
         $stmt = $pdo->prepare($sql);
@@ -303,7 +306,8 @@ function getProductosRelacionados($producto_id, $categoria_id, $limit = 4) {
     
     $sql = "SELECT p.id, p.name, p.price, p.image_path 
             FROM products p
-            WHERE p.active_in_store = 1 
+            LEFT JOIN categories c ON p.category_id = c.id
+            WHERE p.active_in_store = 1 AND c.active_in_store = 1
             AND p.category_id = :categoria_id 
             AND p.id != :producto_id
             ORDER BY RAND()
@@ -451,7 +455,7 @@ function errorResponse($message, $statusCode = 500) {
 function getCategoryName($categoria_id) {
     global $pdo;
     try {
-        $stmt = $pdo->prepare("SELECT name FROM categories WHERE id = ?");
+        $stmt = $pdo->prepare("SELECT name FROM categories WHERE id = ? AND active_in_store = 1");
         $stmt->execute([$categoria_id]);
         return $stmt->fetchColumn();
     } catch (PDOException $e) {
@@ -470,7 +474,10 @@ if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
 function obtenerProductoPorId($id) {
     global $pdo;
     try {
-        $stmt = $pdo->prepare("SELECT * FROM products WHERE id = ?");
+        $stmt = $pdo->prepare("SELECT p.*, c.name as category_name 
+                               FROM products p
+                               LEFT JOIN categories c ON p.category_id = c.id
+                               WHERE p.id = ? AND p.active_in_store = 1 AND c.active_in_store = 1");
         $stmt->execute([$id]);
         $producto = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($producto) {

@@ -20,8 +20,9 @@ function addCategory($data) {
     }
 
     try {
-        $stmt = $pdo->prepare("INSERT INTO categories (name, description) VALUES (?, ?)");
-        $stmt->execute([$data['name'], $data['description']]);
+        $stmt = $pdo->prepare("INSERT INTO categories (name, description, active_in_store) VALUES (?, ?, ?)");
+        $active_in_store = isset($data['active_in_store']) ? 1 : 0;
+        $stmt->execute([$data['name'], $data['description'], $active_in_store]);
         return ['success' => true, 'message' => 'Categoría añadida exitosamente.'];
     } catch (PDOException $e) {
         return ['success' => false, 'message' => 'Error al añadir categoría: ' . $e->getMessage()];
@@ -36,8 +37,9 @@ function updateCategory($id, $data) {
     }
 
     try {
-        $stmt = $pdo->prepare("UPDATE categories SET name = ?, description = ? WHERE id = ?");
-        $stmt->execute([$data['name'], $data['description'], $id]);
+        $stmt = $pdo->prepare("UPDATE categories SET name = ?, description = ?, active_in_store = ? WHERE id = ?");
+        $active_in_store = isset($data['active_in_store']) ? 1 : 0;
+        $stmt->execute([$data['name'], $data['description'], $active_in_store, $id]);
         return ['success' => true, 'message' => 'Categoría actualizada exitosamente.'];
     } catch (PDOException $e) {
         return ['success' => false, 'message' => 'Error al actualizar categoría: ' . $e->getMessage()];
@@ -87,8 +89,9 @@ function importCategoriesFromCSV($categories) {
         try {
             $name = $category['name'];
             $description = $category['description'];
+            $active_in_store = isset($category['active_in_store']) ? $category['active_in_store'] : 1;
 
-            $categoryId = insertOrUpdateCategory($name, $description);
+            $categoryId = insertOrUpdateCategory($name, $description, $active_in_store);
 
             $successCount++;
         } catch (\Exception $e) {
@@ -106,7 +109,7 @@ function importCategoriesFromCSV($categories) {
     return $result;
 }
 
-function insertOrUpdateCategory($name, $description) {
+function insertOrUpdateCategory($name, $description, $active_in_store) {
     global $pdo;
 
     // Verificar si la categoría existe por el nombre
@@ -116,14 +119,21 @@ function insertOrUpdateCategory($name, $description) {
 
     if ($category) {
         // Actualizar la categoría existente
-        $stmt = $pdo->prepare("UPDATE categories SET description = ? WHERE id = ?");
-        $stmt->execute([$description, $category['id']]);
+        $stmt = $pdo->prepare("UPDATE categories SET description = ?, active_in_store = ? WHERE id = ?");
+        $stmt->execute([$description, $active_in_store, $category['id']]);
         return $category['id'];
     } else {
         // Insertar una nueva categoría
-        $stmt = $pdo->prepare("INSERT INTO categories (name, description) VALUES (?, ?)");
-        $stmt->execute([$name, $description]);
+        $stmt = $pdo->prepare("INSERT INTO categories (name, description, active_in_store) VALUES (?, ?, ?)");
+        $stmt->execute([$name, $description, $active_in_store]);
         return $pdo->lastInsertId();
     }
 }
+
+function getActiveCategoriesForStore() {
+    global $pdo;
+    $stmt = $pdo->query("SELECT * FROM categories WHERE active_in_store = 1 ORDER BY name");
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 ?>

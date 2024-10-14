@@ -13,6 +13,10 @@
             <label for="description" class="form-label">Descripción</label>
             <textarea class="form-control" id="description" name="description" rows="3"></textarea>
         </div>
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="active_in_store" name="active_in_store" value="1" checked>
+            <label class="form-check-label" for="active_in_store">Activa en la tienda online</label>
+        </div>
         <button type="submit" class="btn btn-primary">Añadir Categoría</button>
         <a href="<?php echo url('categories.php'); ?>" class="btn btn-secondary">Cancelar</a>
     </form>
