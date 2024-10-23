@@ -57,11 +57,12 @@ $topSellingProducts = getTopSellingProducts(5);
                     </div>
                     <div class="col-12 col-md-9">
                         <div class="d-flex flex-wrap justify-content-md-end">
-                            <?php if (hasPermission('services_view')): ?>
-                                <a href="<?php echo url('services.php'); ?>" class="btn btn-warning m-1"><i class="fas fa-tools me-2"></i>Órdenes de Servicio</a>
-                            <?php endif; ?>
+
                             <?php if (hasPermission('sales_create')): ?>
                                 <a href="<?php echo url('pos.php'); ?>" class="btn btn-primary m-1"><i class="fas fa-cash-register me-2"></i>POS</a>
+                            <?php endif; ?>
+                            <?php if (hasPermission('services_view')): ?>
+                                <a href="<?php echo url('services.php'); ?>" class="btn btn-warning m-1"><i class="fas fa-tools me-2"></i>Órdenes de Servicio</a>
                             <?php endif; ?>
                             <?php if (hasPermission('products_view')): ?>
                                 <a href="<?php echo url('products.php'); ?>" class="btn btn-secondary m-1"><i class="fas fa-box me-2"></i>Productos</a>
