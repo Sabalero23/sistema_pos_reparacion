@@ -11,6 +11,8 @@ $order = getServiceOrder($order_id);
 $order_status_history = getOrderStatusHistory($order_id);
 $order_notes = getOrderNotes($order_id);
 $order_parts = getOrderParts($order_id);
+// obtenemos la información de la empresa (agregar al inicio con las otras consultas)
+$companyInfo = getCompanyInfo();
 
 // Calcula el costo total de las piezas
 $total_parts_cost = array_sum(array_map(function($part) {
@@ -30,7 +32,8 @@ function formatPhoneForWhatsApp($phone) {
 }
 
 $isClosed = ($order['status'] ?? '') === 'cerrado';
-$whatsappMessage = urlencode("Hola " . ($order['customer_name'] ?? '') . ", su Orden de trabajo finalizó con éxito. Puede pasar a retirar su Equipo. Puede ver el estado desde aquí: " . url("seguimiento.php?order_number=" . ($order['order_number'] ?? '')));
+$googleMapsUrl = !empty($companyInfo['google_maps_url']) ? $companyInfo['google_maps_url'] : '#';
+$whatsappMessage = urlencode("Hola " . ($order['customer_name'] ?? '') . ", su Orden de trabajo finalizó con éxito. Puede pasar a retirar su Equipo. Por favor calificá nuestra atención dejando una Reseña aquí " . $googleMapsUrl);
 $whatsappLink = "https://wa.me/" . formatPhoneForWhatsApp($order['phone'] ?? '') . "?text=" . $whatsappMessage;
 
 // Calcula el costo total de las piezas
