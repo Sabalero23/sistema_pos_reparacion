@@ -17,9 +17,9 @@ if (session_status() == PHP_SESSION_NONE) {
 
 // Configuración de la base de datos
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'l0040724_repair');
-define('DB_USER', 'l0040724_repair');
-define('DB_PASS', '12miKAmilu');
+define('DB_NAME', 'db_name');
+define('DB_USER', 'root');
+define('DB_PASS', '');
 
 // Configuración de rutas
 define('BASE_URL', 'https://taller.cellcomweb.com.ar/public');
